@@ -5,22 +5,22 @@
 rules:
 - id: "python/assert/rule-assert_used"
   patterns:
-  - pattern: assert(...)
+  - pattern: "assert(...)"
   - pattern-not-inside: |
       import pytest
       ...
       assert(...)
-  - pattern: assert(...)
+  - pattern: "assert(...)"
   - pattern-not-inside: |
       import unittest
       ...
       assert(...)
-  - pattern: assert("...")
+  - pattern: "assert(\"...\")"
   - pattern-not-inside: |
       import pytest
       ...
       assert("...")
-  - pattern: assert("...")
+  - pattern: "assert(\"...\")"
   - pattern-not-inside: |
       import unittest
       ...
