@@ -10,7 +10,6 @@ rules:
       import pytest
       ...
       assert(...)
-  - pattern: "assert(...)"
   - pattern-not-inside: |
       import unittest
       ...
@@ -20,7 +19,6 @@ rules:
       import pytest
       ...
       assert("...")
-  - pattern: "assert(\"...\")"
   - pattern-not-inside: |
       import unittest
       ...
