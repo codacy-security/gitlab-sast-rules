@@ -15,16 +15,22 @@ rules:
     shortDescription: "Improper Control of Generation of Code ('Code Injection')"
     technology:
     - "java"
-  patterns:
-  - pattern-inside: |
-      $FUNC(..., String $EXPR, ...) {
-        ...
-        ELContext $CTX = ...;
-        ...
-      }
-  - pattern-either:
-    - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,
-        ...)"
-    - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),
-        $EXPR, ...)"
+  pattern-either:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $EXPR, ...) {
+          ...
+        }
+    - pattern-either:
+      - pattern: "(ExpressionParser $EP).parseExpression(..., $EXPR, ...);"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $EXPR, ...) {
+          ...
+          ELContext $CTX = ...;
+          ...
+        }
+    - pattern-either:
+      - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,...)"
+      - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),$EXPR, ...)"
   severity: "WARNING"
