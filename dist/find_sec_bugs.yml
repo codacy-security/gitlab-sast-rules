@@ -1380,8 +1380,7 @@ rules:
         $FUNC(..., String $EXPR, ...) {
           ...
         }
-    - pattern-either:
-      - pattern: "(ExpressionParser $EP).parseExpression(..., $EXPR, ...);"
+    - pattern: "(ExpressionParser $EP).parseExpression(..., $EXPR, ...);"
   - patterns:
     - pattern-inside: |
         $FUNC(..., String $EXPR, ...) {
