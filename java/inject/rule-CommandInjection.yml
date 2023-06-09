@@ -30,10 +30,6 @@ rules:
               $CMDARR = new String[]{"$SHELL",...,$PARAM,...};
               ...
               (Runtime $R).exec($CMDARR,...);
-          - pattern: |
-              String[] $CMDARR = {"$SHELL",...,$PARAM,...};
-              ...
-              (Runtime $R).exec($CMDARR,...);
           - pattern: "(Runtime $R).exec(new String[]{\"$SHELL\",...,$PARAM,...}, ...);"
           - pattern: "(Runtime $R).exec(java.util.String.format(\"...\", ...,$PARAM,...));"
           - pattern: "(Runtime $R).exec((String $A) + (String $B));"

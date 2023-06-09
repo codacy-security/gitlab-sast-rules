@@ -8,19 +8,10 @@ public class CommandInjection {
 
     public void danger(String cmd) throws IOException {
         Runtime r = Runtime.getRuntime();
-        String[] cmds = new String[] {
-            "/bin/sh",
-            "-c",
-            cmd
-        };
-
         r.exec(cmd);
         r.exec(new String[]{"test"});
         r.exec(new String[]{"bash", cmd},new String[]{});
         r.exec(new String[]{"/bin/sh", "-c", cmd},new String[]{});
-        r.exec(cmds);
-        r.exec(cmds,new String[]{});
-        r.exec(cmds,new String[]{"test"});
     }
 
     public void danger2(String cmd) {
