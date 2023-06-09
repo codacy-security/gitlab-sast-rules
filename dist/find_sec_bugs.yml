@@ -1374,18 +1374,24 @@ rules:
     - name: "Find Security Bugs-EL_INJECTION"
       type: "find_sec_bugs_type"
       value: "EL_INJECTION"
-  patterns:
-  - pattern-inside: |
-      $FUNC(..., String $EXPR, ...) {
-        ...
-        ELContext $CTX = ...;
-        ...
-      }
-  - pattern-either:
-    - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,
-        ...)"
-    - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),
-        $EXPR, ...)"
+  pattern-either:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $EXPR, ...) {
+          ...
+        }
+    - pattern-either:
+      - pattern: "(ExpressionParser $EP).parseExpression(..., $EXPR, ...);"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $EXPR, ...) {
+          ...
+          ELContext $CTX = ...;
+          ...
+        }
+    - pattern-either:
+      - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,...)"
+      - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),$EXPR, ...)"
   severity: "WARNING"
 - id: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
   languages:
