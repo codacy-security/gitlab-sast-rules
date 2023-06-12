@@ -30,6 +30,8 @@ rules:
           ...
         }
     - pattern-either:
-      - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,...)"
-      - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),$EXPR, ...)"
+      - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX),
+          $EXPR,...)"
+      - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),$EXPR,
+          ...)"
   severity: "WARNING"

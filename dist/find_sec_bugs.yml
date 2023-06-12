@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.20
+# rule-set version: v1.3.21
 # yamllint enable
 ---
 rules:
@@ -2382,8 +2382,10 @@ rules:
           ...
         }
     - pattern-either:
-      - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX), $EXPR,...)"
-      - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),$EXPR, ...)"
+      - pattern: "(ExpressionFactory $EXP).createValueExpression((ELContext $CTX),
+          $EXPR,...)"
+      - pattern: "(ExpressionFactory $EXP).createMethodExpression((ELContext $CTX),$EXPR,
+          ...)"
   severity: "WARNING"
 - id: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
   languages:

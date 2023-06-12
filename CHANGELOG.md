@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.21
+- Enhance Java `rule-ELInjection.yml` with additional patterns (!168)
+
 ## v1.3.20
 - Enhance Java ruleset descriptions and titles (!144)
 
