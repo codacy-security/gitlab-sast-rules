@@ -13,6 +13,7 @@ rules:
       $KEYGEN.init($KEY_SIZE);
   - metavariable-comparison:
       comparison: "$KEY_SIZE < 128"
+      metavariable: "$KEY_SIZE"
   message: |
     The Blowfish encryption algorithm was meant as a drop-in replacement for DES and was created in
     1993. Smaller key sizes may make the ciphertext vulnerable to [birthday

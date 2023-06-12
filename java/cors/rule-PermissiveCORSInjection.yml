@@ -59,7 +59,7 @@ rules:
     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
   severity: "ERROR"
   metadata:
-    shortDescription: "Permissive Cross-domain Policy with Untrusted Domains"
+    shortDescription: "Permissive cross-domain policy with untrusted domains"
     cwe: "CWE-942"
     category: "security"
     technology:

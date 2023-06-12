@@ -22,7 +22,7 @@ rules:
     For more information on SAML security see OWASP:
     https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html
   metadata:
-    shortDescription: "Improper Authentication"
+    shortDescription: "Improper authentication"
     cwe: "CWE-287"
     category: "security"
   pattern: "(BasicParserPool $POOL).setIgnoreComments(false);"

@@ -31,7 +31,7 @@ rules:
     For more information on DatatypeConverter see:
     https://docs.oracle.com/javase/9/docs/api/javax/xml/bind/DatatypeConverter.html#printHexBinary-byte:A-
   metadata:
-    shortDescription: "Incorrect Type Conversion or Cast"
+    shortDescription: "Incorrect type conversion or cast"
     cwe: "CWE-704"
     category: "security"
     confidence: "HIGH"
