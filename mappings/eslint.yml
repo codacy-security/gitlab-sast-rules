@@ -12,40 +12,65 @@ eslint:
   - id: "react-dangerouslysetinnerhtml"
     rules:
     - path: "javascript/react/rule-dangerouslysetinnerhtml"
+      primary_id: "eslint.react-dangerouslysetinnerhtml"
+      id: "eslint.react-dangerouslysetinnerhtml-1"
   - id: "react-missing-noopener"
     rules:
     - path: "javascript/react/rule-missing_noopener"
+      primary_id: "eslint.react-missing-noopener"
+      id: "eslint.react-missing-noopener-1"
   - id: "detect-no-csrf-before-method-override"
     rules:
     - path: "javascript/csrf/rule-no_csrf_before_method_override"
+      primary_id: "eslint.detect-no-csrf-before-method-override"
+      id: "eslint.detect-no-csrf-before-method-override-1"
   - id: "detect-eval-with-expression"
     rules:
     - path: "javascript/eval/rule-eval_with_expression"
+      primary_id: "eslint.detect-eval-with-expression"
+      id: "eslint.detect-eval-with-expression-1"
   - id: "detect-child-process"
     rules:
     - path: "javascript/exec/rule-child_process"
+      primary_id: "eslint.detect-child-process"
+      id: "eslint.detect-child-process-1"
   - id: "detect-pseudoRandomBytes"
     rules:
     - path: "javascript/random/rule-pseudo_random_bytes"
+      primary_id: "eslint.detect-pseudoRandomBytes"
+      id: "eslint.detect-pseudoRandomBytes-1"
   - id: "detect-disable-mustache-escape"
     rules:
     - path: "javascript/xss/rule-mustache_escape"
+      primary_id: "eslint.detect-disable-mustache-escape"
+      id: "eslint.detect-disable-mustache-escape-1"
   - id: "detect-non-literal-require"
     rules:
     - path: "javascript/require/rule-non_literal_require"
+      primary_id: "eslint.detect-non-literal-require"
+      id: "eslint.detect-non-literal-require-1"
   - id: "detect-buffer-noassert"
     rules:
     - path: "javascript/buf/rule-buffer-noassert"
+      primary_id: "eslint.detect-buffer-noassert"
+      id: "eslint.detect-buffer-noassert-1"
   - id: "detect-possible-timing-attacks"
     rules:
     - path: "javascript/timing/rule-possible_timing_attacks"
+      primary_id: "eslint.detect-possible-timing-attacks"
+      id: "eslint.detect-possible-timing-attacks-1"
   - id: "detect-non-literal-regexp"
     rules:
     - path: "javascript/dos/rule-non_literal_regexp"
+      primary_id: "eslint.detect-non-literal-regexp"
+      id: "eslint.detect-non-literal-regexp-1"
   - id: "detect-non-literal-fs-filename"
     rules:
     - path: "javascript/pathtraversal/rule-non_literal_fs_filename"
+      primary_id: "eslint.detect-non-literal-fs-filename"
+      id: "eslint.detect-non-literal-fs-filename-1"
   - id: "detect-new-buffer"
     rules:
     - path: "javascript/buf/rule-detect-new-buffer"
-
+      primary_id: "eslint.detect-new-buffer"
+      id: "eslint.detect-new-buffer-1"

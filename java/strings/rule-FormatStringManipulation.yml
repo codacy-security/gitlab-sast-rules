@@ -6,17 +6,6 @@ rules:
 - id: "java/strings/rule-FormatStringManipulation"
   languages:
   - "java"
-  message: |
-    Allowing user input to control format parameters could enable an attacker to cause exceptions
-    to be thrown or leak information.Attackers may be able to modify the format string argument,
-    such that an exception is thrown. If this exception is left uncaught, it may crash the
-    application. Alternatively, if sensitive information is used within the unused arguments,
-    attackers may change the format string to reveal this information.
-  metadata:
-    category: "security"
-    confidence: "HIGH"
-    cwe: "CWE-134"
-    shortDescription: "Use of Externally-Controlled Format String"
   patterns:
   - pattern-either:
     - patterns:
@@ -55,4 +44,28 @@ rules:
     - pattern: "System.out.printf(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
     - pattern: "System.out.format($FORMAT_STR, ...);"
     - pattern: "System.out.format(java.util.Locale.$LOCALE, $FORMAT_STR, ...);"
+  message: |
+    The application allows user input to control format string parameters. By passing invalid
+    format
+    string specifiers an adversary could cause the application to throw exceptions or possibly
+    leak
+    internal information depending on application logic.
+
+    Never allow user-supplied input to be used to create a format string. Replace all format
+    string
+    arguments with hardcoded format strings containing the necessary specifiers.
+
+    Example of using `String.format` safely:
+    ```
+    // Get untrusted user input
+    String userInput = request.getParameter("someInput");
+    // Ensure that user input is not included in the first argument to String.format
+    String.format("Hardcoded string expecting a string: %s", userInput);
+    // ...
+    ```
+  metadata:
+    shortDescription: "Use of externally-controlled format string"
+    cwe: "CWE-134"
+    category: "security"
+    confidence: "HIGH"
   severity: "ERROR"

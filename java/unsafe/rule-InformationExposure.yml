@@ -6,18 +6,6 @@ rules:
 - id: "java/unsafe/rule-InformationExposure"
   languages:
   - "java"
-  message: |
-    The sensitive information may be valuable information on its own (such as a password), or it
-    may be useful for launching other, more deadly attacks. If an attack fails, an attacker may use
-    error information provided by the server to launch another more focused attack. For example, an
-    attempt to exploit a path traversal weakness (CWE-22) might yield the full pathname of the
-    installed application.
-  metadata:
-    category: "security"
-    cwe: "CWE-209"
-    shortDescription: "Information Exposure Through an Error Message"
-    technology:
-    - "java"
   pattern-either:
   - pattern: |
       catch(Throwable $E) {
@@ -97,4 +85,15 @@ rules:
         $E.printStackTrace();
         ...
       }
+  message: |
+    The application was found printing stack information to the default system output.
+    As stack trace data may contain sensitive information, it is recommended that the
+    output be logged using a secure logging framework. Log files should also be protected
+    with proper operating system permission levels.
   severity: "WARNING"
+  metadata:
+    shortDescription: "Information exposure through an error message"
+    category: "security"
+    cwe: "CWE-209"
+    technology:
+    - "java"

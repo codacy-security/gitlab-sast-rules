@@ -6,16 +6,18 @@ rules:
 - id: "java/crypto/rule-HazelcastSymmetricEncryption"
   languages:
   - "java"
-  message: |
-    The network communications for Hazelcast is configured to use a symmetric cipher (probably DES
-    or Blowfish). Those ciphers alone do not provide integrity or secure authentication. The use of
-    asymmetric encryption is preferred.
-  metadata:
-    category: "security"
-    cwe: "CWE-326"
-    shortDescription: "Inadequate Encryption Strength"
-    technology:
-    - "java"
   patterns:
   - pattern: "new com.hazelcast.config.SymmetricEncryptionConfig()"
+  message: |
+    The network communications for Hazelcast is configured to use a deprecated symmetric cipher.
+    Consider using TLS/SSL when establishing communications across the Hazelcast cluster.
+
+    For more information on configuring TLS/SSL for Hazelcast see:
+    https://docs.hazelcast.com/imdg/4.2/security/tls-ssl
   severity: "WARNING"
+  metadata:
+    shortDescription: "Inadequate encryption strength"
+    category: "security"
+    cwe: "CWE-326"
+    technology:
+    - "java"

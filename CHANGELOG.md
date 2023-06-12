@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.20
+- Enhance Java ruleset descriptions and titles (!144)
+
 ## v1.3.19
 - Update Primary identifiers for `bandit.B303` and `bandit.B304` so that they match the published rules in semgrep (!165)
 - Remove `-1` from bandit ruleset IDs and primary identifiers to match the published rules in semgrep (!165)

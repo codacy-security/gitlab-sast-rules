@@ -6,18 +6,6 @@ rules:
 - id: "java/cookie/rule-HttpResponseSplitting"
   languages:
   - "java"
-  message: |
-    When an HTTP request contains unexpected CR and LF characters, the server may respond with an
-    output stream that is interpreted as two different HTTP responses (instead of one). An attacker
-    can control the second response and mount attacks such as cross-site scripting and cache
-    poisoning attacks.
-  metadata:
-    category: "security"
-    cwe: "CWE-113"
-    shortDescription: "Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP
-      Response Splitting')"
-    technology:
-    - "java"
   mode: "taint"
   pattern-sanitizers:
   - patterns:
@@ -41,4 +29,56 @@ rules:
     - pattern: "$C.setValue(...);"
   pattern-sources:
   - pattern: "(javax.servlet.http.HttpServletRequest $REQ).getParameter(...);"
+  message: |
+    HTTP Response Splitting is a vulnerability where Carriage Return (CR `\r`) and Line Feed (LF
+    `\n`)
+    characters are introduced into an HTTP header from user-supplied input. By injecting the
+    `\r\n`
+    character sequence, an adversary could potentially modify how the response is interpreted by
+    the
+    client or any downstream caching services. This could allow an adversary to poison the cache
+    data or execute Cross-Site Scripting (XSS) attacks.
+
+    Some Java application servers such as [Apache Tomcat](https://tomcat.apache.org/) will
+    disallow `\r\n`
+    characters from being set in cookies. If your application server does not automatically
+    provide this
+    functionality, user-supplied input that is used in cookie keys or values must be validated.
+
+    Example of validating cookies to only allow valid characters:
+    ```
+    // throws an IllegalArgumentException if the provided value contains invalid characters
+    public void validateRfc6265CookieValue(String value) throws IllegalArgumentException {
+        char[] chars = value.toCharArray();
+
+        // iterate over every character
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+
+            // check for any characters below 0x21 as well as: '"' ',' ';' '\' and 0x7f.
+            if (c < 0x21 || c == '"' || c == ',' || c == ';' || c == '\\' || c == 0x7f) {
+                throw new IllegalArgumentException("Invalid character in cookie detected:
+    {0}".format(Integer.toString(c)));
+            }
+        }
+    }
+    ```
+
+    Alternatively, you could use a string escape package such as
+    [Apache Commons Text](https://commons.apache.org/proper/commons-text/) to escape the input:
+    ```
+    public String escapeValue(String value) {
+      return StringEscapeUtils.escapeJava(value);
+    }
+    ```
+
+    For more information on response splitting attacks see OWASP:
+    https://owasp.org/www-community/attacks/HTTP_Response_Splitting
   severity: "WARNING"
+  metadata:
+    shortDescription: "Improper neutralization of CRLF sequences in HTTP headers ('HTTP
+      Response Splitting')"
+    category: "security"
+    cwe: "CWE-113"
+    technology:
+    - "java"

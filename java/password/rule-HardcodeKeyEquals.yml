@@ -6,16 +6,6 @@ rules:
 - id: "java/password/rule-HardcodeKeyEquals"
   languages:
   - "java"
-  message: |
-    Cryptographic keys should not be kept in the source code. The source code can be widely shared
-    in an enterprise environment, and is certainly shared in open source. To be managed safely,
-    passwords and secret keys should be stored in separate configuration files or keystores.
-  metadata:
-    category: "security"
-    cwe: "CWE-321"
-    shortDescription: "Use of Hard-coded Cryptographic Key"
-    technology:
-    - "java"
   patterns:
   - pattern-not-inside: |
       $FUNC(..., $VAR_NAME, ...) {
@@ -35,4 +25,28 @@ rules:
   - metavariable-regex:
       metavariable: "$VAR_NAME"
       regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
+  message: |
+    A potential hard-coded password was identified in a hard-coded string.
+    Passwords should not be stored directly in code
+    but loaded from secure locations such as a Key Management System (KMS).
+
+    The purpose of using a Key Management System is so access can be audited and keys easily
+    rotated
+    in the event of a breach. By hardcoding passwords, it will be extremely difficult to determine
+    when or if, a key is compromised.
+
+    The recommendation on which KMS to use depends on the environment the application is running
+    in:
+
+    - For Google Cloud Platform consider [Cloud Key Management](https://cloud.google.com/kms/docs)
+    - For Amazon Web Services consider [AWS Key Management](https://aws.amazon.com/kms/)
+    - For on premise or other alternatives to cloud providers, consider [Hashicorp's
+    Vault](https://www.vaultproject.io/)
+    - For other cloud providers, please see their documentation
   severity: "WARNING"
+  metadata:
+    shortDescription: "Use of hard-coded password"
+    category: "security"
+    cwe: "CWE-259"
+    technology:
+    - "java"

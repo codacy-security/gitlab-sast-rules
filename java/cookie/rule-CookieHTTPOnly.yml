@@ -6,17 +6,6 @@ rules:
 - id: "java/cookie/rule-CookieHTTPOnly"
   languages:
   - "java"
-  message: |
-    A new cookie is created without the HttpOnly flag set. The HttpOnly flag is a directive to the
-    browser to make sure that the cookie can not be red by malicious script. When a user is the
-    target of a "Cross-Site Scripting", the attacker would benefit greatly from getting the session
-    id for example.
-  metadata:
-    category: "security"
-    cwe: "CWE-1004"
-    shortDescription: "Sensitive Cookie Without 'HttpOnly' Flag"
-    technology:
-    - "java"
   pattern-either:
   - patterns:
     - pattern: |
@@ -30,4 +19,36 @@ rules:
         ...
         (HttpServletResponse $RESP).addCookie($C);
   - pattern: "(javax.servlet.http.Cookie $C).setHttpOnly(false);"
+  message: |
+    The `HttpOnly` attribute when set to `true` protects the cookie value from being accessed by
+    client side JavaScript such
+    as reading the `document.cookie` values. By enabling this protection, a website that is
+    vulnerable to
+    Cross-Site Scripting (XSS) will be able to block malicious scripts from accessing the cookie
+    value from JavaScript.
+
+    Example of protecting a `Cookie`:
+    ```
+    // Create an HttpOnly cookie.
+    Cookie someCookie = new Cookie("SomeCookieName", "SomeValue");
+    // Set HttpOnly flag to true
+    someCookie.setHttpOnly(true);
+    ```
+
+    For more information see:
+    https://jakarta.ee/specifications/servlet/4.0/apidocs/javax/servlet/http/cookie#setHttpOnly-boolean-
+
+    Session cookies should be configured with the following security directives:
+
+    -
+    [HTTPOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    -
+    [Secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
   severity: "WARNING"
+  metadata:
+    shortDescription: "Sensitive cookie without 'HttpOnly' flag"
+    category: "security"
+    cwe: "CWE-1004"
+    technology:
+    - "java"
