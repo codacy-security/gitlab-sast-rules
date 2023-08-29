@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.45
+- Remove poor C# rules (!199)
+  - `csharp/cache/rule-OutputCacheConflicts.yml` - Unable to confirm vulnerability
+  - `csharp/other/rule-AuthorizationBypass.yml` - Highly prone to false positives as it assumes any controller without `[AllowAnonymous]` or `[Authorize]` is an authorization bypass
+
 ## v1.3.44
 - Remove poor JavaScript rules (!219)
   - `javascript/csrf/rule-no_csrf_before_method_override.yml` - Deprecated and no way of testing, see http://blog.nibblesec.org/2014/05/nodejs-connect-csrf-bypass-abusing.html
