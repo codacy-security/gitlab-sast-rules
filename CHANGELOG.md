@@ -1,5 +1,38 @@
 sast-rules changelog
 
+## v1.3.40
+- Remove Java Rules (!220)
+  - `java/cookie/rule-CookiePersistent.yml` - Cookies may not contain sensitive information and should be removed to be consistent with C# rules
+  - `java/cookie/rule-CookieUsage.yml` - Cookies may not contain sensitive information and should be removed to be consistent with C# rules
+  - `java/cookie/rule-RequestParamToCookie.yml` - Duplicate rule of `rule-HttpResponseSplitting.yml`
+  - `java/cookie/rule-TrustBoundaryViolation.yml` - Unnecessary, prone to false positives
+  - `java/cors/rule-PermissiveCORS.yml` - The impact of setting * in a CORS response is minimal, since credentials will not be sent
+  - `java/crypto/rule-DefaultHTTPClient.yml` - While Apache client is deprecated, the default client will connect to a TLS1.3 only server
+  - `java/endpoint/rule-UnencryptedSocket.yml` - Using a non-TLS socket is perfectly acceptable in many circumstances
+  - `java/endpoint/rule-InsecureServlet.yml` - It's perfectly acceptable to access the data from these methods. Additionally, there is no way a customer could 'fix' this
+  - `java/endpoint/rule-JaxRsEndpoint.yml` - Incomplete rule, original [SpotBugs rule](https://find-sec-bugs.github.io/bugs.htm#JAXRS_ENDPOINT) is too broad and prone to false positives
+  - `java/endpoint/rule-JaxWsEndpoint.yml` - Incomplete rule, original [SpotBugs rule](https://find-sec-bugs.github.io/bugs.htm#JAXWS_ENDPOINT) is too broad and prone to false positives
+  - `java/file/rule-FileUploadFileName.yml` - This is a source not a sink 
+  - `java/form/rule-FormValidate.yml` - ActionForm/ValidatorForm is from Struts 1.1, which was EoL'd 2013
+  - `java/inject/rule-AWSQueryInjection.yml` - SimpleDB, while still technically supported, is deprecated and no longer available to new accounts
+  - `java/inject/rule-BeanPropertyInjection.yml` - Apache common collections 3 is no longer available and only works on Java 1.3
+  - `java/inject/rule-CustomInjectionSQLString.yml` - Prone to false positives and rules do not necessarily match variables that will be used in a SQL query
+  - `java/inject/rule-PathTraversalIn.yml` - Logic handled better by `rule-SpotbugsPathTraversalAbsolute.yml`
+  - `java/inject/rule-PathTraversalOut.yml` - Logic handled better by `rule-SpotbugsPathTraversalAbsolute.yml`
+  - `java/ldap/rule-EntryPoisoning.yml` - $SCOPE could legitimately have a value, logic handled better by `inject/rule-LDAPInjection`
+  - `java/password/rule-HardcodeKeySuspiciousName.yml` - Secrets scanning should be used instead
+  - `java/password/rule-HardcodeKeySuspiciousValue.yml` - Secrets scanning should be used instead
+  - `java/perm/rule-OverlyPermissiveFilePermissionObj.yml` - Logic handled better by `java/perm/rule-OverlyPermissiveFilePermissionInline.yml`
+  - `java/strings/rule-ImproperUnicode.yml` - Code quality issue more than a security issue
+  - `java/unsafe/rule-InformationExposure.yml` - Printing stack trace information to the local machine is perfectly acceptable
+  - `java/unsafe/rule-InformationExposureVariant2.yml` - Printing stack trace information to the local machine is perfectly acceptable
+  - `java/xml/rule-ApacheXmlRpc.yml` - Apache Xml RPC was deprecated in 2013
+  - `java/xss/rule-RequestWrapper.yml` - Appears to be a custom rule, `stripXSS()` is not a valid override
+  - `java/xss/rule-XSSServlet.yml` - Duplicate of `java/xss/rule-XSSReqParamToServletWriter.yml`
+  - `java/xss/rule-XSSServletParameter.yml` This is a source not a sink
+  - `java/xxe/rule-XPathXXE.yml` - Rule matches a hardcoded variable name, and has no namespace/import associated with it. Better XXE rule required
+  - `java/xxe/rule-Trans.yml` - Duplicate of `java/xml/rule-XsltTransform.yml` with less information
+
 ## v1.3.39
 - Revert rule changes made in (!193), (!198), (!199), (!197), (!194), and (!188) to allow for staged release of those MRs (!214)
 - Fix `$ADDR` var bind error in `find_sec_bugs_scala.URLCONNECTION_SSRF_FD` scala rule (!214)
