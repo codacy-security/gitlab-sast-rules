@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.30+1
+# rule-set version: v1.3.30+2
 # yamllint enable
 ---
 rules:
@@ -2665,15 +2665,17 @@ rules:
         - pattern: "URI"
         - pattern: "java.net.URI"
   - patterns:
+    - pattern-either:
+      - pattern-inside: |
+          import java.net.*;
+          ...
+      - pattern-inside: |
+          import java.net.InetSocketAddress;
+          ...
     - pattern: |
-        new $ADDR(..., $PORT)
+        new InetSocketAddress(..., $PORT)
     - pattern-not: |
-        new $ADDR("...", $PORT)
-    - metavariable-pattern:
-        metavariable: "$ADDR"
-        pattern-either:
-        - pattern: "InetSocketAddress"
-        - pattern: "java.net.InetSocketAddress"
+        new InetSocketAddress("...", $PORT)
   severity: "ERROR"
 - id: "find_sec_bugs_scala.BAD_HEXA_CONVERSION-1"
   languages:

@@ -44,13 +44,15 @@ rules:
         - pattern: "URI"
         - pattern: "java.net.URI"
   - patterns:
+    - pattern-either:
+      - pattern-inside: |
+          import java.net.*;
+          ...
+      - pattern-inside: |
+          import java.net.InetSocketAddress;
+          ...
     - pattern: |
-        new $ADDR(..., $PORT)
+        new InetSocketAddress(..., $PORT)
     - pattern-not: |
-        new $ADDR("...", $PORT)
-    - metavariable-pattern:
-        metavariable: "$ADDR"
-        pattern-either:
-        - pattern: "InetSocketAddress"
-        - pattern: "java.net.InetSocketAddress"
+        new InetSocketAddress("...", $PORT)
   severity: "ERROR"

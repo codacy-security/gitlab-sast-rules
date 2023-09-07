@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.30+1
+# rule-set version: v1.3.30+2
 # yamllint enable
 ---
 rules:
@@ -3845,10 +3845,9 @@ rules:
     - pattern: "$S.setPassword($PWD);"
     - pattern: "$S.setPassword($PWD.$FOO(...));"
     - pattern: "$S.setPassword(\"...\");"
-  - metavariable-pattern:
+  - metavariable-regex:
       metavariable: "$PWD"
-      patterns:
-      - pattern-regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
+      regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
   message: |
     A potential hard-coded password was identified in a hard-coded string.
     Passwords should not be stored directly in code
