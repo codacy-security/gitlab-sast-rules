@@ -1,7 +1,11 @@
 sast-rules changelog
 
+## v1.3.30+2
+- Fix `$ADDR` var bind error in `find_sec_bugs_scala.URLCONNECTION_SSRF_FD` scala rule (!212)
+- Fix `$PWD` var bind error in `find_sec_bugs.HARD_CODE_PASSWORD` java rule (!212)
+
 ## v1.3.30+1
-- Change rule ID format from find_sec_bugs.XYZ to find_sec_bugs_scala.XYZ for Scala rules (!210)
+- Change rule ID format from find_sec_bugs.XYZ to find_sec_bugs_scala.XYZ for Scala rules (!211)
 
 ## v1.3.30
 - Enhance Python ruleset descriptions and titles (!170)
