@@ -334,21 +334,6 @@ flawfinder:
     - path: "c/buffer/rule-strccpy-strcadd"
       primary_id: "flawfinder.strccpy-1.strcadd-1"
       id: "flawfinder.strccpy-1.strcadd-1"
-  - id: "char"
-    rules:
-    - path: "c/buffer/rule-char-TCHAR"
-      primary_id: "flawfinder.char-1"
-      id: "flawfinder.char-1"
-  - id: "TCHAR"
-    rules:
-    - path: "c/buffer/rule-char-TCHAR"
-      primary_id: "flawfinder.TCHAR-1"
-      id: "flawfinder.TCHAR-1"
-  - id: "wchar_t"
-    rules:
-    - path: "c/buffer/rule-char-TCHAR"
-      primary_id: "flawfinder.char-1.TCHAR-1.wchar_t-1"
-      id: "flawfinder.char-1.TCHAR-1.wchar_t-1"
   - id: "gets"
     rules:
     - path: "c/buffer/rule-gets--getts"
@@ -589,46 +574,11 @@ flawfinder:
     - path: "c/buffer/rule-realpath"
       primary_id: "flawfinder.realpath-1"
       id: "flawfinder.realpath-1"
-  - id: "getopt"
-    rules:
-    - path: "c/buffer/rule-getopt-getopt-long"
-      primary_id: "flawfinder.getopt-1"
-      id: "flawfinder.getopt-1"
-  - id: "getopt_long"
-    rules:
-    - path: "c/buffer/rule-getopt-getopt-long"
-      primary_id: "flawfinder.getopt-1.getopt_long-1"
-      id: "flawfinder.getopt-1.getopt_long-1"
   - id: "getwd"
     rules:
     - path: "c/buffer/rule-getwd"
       primary_id: "flawfinder.getwd-1"
       id: "flawfinder.getwd-1"
-  - id: "getchar"
-    rules:
-    - path: "c/buffer/rule-getchar-fgetc"
-      primary_id: "flawfinder.getchar-1"
-      id: "flawfinder.getchar-1"
-  - id: "fgetc"
-    rules:
-    - path: "c/buffer/rule-getchar-fgetc"
-      primary_id: "flawfinder.fgetc-1"
-      id: "flawfinder.fgetc-1"
-  - id: "getc"
-    rules:
-    - path: "c/buffer/rule-getchar-fgetc"
-      primary_id: "flawfinder.getc-1"
-      id: "flawfinder.getc-1"
-  - id: "read"
-    rules:
-    - path: "c/buffer/rule-getchar-fgetc"
-      primary_id: "flawfinder.read-1"
-      id: "flawfinder.read-1"
-  - id: "_gettc"
-    rules:
-    - path: "c/buffer/rule-getchar-fgetc"
-      primary_id: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
-      id: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
   - id: "access"
     rules:
     - path: "c/race/rule-access"
@@ -639,11 +589,6 @@ flawfinder:
     - path: "c/race/rule-chown"
       primary_id: "flawfinder.chown-1"
       id: "flawfinder.chown-1"
-  - id: "chgrp"
-    rules:
-    - path: "c/race/rule-chgrp"
-      primary_id: "flawfinder.chgrp-1"
-      id: "flawfinder.chgrp-1"
   - id: "chmod"
     rules:
     - path: "c/race/rule-chmod"
@@ -949,11 +894,6 @@ flawfinder:
     - path: "c/crypto/rule-EVP-rc4-40-EVP-rc2-40-cbc"
       primary_id: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
       id: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
-  - id: "chroot"
-    rules:
-    - path: "c/misc/rule-chroot"
-      primary_id: "flawfinder.chroot-1"
-      id: "flawfinder.chroot-1"
   - id: "getenv"
     rules:
     - path: "c/buffer/rule-getenv-curl-getenv"
@@ -1009,11 +949,6 @@ flawfinder:
     - path: "c/access/rule-RpcImpersonateClient-ImpersonateLoggedOnUser"
       primary_id: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
       id: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
-  - id: "InitializeCriticalSection"
-    rules:
-    - path: "c/misc/rule-InitializeCriticalSection"
-      primary_id: "flawfinder.InitializeCriticalSection-1"
-      id: "flawfinder.InitializeCriticalSection-1"
   - id: "LoadLibrary"
     rules:
     - path: "c/misc/rule-LoadLibrary"
