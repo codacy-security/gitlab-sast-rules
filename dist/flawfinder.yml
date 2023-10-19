@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.39
+# rule-set version: v1.3.40
 # yamllint enable
 ---
 rules:
@@ -196,43 +196,6 @@ rules:
   - pattern: "lstrcatnA(...)"
   - pattern: "lstrcatnW(...)"
   severity: "ERROR"
-- id: "flawfinder.char-1.TCHAR-1.wchar_t-1"
-  languages:
-  - "c"
-  message: |
-    Perform bounds checking, use functions that limit length, or ensure that the size is larger
-    than the maximum possible length.
-  metadata:
-    cwe: "CWE-120"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Statically-sized arrays can be improperly restricted, leading
-      to potential overflows or other issues (CWE-119!/CWE-120)"
-    primary_identifier: "flawfinder.char-1.TCHAR-1.wchar_t-1"
-    secondary_identifiers:
-    - name: "Flawfinder - char"
-      type: "flawfinder_func_name"
-      value: "char"
-    - name: "Flawfinder - TCHAR"
-      type: "flawfinder_func_name"
-      value: "TCHAR"
-    - name: "Flawfinder - wchar_t"
-      type: "flawfinder_func_name"
-      value: "wchar_t"
-  pattern-either:
-  - patterns:
-    - pattern-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(wchar_t) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "(char) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(char) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[.*\\]"
-    - pattern-not-regex: "(TCHAR) *[a-zA-Z0-9_]+\\[\\](\\s|)\\= *([a-zA-Z]|)(\\s|)(\"|{)(.*)"
-  - patterns:
-    - pattern-regex: "static *(const)? *(wchar_t|char|TCHAR) *[a-zA-Z0-9_]+ *\\[.*\\]\\*(={.*})?"
-  - patterns:
-    - pattern-regex: "(.*|)(\\s|)\\=(\\s|)\\((char.*) (malloc)\\(.*\\[[0-9]+\\].*\\)"
-  severity: "INFO"
 - id: "flawfinder.equal-1.mismatch-1.is_permutation-1"
   languages:
   - "c"
@@ -361,40 +324,6 @@ rules:
       value: "g_get_tmp_dir"
   pattern: "g_get_tmp_dir(...)"
   severity: "WARNING"
-- id: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
-  languages:
-  - "c"
-  message: |
-    CWE-20: Check buffer boundaries if used in a loop including recursive loops
-  metadata:
-    cwe: "CWE-20"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Check buffer boundaries if used in a loop including recursive
-      loops (CWE-120, CWE-20)"
-    primary_identifier: "flawfinder.getchar-1.fgetc-1.getc-1.read-1._gettc-1"
-    secondary_identifiers:
-    - name: "Flawfinder - getchar"
-      type: "flawfinder_func_name"
-      value: "getchar"
-    - name: "Flawfinder - fgetc"
-      type: "flawfinder_func_name"
-      value: "fgetc"
-    - name: "Flawfinder - getc"
-      type: "flawfinder_func_name"
-      value: "getc"
-    - name: "Flawfinder - read"
-      type: "flawfinder_func_name"
-      value: "read"
-    - name: "Flawfinder - _gettc"
-      type: "flawfinder_func_name"
-      value: "_gettc"
-  pattern-either:
-  - pattern: "getchar(...)"
-  - pattern: "fgetc(...)"
-  - pattern: "getc(...)"
-  - pattern: "read(...)"
-  - pattern: "_gettc(...)"
-  severity: "INFO"
 - id: "flawfinder.getenv-1.curl_getenv-1"
   languages:
   - "c"
@@ -421,28 +350,6 @@ rules:
   pattern-either:
   - pattern: "getenv(...)"
   - pattern: "curl_getenv(...)"
-  severity: "WARNING"
-- id: "flawfinder.getopt-1.getopt_long-1"
-  languages:
-  - "c"
-  message: |
-    Check implementation on installation, or limit the size of all string inputs.
-  metadata:
-    cwe: "CWE-120"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Some older implementations do not protect against internal
-      buffer overflows (CWE-120, CWE-20)"
-    primary_identifier: "flawfinder.getopt-1.getopt_long-1"
-    secondary_identifiers:
-    - name: "Flawfinder - getopt"
-      type: "flawfinder_func_name"
-      value: "getopt"
-    - name: "Flawfinder - getopt_long"
-      type: "flawfinder_func_name"
-      value: "getopt_long"
-  pattern-either:
-  - pattern: "getopt(...)"
-  - pattern: "getopt_long(...)"
   severity: "WARNING"
 - id: "flawfinder.getpw-1"
   languages:
@@ -1499,21 +1406,6 @@ rules:
       value: "AddAccessAllowedAce"
   pattern: "AddAccessAllowedAce(...)"
   severity: "WARNING"
-- id: "flawfinder.InitializeCriticalSection-1"
-  languages:
-  - "c"
-  message: |
-    Use InitializeCriticalSectionAndSpinCount instead.
-  metadata:
-    shortDescription: "Exceptions can be thrown in low-memory situations"
-    cwe: "CWE-754"
-    primary_identifier: "flawfinder.InitializeCriticalSection-1"
-    secondary_identifiers:
-    - name: "Flawfinder - InitializeCriticalSection"
-      type: "flawfinder_func_name"
-      value: "InitializeCriticalSection"
-  pattern: "InitializeCriticalSection(...)"
-  severity: "WARNING"
 - id: "flawfinder.LoadLibrary-1"
   languages:
   - "c"
@@ -1613,24 +1505,6 @@ rules:
       value: "SetSecurityDescriptorDacl"
   pattern: "SetSecurityDescriptorDacl(...)"
   severity: "ERROR"
-- id: "flawfinder.chroot-1"
-  languages:
-  - "c"
-  message: |
-    Make sure the program immediately chdir("/"), closes file descriptors, and drops root
-    privileges, and that all necessary files (and no more!) are in the new root.
-  metadata:
-    cwe: "CWE-22"
-    owasp: "A5:2017-Broken Access Control"
-    shortDescription: "chroot can be very helpful, but is hard to use correctly (CWE-250,
-      CWE-22)"
-    primary_identifier: "flawfinder.chroot-1"
-    secondary_identifiers:
-    - name: "Flawfinder - chroot"
-      type: "flawfinder_func_name"
-      value: "chroot"
-  pattern: "chroot(...)"
-  severity: "WARNING"
 - id: "flawfinder.cuserid-1"
   languages:
   - "c"
@@ -1821,23 +1695,6 @@ rules:
       type: "flawfinder_func_name"
       value: "access"
   pattern: "access(...)"
-  severity: "ERROR"
-- id: "flawfinder.chgrp-1"
-  languages:
-  - "c"
-  message: |
-    Use fchgrp( ) instead.
-  metadata:
-    cwe: "CWE-362"
-    owasp: "A5:2017-Broken Access Control"
-    shortDescription: "This accepts filename arguments; if an attacker can move those
-      files, a race condition results. (CWE-362)"
-    primary_identifier: "flawfinder.chgrp-1"
-    secondary_identifiers:
-    - name: "Flawfinder - chgrp"
-      type: "flawfinder_func_name"
-      value: "chgrp"
-  pattern: "chgrp(...)"
   severity: "ERROR"
 - id: "flawfinder.chmod-1"
   languages:
