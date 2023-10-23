@@ -1,6 +1,6 @@
 # yamllint disable
-# License: MIT 
-# Licensor: GitLab Inc.
+# License: LGPL 2.1 (GNU Lesser General Public License, Version 2.1)
+# Licensor: Semgrep, Inc. (https://semgrep.dev)
 # yamllint enable
 ---
 rules:
@@ -19,7 +19,7 @@ rules:
     # yamllint disable
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-no-csrf-before-method-override.js"
     # yamllint enable
-    license: "MIT"
+    license: "Commons Clause License Condition v1.0[LGPL-2.1-only]"
   pattern: |
     express.csrf();
     ...
