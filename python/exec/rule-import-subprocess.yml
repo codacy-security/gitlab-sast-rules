@@ -1,18 +1,19 @@
 # yamllint disable
-# License: MIT (c) GitLab Inc.
+# License: LGPL 2.1 (GNU Lesser General Public License, Version 2.1)
+# Licensor: Semgrep, Inc. (https://semgrep.dev)
 # yamllint enable
 ---
 rules:
-- id: "python_exec_rule-import-subprocess"
-  languages:
-  - "python"
-  message: |
-    Consider possible security implications associated with subprocess module.
-  metadata:
-    cwe: "CWE-78"
-    owasp: "A8:2017-Insecure Deserialization"
-    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-  patterns:
-  - pattern: "import subprocess"
-  severity: "WARNING"
+  - id: "python_exec_rule-import-subprocess"
+    languages:
+      - "python"
+    message: |
+      Consider possible security implications associated with subprocess module.
+    metadata:
+      cwe: "CWE-78"
+      owasp: "A8:2017-Insecure Deserialization"
+      shortDescription: "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+      license: Commons Clause License Condition v1.0[LGPL-2.1-only]
+    patterns:
+      - pattern: "import subprocess"
+    severity: "WARNING"
