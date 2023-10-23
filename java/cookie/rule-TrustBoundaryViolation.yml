@@ -3,28 +3,29 @@
 # yamllint enable
 ---
 rules:
-- id: "java_cookie_rule-TrustBoundaryViolation"
-  languages:
-  - "java"
-  message: |
-    A trust boundary can be thought of as line drawn through a program. On one side
-    of the line, data is untrusted. On the other side of the line, data is assumed
-    to be trustworthy. The purpose of validation logic is to allow data to safely
-    cross the trust boundary - to move from untrusted to trusted. A trust boundary
-    violation occurs when a program blurs the line between what is trusted and what
-    is untrusted. By combining trusted and untrusted data in the same data
-    structure, it becomes easier for programmers to mistakenly trust unvalidated
-    data.
-  metadata:
-    category: "security"
-    cwe: "CWE-501"
-    shortDescription: "Trust Boundary Violation"
-  patterns:
-  - pattern-either:
-    - patterns:
-      - pattern: "(HttpServletRequest $H). ... .setAttribute($ARG1, $ARG2);"
-      - pattern-not: "(HttpServletRequest $H). ... .setAttribute(\"...\", \"...\");"
-    - patterns:
-      - pattern: "(HttpServletRequest $H). ... .putValue($ARG1, $ARG2);"
-      - pattern-not: "(HttpServletRequest $H). ... .putValue(\"...\", \"...\");"
-  severity: "WARNING"
+  - id: "java_cookie_rule-TrustBoundaryViolation"
+    languages:
+      - "java"
+    message: |
+      A trust boundary can be thought of as line drawn through a program. On one side
+      of the line, data is untrusted. On the other side of the line, data is assumed
+      to be trustworthy. The purpose of validation logic is to allow data to safely
+      cross the trust boundary - to move from untrusted to trusted. A trust boundary
+      violation occurs when a program blurs the line between what is trusted and what
+      is untrusted. By combining trusted and untrusted data in the same data
+      structure, it becomes easier for programmers to mistakenly trust unvalidated
+      data.
+    metadata:
+      category: "security"
+      cwe: "CWE-501"
+      shortDescription: "Trust Boundary Violation"
+      license: MIT
+    patterns:
+      - pattern-either:
+          - patterns:
+              - pattern: "(HttpServletRequest $H). ... .setAttribute($ARG1, $ARG2);"
+              - pattern-not: "(HttpServletRequest $H). ... .setAttribute(\"...\", \"...\");"
+          - patterns:
+              - pattern: "(HttpServletRequest $H). ... .putValue($ARG1, $ARG2);"
+              - pattern-not: "(HttpServletRequest $H). ... .putValue(\"...\", \"...\");"
+    severity: "WARNING"

@@ -3,18 +3,18 @@
 # yamllint enable
 ---
 rules:
-- id: "java_ldap_rule-EntryPoisoning"
-  languages:
-  - "java"
-  message: |
-    Without proper access control, executing an LDAP statement that contains a
-    user-controlled value can allow an attacker to abuse poorly configured LDAP
-    context
-  metadata:
-    category: "security"
-    cwe: "CWE-20"
-    shortDescription: "Improper Input Validation"
-  patterns:
-  - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT,
-      $ATTR, true, $DEREF)"
-  severity: "ERROR"
+  - id: "java_ldap_rule-EntryPoisoning"
+    languages:
+      - "java"
+    message: |
+      Without proper access control, executing an LDAP statement that contains a
+      user-controlled value can allow an attacker to abuse poorly configured LDAP
+      context
+    metadata:
+      category: "security"
+      cwe: "CWE-20"
+      shortDescription: "Improper Input Validation"
+      license: MIT
+    patterns:
+      - pattern: "new javax.naming.directory.SearchControls($SCOPE, $CLIMIT, $TLIMIT, $ATTR, true, $DEREF)"
+    severity: "ERROR"

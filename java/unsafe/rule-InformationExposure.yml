@@ -3,97 +3,98 @@
 # yamllint enable
 ---
 rules:
-- id: "java_unsafe_rule-InformationExposure"
-  languages:
-  - "java"
-  pattern-either:
-  - pattern: |
-      catch(Throwable $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(Exception $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(Error $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.io.FileNotFoundException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.sql.SQLException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.net.BindException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.util.ConcurrentModificationException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(javax.naming.InsufficientResourcesException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.util.MissingResourceException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.util.jar.JarException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(java.security.acl.NotOwnerException $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(OutOfMemoryError $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  - pattern: |
-      catch(StackOverflowError $E) {
-        ...
-        $E.printStackTrace();
-        ...
-      }
-  message: |
-    The application was found printing stack information to the default system output.
-    As stack trace data may contain sensitive information, it is recommended that the
-    output be logged using a secure logging framework. Log files should also be protected
-    with proper operating system permission levels.
-  severity: "WARNING"
-  metadata:
-    shortDescription: "Information exposure through an error message"
-    category: "security"
-    cwe: "CWE-209"
-    technology:
-    - "java"
+  - id: "java_unsafe_rule-InformationExposure"
+    languages:
+      - "java"
+    pattern-either:
+      - pattern: |
+          catch(Throwable $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(Exception $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(Error $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.io.FileNotFoundException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.sql.SQLException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.net.BindException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.util.ConcurrentModificationException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(javax.naming.InsufficientResourcesException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.util.MissingResourceException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.util.jar.JarException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(java.security.acl.NotOwnerException $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(OutOfMemoryError $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+      - pattern: |
+          catch(StackOverflowError $E) {
+            ...
+            $E.printStackTrace();
+            ...
+          }
+    message: |
+      The application was found printing stack information to the default system output.
+      As stack trace data may contain sensitive information, it is recommended that the
+      output be logged using a secure logging framework. Log files should also be protected
+      with proper operating system permission levels.
+    severity: "WARNING"
+    metadata:
+      shortDescription: "Information exposure through an error message"
+      category: "security"
+      cwe: "CWE-209"
+      technology:
+        - "java"
+      license: MIT

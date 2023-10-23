@@ -3,49 +3,50 @@
 # yamllint enable
 ---
 rules:
-- id: "java_inject_rule-AWSQueryInjection"
-  languages:
-  - "java"
-  message: |
-    Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
-    records.
-  metadata:
-    category: "security"
-    cwe: "CWE-943"
-    shortDescription: "Improper Neutralization of Special Elements in Data Query Logic"
-    technology:
-    - "java"
-  mode: "taint"
-  pattern-sinks:
-  - patterns:
-    - pattern-either:
-      - pattern-inside: |
-          $REQ = new SelectRequest($QUERY, ...);
-          ...
-          $DB.select($REQ);
-      - pattern-inside: |
-          $DB.select(new SelectRequest($QUERY,...));
-      - pattern-inside: |
-          $DB.select((SelectRequest $SR).withSelectExpression($QUERY,...));
-    - pattern: "$QUERY"
-    - metavariable-pattern:
-        metavariable: "$DB"
-        pattern-either:
-        - pattern: "(AmazonSimpleDB $DB)"
-        - pattern: "(AmazonSimpleDBClient $DB)"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |
-        $FUNC(..., $VAR, ...) {
-          ...
-        }
-    - pattern: "$VAR"
-  - patterns:
-    - pattern-inside: |
-        $FUNC(...) {
-          ...
-          $VAR = ... + $X;
-          ...
-        }
-    - pattern: "$VAR"
-  severity: "ERROR"
+  - id: "java_inject_rule-AWSQueryInjection"
+    languages:
+      - "java"
+    message: |
+      Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized
+      records.
+    metadata:
+      category: "security"
+      cwe: "CWE-943"
+      shortDescription: "Improper Neutralization of Special Elements in Data Query Logic"
+      technology:
+        - "java"
+      license: MIT
+    mode: "taint"
+    pattern-sinks:
+      - patterns:
+          - pattern-either:
+              - pattern-inside: |
+                  $REQ = new SelectRequest($QUERY, ...);
+                  ...
+                  $DB.select($REQ);
+              - pattern-inside: |
+                  $DB.select(new SelectRequest($QUERY,...));
+              - pattern-inside: |
+                  $DB.select((SelectRequest $SR).withSelectExpression($QUERY,...));
+          - pattern: "$QUERY"
+          - metavariable-pattern:
+              metavariable: "$DB"
+              pattern-either:
+                - pattern: "(AmazonSimpleDB $DB)"
+                - pattern: "(AmazonSimpleDBClient $DB)"
+    pattern-sources:
+      - patterns:
+          - pattern-inside: |
+              $FUNC(..., $VAR, ...) {
+                ...
+              }
+          - pattern: "$VAR"
+      - patterns:
+          - pattern-inside: |
+              $FUNC(...) {
+                ...
+                $VAR = ... + $X;
+                ...
+              }
+          - pattern: "$VAR"
+    severity: "ERROR"

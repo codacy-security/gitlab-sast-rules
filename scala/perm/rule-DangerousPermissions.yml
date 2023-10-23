@@ -4,25 +4,26 @@
 # yamllint enable
 ---
 rules:
-- id: "scala_perm_rule-DangerousPermissions"
-  pattern-either:
-  - pattern: |
-      $RUNVAR = new RuntimePermission("createClassLoader");
-      ...
-      ($PC: PermissionCollection).add($RUNVAR);
-  - pattern: |
-      $REFVAR = new ReflectPermission("suppressAccessChecks");
-      ...
-      ($PC: PermissionCollection).add($REFVAR);
-  - pattern: "($PC: PermissionCollection).add(new ReflectPermission (\"suppressAccessChecks\"))"
-  - pattern: "($PC: PermissionCollection).add(new RuntimePermission(\"createClassLoader\"))"
-  languages:
-  - "scala"
-  message: |
-    Do not grant dangerous combinations of permissions.
-  metadata:
-    shortDescription: "Improper privilege management"
-    category: "security"
-    cwe: "CWE-269"
-    confidence: "HIGH"
-  severity: "WARNING"
+  - id: "scala_perm_rule-DangerousPermissions"
+    pattern-either:
+      - pattern: |
+          $RUNVAR = new RuntimePermission("createClassLoader");
+          ...
+          ($PC: PermissionCollection).add($RUNVAR);
+      - pattern: |
+          $REFVAR = new ReflectPermission("suppressAccessChecks");
+          ...
+          ($PC: PermissionCollection).add($REFVAR);
+      - pattern: "($PC: PermissionCollection).add(new ReflectPermission (\"suppressAccessChecks\"))"
+      - pattern: "($PC: PermissionCollection).add(new RuntimePermission(\"createClassLoader\"))"
+    languages:
+      - "scala"
+    message: |
+      Do not grant dangerous combinations of permissions.
+    metadata:
+      shortDescription: "Improper privilege management"
+      category: "security"
+      cwe: "CWE-269"
+      confidence: "HIGH"
+      license: MIT
+    severity: "WARNING"

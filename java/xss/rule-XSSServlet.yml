@@ -3,40 +3,40 @@
 # yamllint enable
 ---
 rules:
-- id: "java_xss_rule-XSSServlet"
-  languages:
-  - "java"
-  message: |
-    A potential XSS was found. It could be used to execute unwanted JavaScript in a
-    client's browser.
-  metadata:
-    category: "security"
-    cwe: "CWE-79"
-    shortDescription: "Improper Neutralization of Input During Web Page Generation
-      ('Cross-site Scripting')"
-  mode: "taint"
-  pattern-sanitizers:
-  - patterns:
-    - pattern-inside: |-
-        org.owasp.encoder.Encode.forHtml($TAINTED);
-    - pattern: "$TAINTED"
-  pattern-sinks:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletResponse $RES, ...) {...}
-    - pattern-inside: |
-        $WRITER = $RES.getWriter();
-        ...
-    - pattern: "$WRITER.write($DATA,...);"
-    - pattern: "$DATA"
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletResponse $RES, ...) {...}
-    - pattern: "$RES.getWriter().write($DATA,...);"
-    - pattern: "$DATA"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletRequest $REQ, ...) {...}
-    - pattern: "$REQ.getParameter(...);"
-  severity: "WARNING"
+  - id: "java_xss_rule-XSSServlet"
+    languages:
+      - "java"
+    message: |
+      A potential XSS was found. It could be used to execute unwanted JavaScript in a
+      client's browser.
+    metadata:
+      category: "security"
+      cwe: "CWE-79"
+      shortDescription: "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      license: MIT
+    mode: "taint"
+    pattern-sanitizers:
+      - patterns:
+          - pattern-inside: |-
+              org.owasp.encoder.Encode.forHtml($TAINTED);
+          - pattern: "$TAINTED"
+    pattern-sinks:
+      - patterns:
+          - pattern-inside: |-
+              $FUNC(..., HttpServletResponse $RES, ...) {...}
+          - pattern-inside: |
+              $WRITER = $RES.getWriter();
+              ...
+          - pattern: "$WRITER.write($DATA,...);"
+          - pattern: "$DATA"
+      - patterns:
+          - pattern-inside: |-
+              $FUNC(..., HttpServletResponse $RES, ...) {...}
+          - pattern: "$RES.getWriter().write($DATA,...);"
+          - pattern: "$DATA"
+    pattern-sources:
+      - patterns:
+          - pattern-inside: |-
+              $FUNC(..., HttpServletRequest $REQ, ...) {...}
+          - pattern: "$REQ.getParameter(...);"
+    severity: "WARNING"

@@ -3,17 +3,18 @@
 # yamllint enable
 ---
 rules:
-- id: "python_crypto_rule-import-pyghmi"
-  languages:
-  - "python"
-  pattern-either:
-  - pattern: "import pyghmi"
-  message: |
-    An IPMI-related module is being imported. IPMI is considered insecure. Use an encrypted
-    protocol.
-  metadata:
-    shortDescription: "Cryptographic issues"
-    cwe: "CWE-310"
-    category: "security"
-    cisa: "https://www.cisa.gov/uscert/ncas/alerts/TA13-207A"
-  severity: "ERROR"
+  - id: "python_crypto_rule-import-pyghmi"
+    languages:
+      - "python"
+    pattern-either:
+      - pattern: "import pyghmi"
+    message: |
+      An IPMI-related module is being imported. IPMI is considered insecure. Use an encrypted
+      protocol.
+    metadata:
+      shortDescription: "Cryptographic issues"
+      cwe: "CWE-310"
+      category: "security"
+      cisa: "https://www.cisa.gov/uscert/ncas/alerts/TA13-207A"
+      license: MIT
+    severity: "ERROR"

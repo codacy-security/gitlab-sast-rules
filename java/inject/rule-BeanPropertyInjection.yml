@@ -3,39 +3,40 @@
 # yamllint enable
 ---
 rules:
-- id: "java_inject_rule-BeanPropertyInjection"
-  languages:
-  - "java"
-  message: |
-    An attacker can set arbitrary bean properties that can compromise system integrity. An
-    attacker can leverage this functionality to access special bean properties like
-    class.classLoader that will allow them to override system properties and potentially execute
-    arbitrary code.
-  metadata:
-    category: "security"
-    cwe: "CWE-15"
-    shortDescription: "External Control of System or Configuration Setting"
-    technology:
-    - "java"
-  patterns:
-  - pattern-inside: |-
-      $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { ... }
-  - pattern-either:
-    - pattern: |
-        $MAP.put(..., $REQ.getParameter(...));
-        ...
-        $BEAN_UTIL.populate(..., $MAP);
-    - pattern: |
-        while (...) {
-            ...
-            $MAP.put(..., $REQ.getParameterValues(...));
-        }
-        ...
-        $BEAN_UTIL.populate(..., $MAP);
-  - metavariable-pattern:
-      metavariable: "$BEAN_UTIL"
-      pattern-either:
-      - pattern: "(BeanUtilsBean $B)"
-      - pattern: "new BeanUtilsBean()"
-      - pattern: "org.apache.commons.beanutils.BeanUtils"
-  severity: "ERROR"
+  - id: "java_inject_rule-BeanPropertyInjection"
+    languages:
+      - "java"
+    message: |
+      An attacker can set arbitrary bean properties that can compromise system integrity. An
+      attacker can leverage this functionality to access special bean properties like
+      class.classLoader that will allow them to override system properties and potentially execute
+      arbitrary code.
+    metadata:
+      category: "security"
+      cwe: "CWE-15"
+      shortDescription: "External Control of System or Configuration Setting"
+      technology:
+        - "java"
+      license: MIT
+    patterns:
+      - pattern-inside: |-
+          $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { ... }
+      - pattern-either:
+          - pattern: |
+              $MAP.put(..., $REQ.getParameter(...));
+              ...
+              $BEAN_UTIL.populate(..., $MAP);
+          - pattern: |
+              while (...) {
+                  ...
+                  $MAP.put(..., $REQ.getParameterValues(...));
+              }
+              ...
+              $BEAN_UTIL.populate(..., $MAP);
+      - metavariable-pattern:
+          metavariable: "$BEAN_UTIL"
+          pattern-either:
+            - pattern: "(BeanUtilsBean $B)"
+            - pattern: "new BeanUtilsBean()"
+            - pattern: "org.apache.commons.beanutils.BeanUtils"
+    severity: "ERROR"

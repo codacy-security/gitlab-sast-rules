@@ -3,17 +3,18 @@
 # yamllint enable
 ---
 rules:
-- id: "python_xml_rule-import-etree"
-  languages:
-  - "python"
-  message: |
-    Consider possible security implications associated with etree module.
-  metadata:
-    cwe: "CWE-502"
-    owasp: "A8:2017-Insecure Deserialization"
-    shortDescription: "Deserialization of Untrusted Data"
-  patterns:
-  - pattern-either:
-    - pattern: "import xml.etree.cElementTree"
-    - pattern: "import xml.etree.ElementTree"
-  severity: "INFO"
+  - id: "python_xml_rule-import-etree"
+    languages:
+      - "python"
+    message: |
+      Consider possible security implications associated with etree module.
+    metadata:
+      cwe: "CWE-502"
+      owasp: "A8:2017-Insecure Deserialization"
+      shortDescription: "Deserialization of Untrusted Data"
+      license: MIT
+    patterns:
+      - pattern-either:
+          - pattern: "import xml.etree.cElementTree"
+          - pattern: "import xml.etree.ElementTree"
+    severity: "INFO"

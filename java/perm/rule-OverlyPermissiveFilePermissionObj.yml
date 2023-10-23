@@ -3,22 +3,23 @@
 # yamllint enable
 ---
 rules:
-- id: "java_perm_rule-OverlyPermissiveFilePermissionObj"
-  languages:
-  - "java"
-  message: |
-    Overly permissive file permission
-  metadata:
-    category: "security"
-    confidence: "HIGH"
-    cwe: "CWE-732"
-    shortDescription: "Incorrect Permission Assignment for Critical Resource"
-  patterns:
-  - pattern-inside: |
-      $PERMS.add($P);
-      ...
-      java.nio.file.Files.setPosixFilePermissions(..., $PERMS);
-  - metavariable-regex:
-      metavariable: "$P"
-      regex: "(PosixFilePermission.){0,1}(OTHERS_)"
-  severity: "WARNING"
+  - id: "java_perm_rule-OverlyPermissiveFilePermissionObj"
+    languages:
+      - "java"
+    message: |
+      Overly permissive file permission
+    metadata:
+      category: "security"
+      confidence: "HIGH"
+      cwe: "CWE-732"
+      shortDescription: "Incorrect Permission Assignment for Critical Resource"
+      license: MIT
+    patterns:
+      - pattern-inside: |
+          $PERMS.add($P);
+          ...
+          java.nio.file.Files.setPosixFilePermissions(..., $PERMS);
+      - metavariable-regex:
+          metavariable: "$P"
+          regex: "(PosixFilePermission.){0,1}(OTHERS_)"
+    severity: "WARNING"

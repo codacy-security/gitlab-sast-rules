@@ -3,89 +3,89 @@
 # yamllint enable
 ---
 rules:
-- id: "java_xss_rule-XSSReqParamToSendError"
-  languages:
-  - "java"
-  mode: "taint"
-  pattern-sanitizers:
-  - patterns:
-    - pattern-inside: |-
-        org.owasp.encoder.Encode.forHtml($TAINTED);
-    - pattern: "$TAINTED"
-  pattern-sinks:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletResponse $RES, ...) {...}
-    - pattern: "$RES.sendError(..., $DATA);"
-    - pattern: "$DATA"
-  pattern-sources:
-  - patterns:
-    - pattern-inside: |-
-        $FUNC(..., HttpServletRequest $REQ, ...) {...}
-    - pattern-either:
-      - pattern: "$REQ.getParameter(...);"
-      - pattern: "$REQ.getHeader(...);"
-      - pattern: "$REQ.getRequestedSessionId();"
-      - pattern: "$REQ.getQueryString();"
-  message: |
-    The application is returning user-supplied data from an HTTP request to an HTTP response's
-    `sendError` method. This could lead to Cross Site Scripting (XSS) if the input were malicious
-    script code and the application server is not properly validating the output. Note that Apache
-    Tomcat 9 and above automatically encode the output and are not vulnerable.
+  - id: "java_xss_rule-XSSReqParamToSendError"
+    languages:
+      - "java"
+    mode: "taint"
+    pattern-sanitizers:
+      - patterns:
+          - pattern-inside: |-
+              org.owasp.encoder.Encode.forHtml($TAINTED);
+          - pattern: "$TAINTED"
+    pattern-sinks:
+      - patterns:
+          - pattern-inside: |-
+              $FUNC(..., HttpServletResponse $RES, ...) {...}
+          - pattern: "$RES.sendError(..., $DATA);"
+          - pattern: "$DATA"
+    pattern-sources:
+      - patterns:
+          - pattern-inside: |-
+              $FUNC(..., HttpServletRequest $REQ, ...) {...}
+          - pattern-either:
+              - pattern: "$REQ.getParameter(...);"
+              - pattern: "$REQ.getHeader(...);"
+              - pattern: "$REQ.getRequestedSessionId();"
+              - pattern: "$REQ.getQueryString();"
+    message: |
+      The application is returning user-supplied data from an HTTP request to an HTTP response's
+      `sendError` method. This could lead to Cross Site Scripting (XSS) if the input were malicious
+      script code and the application server is not properly validating the output. Note that Apache
+      Tomcat 9 and above automatically encode the output and are not vulnerable.
 
-    XSS is an attack which exploits a web application or system to treat user input
-    as markup or script code. It is important to encode the data depending on the specific context
-    it is used in. There are at least six context types:
+      XSS is an attack which exploits a web application or system to treat user input
+      as markup or script code. It is important to encode the data depending on the specific context
+      it is used in. There are at least six context types:
 
-    - Inside HTML tags `<div>context 1</div>`
-    - Inside attributes: `<div class="context 2"></div>`
-    - Inside event attributes `<button onclick="context 3">button</button>`
-    - Inside script blocks: `<script>var x = "context 4"</script>`
-    - Unsafe element HTML assignment: `element.innerHTML = "context 5"`
-    - Inside URLs: `<iframe src="context 6"></iframe><a href="context 6">link</a>`
+      - Inside HTML tags `<div>context 1</div>`
+      - Inside attributes: `<div class="context 2"></div>`
+      - Inside event attributes `<button onclick="context 3">button</button>`
+      - Inside script blocks: `<script>var x = "context 4"</script>`
+      - Unsafe element HTML assignment: `element.innerHTML = "context 5"`
+      - Inside URLs: `<iframe src="context 6"></iframe><a href="context 6">link</a>`
 
-    Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if
-    user input
-    is ever output inside of script tags.
+      Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if
+      user input
+      is ever output inside of script tags.
 
-    User input that is displayed within the application must be encoded, sanitized or validated
-    to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
-    taken
-    to not mix server-side templating with client-side templating, as the server-side templating
-    will
-    not encode things like {{ 7*7 }} which may execute client-side templating features.
+      User input that is displayed within the application must be encoded, sanitized or validated
+      to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
+      taken
+      to not mix server-side templating with client-side templating, as the server-side templating
+      will
+      not encode things like {{ 7*7 }} which may execute client-side templating features.
 
-    It is _NOT_ advised to encode user input prior to inserting into a data store. The data will
-    need to be
-    encoded depending on context of where it is output. It is much safer to force the displaying
-    system to
-    handle the encoding and not attempt to guess how it should be encoded.
+      It is _NOT_ advised to encode user input prior to inserting into a data store. The data will
+      need to be
+      encoded depending on context of where it is output. It is much safer to force the displaying
+      system to
+      handle the encoding and not attempt to guess how it should be encoded.
 
-    If possible do not use user input directly in the output to the `sendError` message parameter.
+      If possible do not use user input directly in the output to the `sendError` message parameter.
 
-    Regardless if the application server handles output encoding, consider encoding any
-    user-supplied
-    input
-    that is used in the sendError method:
+      Regardless if the application server handles output encoding, consider encoding any
+      user-supplied
+      input
+      that is used in the sendError method:
 
-    Example using [Apache Commons Text](https://commons.apache.org/proper/commons-text/)
-    `StringEscapeUtils.escapeHtml4`:
-    ```
-    // Get user input
-    String userInput = request.getParameter("key");
-    // Encode the input using the Html4 encoder
-    String encoded = StringEscapeUtils.escapeHtml4(userInput);
-    // Respond with the error code and value
-    response.sendError(401, encoded);
-    ```
+      Example using [Apache Commons Text](https://commons.apache.org/proper/commons-text/)
+      `StringEscapeUtils.escapeHtml4`:
+      ```
+      // Get user input
+      String userInput = request.getParameter("key");
+      // Encode the input using the Html4 encoder
+      String encoded = StringEscapeUtils.escapeHtml4(userInput);
+      // Respond with the error code and value
+      response.sendError(401, encoded);
+      ```
 
-    For more information on XSS see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
-  severity: "WARNING"
-  metadata:
-    shortDescription: "Improper neutralization of input during web page generation
-      ('Cross-site Scripting')"
-    category: "security"
-    cwe: "CWE-79"
-    technology:
-    - "java"
+      For more information on XSS see OWASP:
+      - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+    severity: "WARNING"
+    metadata:
+      shortDescription: "Improper neutralization of input during web page generation ('Cross-site Scripting')"
+      category: "security"
+      cwe: "CWE-79"
+      technology:
+        - "java"
+      license: MIT
