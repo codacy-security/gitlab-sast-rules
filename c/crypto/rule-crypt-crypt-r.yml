@@ -1,6 +1,7 @@
 # yamllint disable
 # The ruleset is generated from flawfinder official rule repository hosted on github.
-# License: MIT (c) GitLab Inc.
+# License: MIT 
+# Licensor: GitLab Inc.
 # source: https://github.com/david-a-wheeler/flawfinder/blob/e0d8827c3b714a883ce8036edc832721f4619524/flawfinder.py
 #
 # For OWASP 2010 this would fall under "Cryptographic Failures", which is a bit more accurate/broader

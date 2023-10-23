@@ -1,5 +1,6 @@
 # yamllint disable
-# License: MIT (c) GitLab Inc.
+# License: MIT 
+# Licensor: GitLab Inc.
 # source (modified): https://github.com/securego/gosec/blob/master/rules/subproc.go
 # hash: d3309fb 
 # yamllint enable

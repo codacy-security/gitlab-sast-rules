@@ -1,5 +1,6 @@
 # yamllint disable
-# License: MIT (c) GitLab Inc.
+# License: MIT 
+# Licensor: GitLab Inc.
 # source (original): https://github.com/securego/gosec/blob/master/rules/directory-traversal.go
 # yamllint enable
 ---
