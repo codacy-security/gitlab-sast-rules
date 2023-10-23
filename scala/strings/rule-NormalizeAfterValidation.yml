@@ -6,22 +6,22 @@
 # yamllint enable
 ---
 rules:
-  - id: "scala_strings_rule-NormalizeAfterValidation"
-    patterns:
-      - pattern: |
-          $Y = java.util.regex.Pattern.compile("[<>]");
-          ...
-          $Y.matcher($VAR);
-          ...
-          java.text.Normalizer.normalize($VAR, ...);
-    languages:
-      - "scala"
-    message: |
-      IDS01-J. Normalize strings before validating them
-    metadata:
-      shortDescription: "Collapse of data into unsafe value"
-      category: "security"
-      cwe: "CWE-182"
-      confidence: "HIGH"
-      license: MIT
-    severity: "WARNING"
+- id: "scala_strings_rule-NormalizeAfterValidation"
+  patterns:
+  - pattern: |
+      $Y = java.util.regex.Pattern.compile("[<>]");
+      ...
+      $Y.matcher($VAR);
+      ...
+      java.text.Normalizer.normalize($VAR, ...);
+  languages:
+  - "scala"
+  message: |
+    IDS01-J. Normalize strings before validating them
+  metadata:
+    shortDescription: "Collapse of data into unsafe value"
+    category: "security"
+    cwe: "CWE-182"
+    confidence: "HIGH"
+    license: "MIT"
+  severity: "WARNING"

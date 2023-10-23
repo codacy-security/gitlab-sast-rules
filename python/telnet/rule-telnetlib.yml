@@ -4,15 +4,15 @@
 # yamllint enable
 ---
 rules:
-  - id: "python_telnet_rule-telnetlib"
-    languages:
-      - "python"
-    message: |
-      Telnet does not encrypt communications. Use SSH instead.
-    metadata:
-      cwe: "CWE-319"
-      owasp: "A3:2017-Sensitive Data Exposure"
-      shortDescription: "Cleartext Transmission of Sensitive Information"
-      license: MIT
-    pattern: "telnetlib.$ANYTHING(...)"
-    severity: "WARNING"
+- id: "python_telnet_rule-telnetlib"
+  languages:
+  - "python"
+  message: |
+    Telnet does not encrypt communications. Use SSH instead.
+  metadata:
+    cwe: "CWE-319"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Cleartext Transmission of Sensitive Information"
+    license: "MIT"
+  pattern: "telnetlib.$ANYTHING(...)"
+  severity: "WARNING"

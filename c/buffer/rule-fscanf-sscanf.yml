@@ -6,31 +6,31 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_buffer_rule-fscanf-sscanf"
-    languages:
-      - "c"
-    message: |
-      Format specifiers can take optional field widths, which should be
-      used to limit how many characters are copied into the target buffer.
+- id: "c_buffer_rule-fscanf-sscanf"
+  languages:
+  - "c"
+  message: |
+    Format specifiers can take optional field widths, which should be
+    used to limit how many characters are copied into the target buffer.
 
-      Example:
-      ```
-        const char str[20] = "AAAAAAAAAAAAAAAAAAA";
-        char buf[11] = {0};
-        sscanf(str, "%10s", &buf); // buf = AAAAAAAAAA\0
-      ```
-    metadata:
-      shortDescription: "sscanf() functions may allow format string based overflows"
-      cwe: "CWE-120"
-      owasp: "A1:2017-Injection"
-      license: MIT
-    pattern-either:
-      - pattern: "fscanf(...)"
-      - pattern: "sscanf(...)"
-      - pattern: "vsscanf(...)"
-      - pattern: "vfscanf(...)"
-      - pattern: "_ftscanf(...)"
-      - pattern: "fwscanf(...)"
-      - pattern: "vfwscanf(...)"
-      - pattern: "vswscanf(...)"
-    severity: "ERROR"
+    Example:
+    ```
+      const char str[20] = "AAAAAAAAAAAAAAAAAAA";
+      char buf[11] = {0};
+      sscanf(str, "%10s", &buf); // buf = AAAAAAAAAA\0
+    ```
+  metadata:
+    shortDescription: "sscanf() functions may allow format string based overflows"
+    cwe: "CWE-120"
+    owasp: "A1:2017-Injection"
+    license: "MIT"
+  pattern-either:
+  - pattern: "fscanf(...)"
+  - pattern: "sscanf(...)"
+  - pattern: "vsscanf(...)"
+  - pattern: "vfscanf(...)"
+  - pattern: "_ftscanf(...)"
+  - pattern: "fwscanf(...)"
+  - pattern: "vfwscanf(...)"
+  - pattern: "vswscanf(...)"
+  severity: "ERROR"

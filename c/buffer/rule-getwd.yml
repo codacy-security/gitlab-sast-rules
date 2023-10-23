@@ -6,19 +6,19 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_buffer_rule-getwd"
-    languages:
-      - "c"
-    message: |
-      `getwd` does not contain a parameter to limit how many characters can be copied into the
-      destination buffer. For portability and security reasons `getwd` has been deprecated in
-      favor of `getcwd`.
+- id: "c_buffer_rule-getwd"
+  languages:
+  - "c"
+  message: |
+    `getwd` does not contain a parameter to limit how many characters can be copied into the
+    destination buffer. For portability and security reasons `getwd` has been deprecated in
+    favor of `getcwd`.
 
-      For more information please see: https://linux.die.net/man/3/getcwd
-    metadata:
-      shortDescription: "Insufficient protection against buffer overflow (getwd)"
-      cwe: "CWE-120"
-      owasp: "A1:2017-Injection"
-      license: MIT
-    pattern: "getwd(...)"
-    severity: "WARNING"
+    For more information please see: https://linux.die.net/man/3/getcwd
+  metadata:
+    shortDescription: "Insufficient protection against buffer overflow (getwd)"
+    cwe: "CWE-120"
+    owasp: "A1:2017-Injection"
+    license: "MIT"
+  pattern: "getwd(...)"
+  severity: "WARNING"

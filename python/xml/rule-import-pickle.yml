@@ -4,19 +4,19 @@
 # yamllint enable
 ---
 rules:
-  - id: "python_xml_rule-import-pickle"
-    languages:
-      - "python"
-    message: |
-      Consider possible security implications associated with pickle module.
-    metadata:
-      cwe: "CWE-502"
-      owasp: "A8:2017-Insecure Deserialization"
-      shortDescription: "Deserialization of Untrusted Data"
-      license: MIT
-    patterns:
-      - pattern-either:
-          - pattern: "import pickle"
-          - pattern: "import cPickle"
-          - pattern: "import dill"
-    severity: "INFO"
+- id: "python_xml_rule-import-pickle"
+  languages:
+  - "python"
+  message: |
+    Consider possible security implications associated with pickle module.
+  metadata:
+    cwe: "CWE-502"
+    owasp: "A8:2017-Insecure Deserialization"
+    shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
+  patterns:
+  - pattern-either:
+    - pattern: "import pickle"
+    - pattern: "import cPickle"
+    - pattern: "import dill"
+  severity: "INFO"

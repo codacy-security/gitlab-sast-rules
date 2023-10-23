@@ -6,19 +6,19 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_obsolete_rule-gsignal-ssignal"
-    languages:
-      - "c"
-    message: |
-      The `gsignal` and `ssignal` functions are obsolete and no longer recommended. Consider
-      using the `raise` or `sigaction` functions instead for process signalling.
+- id: "c_obsolete_rule-gsignal-ssignal"
+  languages:
+  - "c"
+  message: |
+    The `gsignal` and `ssignal` functions are obsolete and no longer recommended. Consider
+    using the `raise` or `sigaction` functions instead for process signalling.
 
-      For more information please see: https://linux.die.net/man/3/sigaction
-    metadata:
-      shortDescription: "Deprecated function calls (ssignal/gsignal)"
-      cwe: "CWE-676"
-      license: MIT
-    pattern-either:
-      - pattern: "gsignal(...)"
-      - pattern: "ssignal(...)"
-    severity: "INFO"
+    For more information please see: https://linux.die.net/man/3/sigaction
+  metadata:
+    shortDescription: "Deprecated function calls (ssignal/gsignal)"
+    cwe: "CWE-676"
+    license: "MIT"
+  pattern-either:
+  - pattern: "gsignal(...)"
+  - pattern: "ssignal(...)"
+  severity: "INFO"

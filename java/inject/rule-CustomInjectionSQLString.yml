@@ -4,40 +4,41 @@
 # yamllint enable
 ---
 rules:
-  - id: "java_inject_rule-CustomInjectionSQLString"
-    languages:
-      - "java"
-    message: |
-      The method identified is susceptible to injection. The input should be validated and properly
-      escaped.
-    metadata:
-      category: "security"
-      cwe: "CWE-89"
-      shortDescription: "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
-      technology:
-        - "java"
-      license: MIT
-    patterns:
-      - pattern-not-inside: |
-          final String $VAR = ...;
-      - pattern-either:
-          - pattern: |
-              "$SQL_STR" + ...
-          - pattern: "String.format(\"$SQL_STR\", ...)"
-          - pattern: |
-              "$SQL_STR".concat(...)
-          - pattern: "(StringBuilder $BUILDER). ... .append(\"$SQL_STR\")"
-          - patterns:
-              - pattern-inside: |
-                  StringBuilder $BUILDER = new StringBuilder("$SQL_STR");
-                  ...
-              - pattern: "$BUILDER.append(...)"
-          - patterns:
-              - pattern-inside: |
-                  $QUERY = "$SQL_STR";
-                  ...
-              - pattern: "$QUERY += ..."
-      - metavariable-regex:
-          metavariable: "$SQL_STR"
-          regex: "(?i)(select|insert|create|update|alter|delete|drop)\\b"
-    severity: "WARNING"
+- id: "java_inject_rule-CustomInjectionSQLString"
+  languages:
+  - "java"
+  message: |
+    The method identified is susceptible to injection. The input should be validated and properly
+    escaped.
+  metadata:
+    category: "security"
+    cwe: "CWE-89"
+    shortDescription: "Improper Neutralization of Special Elements used in an SQL
+      Command ('SQL Injection')"
+    technology:
+    - "java"
+    license: "MIT"
+  patterns:
+  - pattern-not-inside: |
+      final String $VAR = ...;
+  - pattern-either:
+    - pattern: |
+        "$SQL_STR" + ...
+    - pattern: "String.format(\"$SQL_STR\", ...)"
+    - pattern: |
+        "$SQL_STR".concat(...)
+    - pattern: "(StringBuilder $BUILDER). ... .append(\"$SQL_STR\")"
+    - patterns:
+      - pattern-inside: |
+          StringBuilder $BUILDER = new StringBuilder("$SQL_STR");
+          ...
+      - pattern: "$BUILDER.append(...)"
+    - patterns:
+      - pattern-inside: |
+          $QUERY = "$SQL_STR";
+          ...
+      - pattern: "$QUERY += ..."
+  - metavariable-regex:
+      metavariable: "$SQL_STR"
+      regex: "(?i)(select|insert|create|update|alter|delete|drop)\\b"
+  severity: "WARNING"

@@ -4,15 +4,15 @@
 # yamllint enable
 ---
 rules:
-  - id: "scala_xml_rule-SAMLIgnoreComments"
-    languages:
-      - "scala"
-    message: |
-      Ignoring XML comments in SAML may lead to authentication bypass
-    metadata:
-      category: "security"
-      cwe: "CWE-287"
-      shortDescription: "Improper Authentication"
-      license: MIT
-    pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
-    severity: "WARNING"
+- id: "scala_xml_rule-SAMLIgnoreComments"
+  languages:
+  - "scala"
+  message: |
+    Ignoring XML comments in SAML may lead to authentication bypass
+  metadata:
+    category: "security"
+    cwe: "CWE-287"
+    shortDescription: "Improper Authentication"
+    license: "MIT"
+  pattern: "($POOL: BasicParserPool).setIgnoreComments(false);"
+  severity: "WARNING"

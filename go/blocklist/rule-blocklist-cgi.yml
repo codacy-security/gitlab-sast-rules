@@ -5,17 +5,17 @@
 # yamllint enable
 ---
 rules:
-  - id: "go_blocklist_rule-blocklist-cgi"
-    languages:
-      - "go"
-    message: |
-      Go versions < 1.6.3 are vulnerable to Httpoxy attack: (CVE-2016-5386)
-    metadata:
-      cwe: "CWE-327"
-      owasp: "A9:2017-Using Components with Known Vulnerabilities"
-      shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
-      license: MIT
-    patterns:
-      - pattern: |
-          import "net/http/cgi"
-    severity: "WARNING"
+- id: "go_blocklist_rule-blocklist-cgi"
+  languages:
+  - "go"
+  message: |
+    Go versions < 1.6.3 are vulnerable to Httpoxy attack: (CVE-2016-5386)
+  metadata:
+    cwe: "CWE-327"
+    owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    license: "MIT"
+  patterns:
+  - pattern: |
+      import "net/http/cgi"
+  severity: "WARNING"

@@ -6,21 +6,21 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_buffer_rule-getpw"
-    languages:
-      - "c"
-    message: |
-      The getpw() function is dangerous as it may overflow the provided
-      buffer when reading from the `/etc/passwd` file.  While the passwd file
-      is not generally writeable, there are no protections offered by this function
-      to protect from reading past the bounds of the destination buffer. This function
-      is obsoleted by `getpwuid`.
+- id: "c_buffer_rule-getpw"
+  languages:
+  - "c"
+  message: |
+    The getpw() function is dangerous as it may overflow the provided
+    buffer when reading from the `/etc/passwd` file.  While the passwd file
+    is not generally writeable, there are no protections offered by this function
+    to protect from reading past the bounds of the destination buffer. This function
+    is obsoleted by `getpwuid`.
 
-      For more information please see: https://linux.die.net/man/3/getpwuid
-    metadata:
-      shortDescription: "Use of deprecated function (getpwd)"
-      cwe: "CWE-120"
-      owasp: "A1:2017-Injection"
-      license: MIT
-    pattern: "getpw(...)"
-    severity: "ERROR"
+    For more information please see: https://linux.die.net/man/3/getpwuid
+  metadata:
+    shortDescription: "Use of deprecated function (getpwd)"
+    cwe: "CWE-120"
+    owasp: "A1:2017-Injection"
+    license: "MIT"
+  pattern: "getpw(...)"
+  severity: "ERROR"

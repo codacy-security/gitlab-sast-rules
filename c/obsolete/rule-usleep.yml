@@ -6,16 +6,16 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_obsolete_rule-usleep"
-    languages:
-      - "c"
-    message: |
-      The `usleep` function has been deprecated, use `nanosleep` or `setitimer` instead.
+- id: "c_obsolete_rule-usleep"
+  languages:
+  - "c"
+  message: |
+    The `usleep` function has been deprecated, use `nanosleep` or `setitimer` instead.
 
-      For more information please see: https://linux.die.net/man/3/setitimer
-    metadata:
-      shortDescription: "Usage of deprecated function (usleep)"
-      cwe: "CWE-676"
-      license: MIT
-    pattern: "usleep(...)"
-    severity: "INFO"
+    For more information please see: https://linux.die.net/man/3/setitimer
+  metadata:
+    shortDescription: "Usage of deprecated function (usleep)"
+    cwe: "CWE-676"
+    license: "MIT"
+  pattern: "usleep(...)"
+  severity: "INFO"

@@ -4,16 +4,16 @@
 # yamllint enable
 ---
 rules:
-  - id: "python_tmpdir_rule-tempnam"
-    languages:
-      - "python"
-    message: |
-      The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
-    metadata:
-      cwe: "CWE-377"
-      shortDescription: "Insecure Temporary File"
-      license: Commons Clause License Condition v1.0[LGPL-2.1-only]
-    pattern-either:
-      - pattern: "os.tempnam(...)"
-      - pattern: "os.tmpnam(...)"
-    severity: "WARNING"
+- id: "python_tmpdir_rule-tempnam"
+  languages:
+  - "python"
+  message: |
+    The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
+  metadata:
+    cwe: "CWE-377"
+    shortDescription: "Insecure Temporary File"
+    license: "Commons Clause License Condition v1.0[LGPL-2.1-only]"
+  pattern-either:
+  - pattern: "os.tempnam(...)"
+  - pattern: "os.tmpnam(...)"
+  severity: "WARNING"

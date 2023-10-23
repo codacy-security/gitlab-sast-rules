@@ -4,44 +4,45 @@
 # yamllint enable
 ---
 rules:
-  - id: "java_inject_rule-PathTraversalOut"
-    languages:
-      - "java"
-    message: |
-      A file is opened to write to its contents. The filename comes from an input parameter. If an
-      unfiltered parameter is passed to this file API, files at an arbitrary filesystem location
-      could be modified. This rule identifies potential path traversal vulnerabilities. In many
-      cases, the constructed file path cannot be controlled by the user.
-    metadata:
-      category: "security"
-      cwe: "CWE-22"
-      shortDescription: "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
-      technology:
-        - "java"
-      license: MIT
-    mode: "taint"
-    pattern-sanitizers:
-      - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
-    pattern-sinks:
-      - patterns:
-          - pattern-inside: |-
-              new java.io.FileWriter($PATH, ...)
-          - pattern: "$PATH"
-      - patterns:
-          - pattern-inside: |-
-              new java.io.FileOutputStream($PATH, ...)
-          - pattern: "$PATH"
-    pattern-sources:
-      - patterns:
-          - pattern-inside: |
-              $FUNC(String[] $ARGS) {
-                ...
-              }
-          - pattern: "$ARGS[$IDX]"
-      - patterns:
-          - pattern-inside: |
-              $FUNC(..., String $VAR, ...) {
-                ...
-              }
-          - pattern: "$VAR"
-    severity: "ERROR"
+- id: "java_inject_rule-PathTraversalOut"
+  languages:
+  - "java"
+  message: |
+    A file is opened to write to its contents. The filename comes from an input parameter. If an
+    unfiltered parameter is passed to this file API, files at an arbitrary filesystem location
+    could be modified. This rule identifies potential path traversal vulnerabilities. In many
+    cases, the constructed file path cannot be controlled by the user.
+  metadata:
+    category: "security"
+    cwe: "CWE-22"
+    shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
+      ('Path Traversal')"
+    technology:
+    - "java"
+    license: "MIT"
+  mode: "taint"
+  pattern-sanitizers:
+  - pattern: "org.apache.commons.io.FilenameUtils.getName(...)"
+  pattern-sinks:
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileWriter($PATH, ...)
+    - pattern: "$PATH"
+  - patterns:
+    - pattern-inside: |-
+        new java.io.FileOutputStream($PATH, ...)
+    - pattern: "$PATH"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        $FUNC(String[] $ARGS) {
+          ...
+        }
+    - pattern: "$ARGS[$IDX]"
+  - patterns:
+    - pattern-inside: |
+        $FUNC(..., String $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  severity: "ERROR"

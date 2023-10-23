@@ -6,22 +6,22 @@
 # yamllint enable
 ---
 rules:
-  - id: "go_memory_rule-math-big-rat"
-    languages:
-      - "go"
-    message: |
-      Potential Integer overflow made by strconv.Atoi result conversion to int16/32
-    metadata:
-      cwe: "CWE-190"
-      shortDescription: "Integer Overflow or Wraparound"
-      license: MIT
-    patterns:
-      - pattern-inside: |
-          import "math/big"
-          ...
-      - pattern-inside: |
-          $R = big.Rat{...}
-          ...
-      - pattern: |
-          $R.SetString(...)
-    severity: "ERROR"
+- id: "go_memory_rule-math-big-rat"
+  languages:
+  - "go"
+  message: |
+    Potential Integer overflow made by strconv.Atoi result conversion to int16/32
+  metadata:
+    cwe: "CWE-190"
+    shortDescription: "Integer Overflow or Wraparound"
+    license: "MIT"
+  patterns:
+  - pattern-inside: |
+      import "math/big"
+      ...
+  - pattern-inside: |
+      $R = big.Rat{...}
+      ...
+  - pattern: |
+      $R.SetString(...)
+  severity: "ERROR"

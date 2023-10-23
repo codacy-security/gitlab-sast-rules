@@ -4,28 +4,28 @@
 # yamllint enable
 ---
 rules:
-  - id: "java_password_rule-HardcodeKeySuspiciousName"
-    languages:
-      - "java"
-    message: |
-      Cryptographic keys should not be kept in the source code. The source code can be widely shared
-      in an enterprise environment, and is certainly shared in open source. To be managed safely,
-      passwords and secret keys should be stored in separate configuration files or keystores.
-    metadata:
-      category: "security"
-      cwe: "CWE-321"
-      shortDescription: "Use of Hard-coded Cryptographic Key"
-      technology:
-        - "java"
-      license: MIT
-    patterns:
-      - pattern-either:
-          - pattern: "String $VAR = \"...\";"
-          - pattern: "byte[] $VAR = {...};"
-          - pattern: "byte[] $VAR = new byte[]{...};"
-          - pattern: "char[] $VAR = {...};"
-          - pattern: "char[] $VAR = new char[]{...};"
-      - metavariable-regex:
-          metavariable: "$VAR"
-          regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
-    severity: "WARNING"
+- id: "java_password_rule-HardcodeKeySuspiciousName"
+  languages:
+  - "java"
+  message: |
+    Cryptographic keys should not be kept in the source code. The source code can be widely shared
+    in an enterprise environment, and is certainly shared in open source. To be managed safely,
+    passwords and secret keys should be stored in separate configuration files or keystores.
+  metadata:
+    category: "security"
+    cwe: "CWE-321"
+    shortDescription: "Use of Hard-coded Cryptographic Key"
+    technology:
+    - "java"
+    license: "MIT"
+  patterns:
+  - pattern-either:
+    - pattern: "String $VAR = \"...\";"
+    - pattern: "byte[] $VAR = {...};"
+    - pattern: "byte[] $VAR = new byte[]{...};"
+    - pattern: "char[] $VAR = {...};"
+    - pattern: "char[] $VAR = new char[]{...};"
+  - metavariable-regex:
+      metavariable: "$VAR"
+      regex: "(?i).*(pass|pwd|psw|secret|key|cipher|crypt|des|aes|mac|private|sign|cert).*"
+  severity: "WARNING"

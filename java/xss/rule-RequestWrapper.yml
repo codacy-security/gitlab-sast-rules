@@ -4,20 +4,21 @@
 # yamllint enable
 ---
 rules:
-  - id: "java_xss_rule-RequestWrapper"
-    languages:
-      - "java"
-    message: |
-      Avoid using custom XSS filtering. Please use standard sanitization functions.
-    metadata:
-      category: "security"
-      cwe: "CWE-79"
-      shortDescription: "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
-      license: MIT
-    patterns:
-      - pattern-inside: |
-          class $CLASS extends HttpServletRequestWrapper {
-          ...
-          }
-      - pattern: "stripXSS(...) { ... }"
-    severity: "INFO"
+- id: "java_xss_rule-RequestWrapper"
+  languages:
+  - "java"
+  message: |
+    Avoid using custom XSS filtering. Please use standard sanitization functions.
+  metadata:
+    category: "security"
+    cwe: "CWE-79"
+    shortDescription: "Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')"
+    license: "MIT"
+  patterns:
+  - pattern-inside: |
+      class $CLASS extends HttpServletRequestWrapper {
+      ...
+      }
+  - pattern: "stripXSS(...) { ... }"
+  severity: "INFO"

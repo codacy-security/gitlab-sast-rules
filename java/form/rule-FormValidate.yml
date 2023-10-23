@@ -4,24 +4,24 @@
 # yamllint enable
 ---
 rules:
-  - id: "java_form_rule-FormValidate"
-    languages:
-      - "java"
-    message: |
-      Form inputs should have minimal input validation. Preventive validation helps
-      provide defense in depth against a variety of risks.
-    metadata:
-      category: "security"
-      cwe: "CWE-20"
-      shortDescription: "Improper Input Validation"
-      license: MIT
-    patterns:
-      - pattern-inside: |
-          class $CLASS extends $SC {
-            ...
-          }
-      - metavariable-regex:
-          metavariable: "$SC"
-          regex: "(ActionForm|ValidatorForm)"
-      - pattern-not: "public void validate() { ... }"
-    severity: "WARNING"
+- id: "java_form_rule-FormValidate"
+  languages:
+  - "java"
+  message: |
+    Form inputs should have minimal input validation. Preventive validation helps
+    provide defense in depth against a variety of risks.
+  metadata:
+    category: "security"
+    cwe: "CWE-20"
+    shortDescription: "Improper Input Validation"
+    license: "MIT"
+  patterns:
+  - pattern-inside: |
+      class $CLASS extends $SC {
+        ...
+      }
+  - metavariable-regex:
+      metavariable: "$SC"
+      regex: "(ActionForm|ValidatorForm)"
+  - pattern-not: "public void validate() { ... }"
+  severity: "WARNING"

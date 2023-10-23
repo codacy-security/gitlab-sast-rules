@@ -6,23 +6,23 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_buffer_rule-getenv-curl-getenv"
-    languages:
-      - "c"
-    message: |
-      This function's return value should be treated as untrusted input as it could be
-      modified by an attacker. Possible risks include:
+- id: "c_buffer_rule-getenv-curl-getenv"
+  languages:
+  - "c"
+  message: |
+    This function's return value should be treated as untrusted input as it could be
+    modified by an attacker. Possible risks include:
 
-      - The value being too large and causing buffer overflows
-      - Files under the attacker's control being used maliciously
-      - Files outside of an attacker's control becoming accessible, depending on
-      access privileges.
-    metadata:
-      shortDescription: "Possible use of untrusted environment variable"
-      cwe: "CWE-20"
-      owasp: "A1:2017-Injection"
-      license: MIT
-    pattern-either:
-      - pattern: "getenv(...)"
-      - pattern: "curl_getenv(...)"
-    severity: "WARNING"
+    - The value being too large and causing buffer overflows
+    - Files under the attacker's control being used maliciously
+    - Files outside of an attacker's control becoming accessible, depending on
+    access privileges.
+  metadata:
+    shortDescription: "Possible use of untrusted environment variable"
+    cwe: "CWE-20"
+    owasp: "A1:2017-Injection"
+    license: "MIT"
+  pattern-either:
+  - pattern: "getenv(...)"
+  - pattern: "curl_getenv(...)"
+  severity: "WARNING"

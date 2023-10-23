@@ -6,19 +6,19 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_buffer_rule-strtrns"
-    languages:
-      - "c"
-    message: |
-      This function is easy to misuse by not accounting for the space necessary when transforming
-      strings. Ensure that the destination buffer is large enough to fit the transformed output.
+- id: "c_buffer_rule-strtrns"
+  languages:
+  - "c"
+  message: |
+    This function is easy to misuse by not accounting for the space necessary when transforming
+    strings. Ensure that the destination buffer is large enough to fit the transformed output.
 
-      For more information please see:
-      https://docs.oracle.com/cd/E36784_01/html/E36877/strtrns-3gen.html
-    metadata:
-      shortDescription: "Insecure string processing function"
-      cwe: "CWE-120"
-      owasp: "A1:2017-Injection"
-      license: MIT
-    pattern: "strtrns(...)"
-    severity: "WARNING"
+    For more information please see:
+    https://docs.oracle.com/cd/E36784_01/html/E36877/strtrns-3gen.html
+  metadata:
+    shortDescription: "Insecure string processing function"
+    cwe: "CWE-120"
+    owasp: "A1:2017-Injection"
+    license: "MIT"
+  pattern: "strtrns(...)"
+  severity: "WARNING"

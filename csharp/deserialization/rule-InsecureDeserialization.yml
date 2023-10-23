@@ -4,84 +4,84 @@
 # yamllint enable
 ---
 rules:
-  - id: "csharp_deserialization_rule-InsecureDeserialization"
-    patterns:
-      - pattern-not: "$OBJ.Deserialize(\"...\")"
-      - pattern-not: "$OBJ.UnsafeDeserialize(\"...\")"
-      - pattern-not: "$OBJ.UnsafeDeserializeMethodResponse(\"...\")"
-      - pattern-not: "$OBJ.ReadObject(\"...\")"
-      - pattern-not: "$OBJ.DeserializeFromString(\"...\")"
-      - pattern-not: "$OBJ.DeserializeFromReader(\"...\")"
-      - pattern-not: "$OBJ.DeserializeFromStream(\"...\")"
-      - pattern-not: "$OBJ.DeserializeRequest(\"...\")"
-      - pattern-not: "$OBJ.ToObject(\"...\")"
-      - pattern-not: "$OBJ.DeserializeResponse(\"...\")"
-      - pattern-not: "new System.Runtime.Serialization.DataContractSerializer(\"...\")"
-      - pattern-not: "new System.Runtime.Serialization.Json.DataContractJsonSerializer(\"...\")"
-      - pattern-not: "new System.Xml.Serialization.XmlSerializer(\"...\")"
-      - pattern-not: "new System.Resources.ResourceReader(\"...\")"
-      - pattern-not: "(System.Messaging.XmlMessageFormatter $E).Read(\"...\")"
-      - pattern-not: "(System.Messaging.BinaryMessageFormatter $E).Read(\"...\")"
-      - pattern-either:
-          - pattern: "$OBJ.Deserialize(...)"
-          - pattern: "$OBJ.UnsafeDeserialize(...)"
-          - pattern: "$OBJ.UnsafeDeserializeMethodResponse(...)"
-          - pattern: "$OBJ.ReadObject(...)"
-          - pattern: "$OBJ.DeserializeFromString(...)"
-          - pattern: "$OBJ.DeserializeFromReader(...)"
-          - pattern: "$OBJ.DeserializeFromStream(...)"
-          - pattern: "$OBJ.DeserializeRequest(...)"
-          - pattern: "$OBJ.ToObject(...)"
-          - pattern: "$OBJ.DeserializeResponse(...)"
-          - pattern: "new System.Runtime.Serialization.DataContractSerializer(...)"
-          - pattern: "new System.Runtime.Serialization.Json.DataContractJsonSerializer(...)"
-          - pattern: "new System.Xml.Serialization.XmlSerializer(...)"
-          - pattern: "new System.Resources.ResourceReader(...)"
-          - pattern: "(System.Messaging.XmlMessageFormatter $E).Read(...)"
-          - pattern: "(System.Messaging.BinaryMessageFormatter $E).Read(...)"
-    languages:
-      - "csharp"
-    message: |
-      Deserialization attacks exploit the process of reading serialized data and turning it back
-      into an object. By constructing malicious objects and serializing them, an adversary may
-      attempt to:
+- id: "csharp_deserialization_rule-InsecureDeserialization"
+  patterns:
+  - pattern-not: "$OBJ.Deserialize(\"...\")"
+  - pattern-not: "$OBJ.UnsafeDeserialize(\"...\")"
+  - pattern-not: "$OBJ.UnsafeDeserializeMethodResponse(\"...\")"
+  - pattern-not: "$OBJ.ReadObject(\"...\")"
+  - pattern-not: "$OBJ.DeserializeFromString(\"...\")"
+  - pattern-not: "$OBJ.DeserializeFromReader(\"...\")"
+  - pattern-not: "$OBJ.DeserializeFromStream(\"...\")"
+  - pattern-not: "$OBJ.DeserializeRequest(\"...\")"
+  - pattern-not: "$OBJ.ToObject(\"...\")"
+  - pattern-not: "$OBJ.DeserializeResponse(\"...\")"
+  - pattern-not: "new System.Runtime.Serialization.DataContractSerializer(\"...\")"
+  - pattern-not: "new System.Runtime.Serialization.Json.DataContractJsonSerializer(\"...\")"
+  - pattern-not: "new System.Xml.Serialization.XmlSerializer(\"...\")"
+  - pattern-not: "new System.Resources.ResourceReader(\"...\")"
+  - pattern-not: "(System.Messaging.XmlMessageFormatter $E).Read(\"...\")"
+  - pattern-not: "(System.Messaging.BinaryMessageFormatter $E).Read(\"...\")"
+  - pattern-either:
+    - pattern: "$OBJ.Deserialize(...)"
+    - pattern: "$OBJ.UnsafeDeserialize(...)"
+    - pattern: "$OBJ.UnsafeDeserializeMethodResponse(...)"
+    - pattern: "$OBJ.ReadObject(...)"
+    - pattern: "$OBJ.DeserializeFromString(...)"
+    - pattern: "$OBJ.DeserializeFromReader(...)"
+    - pattern: "$OBJ.DeserializeFromStream(...)"
+    - pattern: "$OBJ.DeserializeRequest(...)"
+    - pattern: "$OBJ.ToObject(...)"
+    - pattern: "$OBJ.DeserializeResponse(...)"
+    - pattern: "new System.Runtime.Serialization.DataContractSerializer(...)"
+    - pattern: "new System.Runtime.Serialization.Json.DataContractJsonSerializer(...)"
+    - pattern: "new System.Xml.Serialization.XmlSerializer(...)"
+    - pattern: "new System.Resources.ResourceReader(...)"
+    - pattern: "(System.Messaging.XmlMessageFormatter $E).Read(...)"
+    - pattern: "(System.Messaging.BinaryMessageFormatter $E).Read(...)"
+  languages:
+  - "csharp"
+  message: |
+    Deserialization attacks exploit the process of reading serialized data and turning it back
+    into an object. By constructing malicious objects and serializing them, an adversary may
+    attempt to:
 
-      - Inject code that is executed upon object construction, which occurs during the
-      deserialization process.
-      - Exploit mass assignment by including fields that are not normally a part of the serialized
-      data but are read in during deserialization.
+    - Inject code that is executed upon object construction, which occurs during the
+    deserialization process.
+    - Exploit mass assignment by including fields that are not normally a part of the serialized
+    data but are read in during deserialization.
 
-      Microsoft recommends no longer using the following serialization formats:
-      - BinaryFormatter
-      - SoapFormatter
-      - NetDataContractSerializer
-      - LosFormatter
-      - ObjectStateFormatter
+    Microsoft recommends no longer using the following serialization formats:
+    - BinaryFormatter
+    - SoapFormatter
+    - NetDataContractSerializer
+    - LosFormatter
+    - ObjectStateFormatter
 
-      Consider safer alternatives such as serializing data in the JSON format. Ensure any format
-      chosen allows
-      the application to specify exactly which object types are allowed to be deserialized.
-      Additionally, when
-      deserializing, never deserialize to base object types like `Object` and only cast to the exact
-      object
-      type that is expected.
+    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
+    chosen allows
+    the application to specify exactly which object types are allowed to be deserialized.
+    Additionally, when
+    deserializing, never deserialize to base object types like `Object` and only cast to the exact
+    object
+    type that is expected.
 
-      To protect against mass assignment, only allow deserialization of the specific fields that are
-      required. If this is not easily done, consider creating an intermediary type that
-      can be serialized with only the necessary fields exposed.
+    To protect against mass assignment, only allow deserialization of the specific fields that are
+    required. If this is not easily done, consider creating an intermediary type that
+    can be serialized with only the necessary fields exposed.
 
-      For more information see Microsoft's deserialization security guide:
-      https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+    For more information see Microsoft's deserialization security guide:
+    https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
 
-      For more details on deserialization attacks in general, see OWASP's guide:
-      https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
+    For more details on deserialization attacks in general, see OWASP's guide:
+    https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
 
-      It should be noted that [tools exist](https://github.com/pwntester/ysoserial.net) to
-      automatically create
-      exploit code for these vulnerabilities.
-    metadata:
-      shortDescription: "Deserialization of potentially untrusted data"
-      category: "security"
-      cwe: "CWE-502"
-      license: MIT
-    severity: "WARNING"
+    It should be noted that [tools exist](https://github.com/pwntester/ysoserial.net) to
+    automatically create
+    exploit code for these vulnerabilities.
+  metadata:
+    shortDescription: "Deserialization of potentially untrusted data"
+    category: "security"
+    cwe: "CWE-502"
+    license: "MIT"
+  severity: "WARNING"

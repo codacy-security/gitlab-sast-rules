@@ -6,15 +6,16 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_misc_rule-AddAccessAllowedAce"
-    languages:
-      - "c"
-    message: |
-      Make sure that you set inheritance by hand if you wish it to inherit.
-    metadata:
-      cwe: "CWE-732"
-      owasp: "A5:2017-Broken Access Control"
-      shortDescription: "This doesn't set the inheritance bits in the access control entry (ACE) header (CWE-732)"
-      license: MIT
-    pattern: "AddAccessAllowedAce(...)"
-    severity: "WARNING"
+- id: "c_misc_rule-AddAccessAllowedAce"
+  languages:
+  - "c"
+  message: |
+    Make sure that you set inheritance by hand if you wish it to inherit.
+  metadata:
+    cwe: "CWE-732"
+    owasp: "A5:2017-Broken Access Control"
+    shortDescription: "This doesn't set the inheritance bits in the access control
+      entry (ACE) header (CWE-732)"
+    license: "MIT"
+  pattern: "AddAccessAllowedAce(...)"
+  severity: "WARNING"

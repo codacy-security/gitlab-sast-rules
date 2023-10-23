@@ -4,44 +4,44 @@
 # yamllint enable
 ---
 rules:
-  - id: "java_endpoint_rule-JaxWsEndpoint"
-    languages:
-      - "java"
-    message: |
-      This method is part of a SOAP Web Service (JSR224). The security of this web service should be
-      analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
-      tested. The inputs should be tracked for potential vulnerabilities. The communication should
-      ideally be over SSL.
-    metadata:
-      category: "security"
-      cwe: "CWE-20"
-      owasp: "A7:2017-Cross-Site Scripting (XSS)"
-      shortDescription: "Improper Input Validation"
-      technology:
-        - "java"
-      license: MIT
-    mode: "taint"
-    pattern-sanitizers:
-      - patterns:
-          - pattern-inside: |
-              $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
-              ...
-          - pattern: "$STR"
-          - metavariable-regex:
-              metavariable: "$REPLACER"
-              regex: ".*^(CRLF).*"
-          - metavariable-regex:
-              metavariable: "$REPLACE_CHAR"
-              regex: "(*CRLF)"
-      - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
-    pattern-sinks:
-      - pattern: "return ...;"
-    pattern-sources:
-      - patterns:
-          - pattern-inside: |
-              @javax.jws.WebMethod(...)
-              $TYPE $FUNC(..., $VAR, ...) {
-                ...
-              }
-          - pattern: "$VAR"
-    severity: "INFO"
+- id: "java_endpoint_rule-JaxWsEndpoint"
+  languages:
+  - "java"
+  message: |
+    This method is part of a SOAP Web Service (JSR224). The security of this web service should be
+    analyzed; Authentication, if enforced, should be tested. Access control, if enforced, should be
+    tested. The inputs should be tracked for potential vulnerabilities. The communication should
+    ideally be over SSL.
+  metadata:
+    category: "security"
+    cwe: "CWE-20"
+    owasp: "A7:2017-Cross-Site Scripting (XSS)"
+    shortDescription: "Improper Input Validation"
+    technology:
+    - "java"
+    license: "MIT"
+  mode: "taint"
+  pattern-sanitizers:
+  - patterns:
+    - pattern-inside: |
+        $STR.replaceAll("$REPLACE_CHAR", "$REPLACER");
+        ...
+    - pattern: "$STR"
+    - metavariable-regex:
+        metavariable: "$REPLACER"
+        regex: ".*^(CRLF).*"
+    - metavariable-regex:
+        metavariable: "$REPLACE_CHAR"
+        regex: "(*CRLF)"
+  - pattern: "org.apache.commons.text.StringEscapeUtils.unescapeJava(...);"
+  pattern-sinks:
+  - pattern: "return ...;"
+  pattern-sources:
+  - patterns:
+    - pattern-inside: |
+        @javax.jws.WebMethod(...)
+        $TYPE $FUNC(..., $VAR, ...) {
+          ...
+        }
+    - pattern: "$VAR"
+  severity: "INFO"

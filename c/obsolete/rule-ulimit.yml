@@ -6,17 +6,17 @@
 # yamllint enable
 ---
 rules:
-  - id: "c_obsolete_rule-ulimit"
-    languages:
-      - "c"
-    message: |
-      The ulimit function is obsolete and no longer recommended. Use `getrlimit(2)`,
-      `setrlimit`, or `sysconf` instead.
+- id: "c_obsolete_rule-ulimit"
+  languages:
+  - "c"
+  message: |
+    The ulimit function is obsolete and no longer recommended. Use `getrlimit(2)`,
+    `setrlimit`, or `sysconf` instead.
 
-      For more information please see: https://linux.die.net/man/3/setrlimit
-    metadata:
-      shortDescription: "Usage of deprecated function (ulimit)"
-      cwe: "CWE-676"
-      license: MIT
-    pattern: "ulimit(...)"
-    severity: "INFO"
+    For more information please see: https://linux.die.net/man/3/setrlimit
+  metadata:
+    shortDescription: "Usage of deprecated function (ulimit)"
+    cwe: "CWE-676"
+    license: "MIT"
+  pattern: "ulimit(...)"
+  severity: "INFO"
