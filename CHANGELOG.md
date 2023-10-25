@@ -1,5 +1,9 @@
 sast-rules changelog
 
+## v1.3.41
+- Introduce licensing information via `license` property inside rule `metadata`
+- Organize distribution rulesets by their source
+
 ## v1.3.40
 - Remove poor or outdated C rules (!215)
   - c/buffer/rule-char_TCHAR.yml - Using character arrays is fine

@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.40
+# rule-set version: v1.3.41
 # yamllint enable
 ---
 rules:
@@ -20,6 +20,7 @@ rules:
     shortDescription: "Ensure return values are checked when attempting to drop privileges"
     cwe: "CWE-250"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.RpcImpersonateClient-1.ImpersonateLoggedOnUser-1.CoImpersonateClient-1.ImpersonateNamedPipeClient-1.ImpersonateDdeClientWindow-1.ImpersonateSecurityContext-1.SetThreadToken-1"
     secondary_identifiers:
     - name: "Flawfinder - RpcImpersonateClient"
@@ -65,6 +66,7 @@ rules:
     shortDescription: "Ensure restrictive umask values"
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
+    license: "MIT"
     primary_identifier: "flawfinder.umask-1"
     secondary_identifiers:
     - name: "Flawfinder - umask"
@@ -87,6 +89,7 @@ rules:
     shortDescription: "Easily misused function may lead to buffer overflows"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.MultiByteToWideChar-1"
     secondary_identifiers:
     - name: "Flawfinder - MultiByteToWideChar"
@@ -108,6 +111,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.StrCat-1.StrCatA-1.StrcatW-1.lstrcatA-1.lstrcatW-1.strCatBuff-1.StrCatBuffA-1.StrCatBuffW-1.StrCatChainW-1._tccat-1._mbccat-1._ftcscat-1.StrCatN-1.StrCatNA-1.StrCatNW-1.StrNCat-1.StrNCatA-1.StrNCatW-1.lstrncat-1.lstrcatnA-1.lstrcatnW-1"
     secondary_identifiers:
     - name: "Flawfinder - StrCat"
@@ -209,6 +213,7 @@ rules:
   metadata:
     shortDescription: "Function does not check the second iterator for over-read conditions"
     cwe: "CWE-126"
+    license: "MIT"
     primary_identifier: "flawfinder.equal-1.mismatch-1.is_permutation-1"
     secondary_identifiers:
     - name: "Flawfinder - equal"
@@ -242,6 +247,7 @@ rules:
     shortDescription: "sscanf() functions may allow format string based overflows"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.fscanf-1.sscanf-1.vsscanf-1.vfscanf-1._ftscanf-1.fwscanf-1.vfwscanf-1.vswscanf-1"
     secondary_identifiers:
     - name: "Flawfinder - fscanf"
@@ -294,6 +300,7 @@ rules:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.g_get_home_dir-1"
     secondary_identifiers:
     - name: "Flawfinder - g_get_home_dir"
@@ -317,6 +324,7 @@ rules:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.g_get_tmp_dir-1"
     secondary_identifiers:
     - name: "Flawfinder - g_get_tmp_dir"
@@ -339,6 +347,7 @@ rules:
     shortDescription: "Possible use of untrusted environment variable"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.getenv-1.curl_getenv-1"
     secondary_identifiers:
     - name: "Flawfinder - getenv"
@@ -366,6 +375,7 @@ rules:
     shortDescription: "Use of deprecated function (getpwd)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.getpw-1"
     secondary_identifiers:
     - name: "Flawfinder - getpw"
@@ -391,6 +401,7 @@ rules:
     shortDescription: "Use of deprecated function (gets)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.gets-1._getts-1"
     secondary_identifiers:
     - name: "Flawfinder - gets"
@@ -416,6 +427,7 @@ rules:
     shortDescription: "Insufficient protection against buffer overflow (getwd)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.getwd-1"
     secondary_identifiers:
     - name: "Flawfinder - getwd"
@@ -438,6 +450,7 @@ rules:
     shortDescription: "Insecure functions unable to limit / check buffer sizes"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.lstrcat-1.wcscat-1._tcscat-1._mbscat-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcat"
@@ -472,6 +485,7 @@ rules:
     shortDescription: "Easily misused string processing functions"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.lstrcatn-1.wcsncat-1._tcsncat-1._mbsnbcat-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcatn"
@@ -507,6 +521,7 @@ rules:
     shortDescription: "Insecure functions unable to limit / check buffer sizes"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.lstrcpy-1.wcscpy-1._tcscpy-1._mbscpy-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpy"
@@ -544,6 +559,7 @@ rules:
       pointers"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.lstrcpyn-1.wcsncpy-1._tcsncpy-1._mbsnbcpy-1"
     secondary_identifiers:
     - name: "Flawfinder - lstrcpyn"
@@ -579,6 +595,7 @@ rules:
     shortDescription: "Function does not check for buffer overflows when copying"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.memcpy-1.CopyMemory-1.bcopy-1"
     secondary_identifiers:
     - name: "Flawfinder - memcpy"
@@ -624,6 +641,7 @@ rules:
       before copying"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.realpath-1"
     secondary_identifiers:
     - name: "Flawfinder - realpath"
@@ -653,6 +671,7 @@ rules:
     shortDescription: "scanf() functions may allow format string based overflows"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.scanf-1.vscanf-1.wscanf-1._tscanf-1.vwscanf-1"
     secondary_identifiers:
     - name: "Flawfinder - scanf"
@@ -704,6 +723,7 @@ rules:
     shortDescription: "Insecure function unable to limit / check buffer sizes"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.sprintf-1.vsprintf-1.swprintf-1.vswprintf-1._stprintf-1._vstprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - sprintf"
@@ -749,6 +769,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strcat-1"
     secondary_identifiers:
     - name: "Flawfinder - strcat"
@@ -770,6 +791,7 @@ rules:
     shortDescription: "Insecure string processing functions"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strccpy-1.strcadd-1"
     secondary_identifiers:
     - name: "Flawfinder - strccpy"
@@ -800,6 +822,7 @@ rules:
     shortDescription: "Insecure string processing function (strcpy)"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strcpy-1"
     secondary_identifiers:
     - name: "Flawfinder - strcpy"
@@ -823,6 +846,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strcpyA-1.strcpyW-1.StrCpy-1.StrCpyA-1.lstrcpyA-1.lstrcpyW-1._tccpy-1._mbccpy-1._ftcscpy-1._mbsncpy-1.StrCpyN-1.StrCpyNA-1.StrCpyNW-1.StrNCpy-1.strcpynA-1.StrNCpyA-1.StrNCpyW-1.lstrcpynA-1.lstrcpynW-1"
     secondary_identifiers:
     - name: "Flawfinder - strcpyA"
@@ -917,6 +941,7 @@ rules:
     shortDescription: "Insecure string processing functions"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.streadd-1.strecpy-1"
     secondary_identifiers:
     - name: "Flawfinder - streadd"
@@ -947,6 +972,7 @@ rules:
     shortDescription: "Function does not handle null terminated strings properly"
     cwe: "CWE-126"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strlen-1.wcslen-1._tcslen-1._mbslen-1"
     secondary_identifiers:
     - name: "Flawfinder - strlen"
@@ -985,6 +1011,7 @@ rules:
       pointers properly"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strncat-1"
     secondary_identifiers:
     - name: "Flawfinder - strncat"
@@ -1009,6 +1036,7 @@ rules:
       pointers properly"
     cwe: "CWE-120"
     owasp: "A6:2017-Security Misconfiguration"
+    license: "MIT"
     primary_identifier: "flawfinder.strncpy-1"
     secondary_identifiers:
     - name: "Flawfinder - strncpy"
@@ -1029,6 +1057,7 @@ rules:
     shortDescription: "Insecure string processing function"
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.strtrns-1"
     secondary_identifiers:
     - name: "Flawfinder - strtrns"
@@ -1053,6 +1082,7 @@ rules:
     shortDescription: "Insecure encryption algorithm (DES)"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "flawfinder.EVP_des_ecb-1.EVP_des_cbc-1.EVP_des_cfb-1.EVP_des_ofb-1.EVP_desx_cbc-1"
     secondary_identifiers:
     - name: "Flawfinder - EVP_des_ecb"
@@ -1093,6 +1123,7 @@ rules:
     shortDescription: "Insecure stream cipher (RC4)"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "flawfinder.EVP_rc4_40-1.EVP_rc2_40_cbc-1.EVP_rc2_64_cbc-1"
     secondary_identifiers:
     - name: "Flawfinder - EVP_rc4_40"
@@ -1122,6 +1153,7 @@ rules:
     shortDescription: "Insecure hashing algorithm"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "flawfinder.crypt-1.crypt_r-1"
     secondary_identifiers:
     - name: "Flawfinder - crypt"
@@ -1154,6 +1186,7 @@ rules:
     shortDescription: "Potential format string vulnerability"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.fprintf-1.vfprintf-1._ftprintf-1._vftprintf-1.fwprintf-1.fvwprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - fprintf"
@@ -1211,6 +1244,7 @@ rules:
     shortDescription: "Potential format string vulnerability"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.printf-1.vprintf-1.vwprintf-1.vfwprintf-1._vtprintf-1.wprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - printf"
@@ -1273,6 +1307,7 @@ rules:
     shortDescription: "Potential format string vulnerability"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.snprintf-1.vsnprintf-1._snprintf-1._sntprintf-1._vsntprintf-1"
     secondary_identifiers:
     - name: "Flawfinder - snprintf"
@@ -1324,6 +1359,7 @@ rules:
     shortDescription: "Potential format string vulnerability in syslog call"
     cwe: "CWE-134"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.syslog-1"
     secondary_identifiers:
     - name: "Flawfinder - syslog"
@@ -1347,6 +1383,7 @@ rules:
     shortDescription: "Use of deprecated function (memalign)"
     cwe: "CWE-676"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.memalign-1"
     secondary_identifiers:
     - name: "Flawfinder - memalign"
@@ -1369,6 +1406,7 @@ rules:
     shortDescription: "Possible integer overflow or underflow"
     cwe: "CWE-190"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.atoi-1.atol-1._wtoi-1._wtoi64-1"
     secondary_identifiers:
     - name: "Flawfinder - atoi"
@@ -1399,6 +1437,7 @@ rules:
     owasp: "A5:2017-Broken Access Control"
     shortDescription: "This doesn't set the inheritance bits in the access control
       entry (ACE) header (CWE-732)"
+    license: "MIT"
     primary_identifier: "flawfinder.AddAccessAllowedAce-1"
     secondary_identifiers:
     - name: "Flawfinder - AddAccessAllowedAce"
@@ -1436,6 +1475,7 @@ rules:
     shortDescription: "Potential for DLL hijacking (LoadLibrary)"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.LoadLibrary-1"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibrary"
@@ -1473,6 +1513,7 @@ rules:
     shortDescription: "Potential for DLL hijacking (LoadLibraryEx)"
     cwe: "CWE-20"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.LoadLibraryEx-1"
     secondary_identifiers:
     - name: "Flawfinder - LoadLibraryEx"
@@ -1498,6 +1539,7 @@ rules:
       access to objects"
     cwe: "CWE-732"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.SetSecurityDescriptorDacl-1"
     secondary_identifiers:
     - name: "Flawfinder - SetSecurityDescriptorDacl"
@@ -1521,6 +1563,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (cuserid)"
     cwe: "CWE-120"
+    license: "MIT"
     primary_identifier: "flawfinder.cuserid-1"
     secondary_identifiers:
     - name: "Flawfinder - cuserid"
@@ -1548,6 +1591,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (open/fopen)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.fopen-1.open-1"
     secondary_identifiers:
     - name: "Flawfinder - fopen"
@@ -1575,6 +1619,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (getlogin)"
     cwe: "CWE-807"
+    license: "MIT"
     primary_identifier: "flawfinder.getlogin-1"
     secondary_identifiers:
     - name: "Flawfinder - getlogin"
@@ -1601,6 +1646,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (getpass)"
     cwe: "CWE-20"
+    license: "MIT"
     primary_identifier: "flawfinder.getpass-1"
     secondary_identifiers:
     - name: "Flawfinder - getpass"
@@ -1619,6 +1665,7 @@ rules:
   metadata:
     shortDescription: "Deprecated function calls (ssignal/gsignal)"
     cwe: "CWE-676"
+    license: "MIT"
     primary_identifier: "flawfinder.gsignal-1.ssignal-1"
     secondary_identifiers:
     - name: "Flawfinder - gsignal"
@@ -1642,6 +1689,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (ulimit)"
     cwe: "CWE-676"
+    license: "MIT"
     primary_identifier: "flawfinder.ulimit-1"
     secondary_identifiers:
     - name: "Flawfinder - ulimit"
@@ -1659,6 +1707,7 @@ rules:
   metadata:
     shortDescription: "Usage of deprecated function (usleep)"
     cwe: "CWE-676"
+    license: "MIT"
     primary_identifier: "flawfinder.usleep-1"
     secondary_identifiers:
     - name: "Flawfinder - usleep"
@@ -1689,6 +1738,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (access)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.access-1"
     secondary_identifiers:
     - name: "Flawfinder - access"
@@ -1715,6 +1765,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (chmod)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.chmod-1"
     secondary_identifiers:
     - name: "Flawfinder - chmod"
@@ -1742,6 +1793,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (chown)"
     cwe: "CWE-362"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.chown-1"
     secondary_identifiers:
     - name: "Flawfinder - chown"
@@ -1769,6 +1821,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (readlink)"
     cwe: "CWE-20"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.readlink-1"
     secondary_identifiers:
     - name: "Flawfinder - readlink"
@@ -1794,6 +1847,7 @@ rules:
   metadata:
     shortDescription: "Potential time of check time of use vulnerability (vfork)"
     cwe: "CWE-362"
+    license: "MIT"
     primary_identifier: "flawfinder.vfork-1"
     secondary_identifiers:
     - name: "Flawfinder - vfork"
@@ -1819,6 +1873,7 @@ rules:
     shortDescription: "Usage of insufficient random number generators"
     cwe: "CWE-327"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "flawfinder.drand48-1.erand48-1.jrand48-1.lcong48-1.lrand48-1.mrand48-1.nrand48-1.random-1.seed48-1.setstate-1.srand-1.strfry-1.srandom-1.g_rand_boolean-1.g_rand_int-1.g_rand_int_range-1.g_rand_double-1.g_rand_double_range-1.g_random_boolean-1.g_random_int-1.g_random_int_range-1.g_random_double-1.g_random_double_range-1"
     secondary_identifiers:
     - name: "Flawfinder - drand48"
@@ -1934,6 +1989,7 @@ rules:
     shortDescription: "Possible executable path hijacking (CreateProcess)"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.CreateProcess-1"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcess"
@@ -1959,6 +2015,7 @@ rules:
     shortDescription: "Possible executable path hijacking (CreateProcessAsUser/CreateProcessWithLogon)"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.CreateProcessAsUser-1.CreateProcessWithLogon-1"
     secondary_identifiers:
     - name: "Flawfinder - CreateProcessAsUser"
@@ -1989,6 +2046,7 @@ rules:
     shortDescription: "Potential for OS command injection"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.execl-1.execlp-1.execle-1.execv-1.execvp-1.popen-1.WinExec-1.ShellExecute-1"
     secondary_identifiers:
     - name: "Flawfinder - execl"
@@ -2043,6 +2101,7 @@ rules:
     shortDescription: "Potential for OS command injection"
     cwe: "CWE-78"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "flawfinder.system-1"
     secondary_identifiers:
     - name: "Flawfinder - system"
@@ -2066,6 +2125,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (GetTempFileName)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.GetTempFileName-1"
     secondary_identifiers:
     - name: "Flawfinder - GetTempFileName"
@@ -2089,6 +2149,7 @@ rules:
     shortDescription: "Potential file permissions issue (mkstemp)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.mkstemp-1"
     secondary_identifiers:
     - name: "Flawfinder - mkstemp"
@@ -2115,6 +2176,7 @@ rules:
     shortDescription: "Use of deprecated function (mktemp)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.mktemp-1"
     secondary_identifiers:
     - name: "Flawfinder - mktemp"
@@ -2140,6 +2202,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (tmpfile)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.tmpfile-1"
     secondary_identifiers:
     - name: "Flawfinder - tmpfile"
@@ -2165,6 +2228,7 @@ rules:
     shortDescription: "Potential time of check time of use vulnerability (tmpnam/tempnam)"
     cwe: "CWE-377"
     owasp: "A5:2017-Broken Access Control"
+    license: "MIT"
     primary_identifier: "flawfinder.tmpnam-1.tempnam-1"
     secondary_identifiers:
     - name: "Flawfinder - tmpnam"

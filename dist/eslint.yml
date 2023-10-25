@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.40
+# rule-set version: v1.3.41
 # yamllint enable
 ---
 rules:
@@ -73,6 +73,7 @@ rules:
     cwe: "CWE-119"
     category: "security"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-buffer-noassert.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-buffer-noassert"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-buffer-noassert"
@@ -123,34 +124,12 @@ rules:
     cwe: "CWE-770"
     category: "security"
     source-rule-url: "https://github.com/eslint-community/eslint-plugin-security/blob/main/rules/detect-new-buffer.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-new-buffer"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-new-buffer"
       type: "eslint_rule_id"
       value: "detect-new-buffer"
-  severity: "WARNING"
-- id: "eslint.detect-no-csrf-before-method-override"
-  languages:
-  - "javascript"
-  - "typescript"
-  message: |
-    Detected use of express.csrf() middleware before express.methodOverride(). This can
-    allow GET requests (which are not checked by csrf) to turn into POST requests later.
-  metadata:
-    cwe: "CWE-352"
-    references:
-    - "https://github.com/nodesecurity/eslint-plugin-security/blob/master/docs/bypass-connect-csrf-protection-by-abusing.md"
-    shortDescription: "Cross-Site Request Forgery (CSRF)"
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-no-csrf-before-method-override.js"
-    primary_identifier: "eslint.detect-no-csrf-before-method-override"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-no-csrf-before-method-override"
-      type: "eslint_rule_id"
-      value: "detect-no-csrf-before-method-override"
-  pattern: |
-    express.csrf();
-    ...
-    express.methodOverride();
   severity: "WARNING"
 - id: "eslint.detect-non-literal-regexp"
   languages:
@@ -192,6 +171,7 @@ rules:
     cwe: "CWE-185"
     shortDescription: "Incorrect regular expression"
     category: "security"
+    license: "MIT"
     primary_identifier: "eslint.detect-non-literal-regexp"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-non-literal-regexp"
@@ -245,6 +225,7 @@ rules:
       code ('Eval Injection')"
     category: "security"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-eval-with-expression.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-eval-with-expression"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-eval-with-expression"
@@ -326,6 +307,7 @@ rules:
       Code ('Eval Injection')"
     category: "security"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-child-process.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-child-process"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-child-process"
@@ -484,6 +466,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     category: "security"
+    license: "MIT"
     primary_identifier: "eslint.detect-non-literal-fs-filename"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-non-literal-fs-filename"
@@ -515,6 +498,7 @@ rules:
       (PRNG)"
     category: "security"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-pseudoRandomBytes.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-pseudoRandomBytes"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-pseudoRandomBytes"
@@ -575,6 +559,7 @@ rules:
     shortDescription: "Improper neutralization of input during web page generation
       ('Cross-site Scripting')"
     category: "security"
+    license: "MIT"
     primary_identifier: "eslint.react-dangerouslysetinnerhtml"
     secondary_identifiers:
     - name: "ESLint rule ID/react-dangerouslysetinnerhtml"
@@ -595,6 +580,7 @@ rules:
     - "https://web.dev/external-anchors-use-rel-noopener/"
     - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
     shortDescription: "Exposure of Sensitive Information to an Unauthorized Actor"
+    license: "MIT"
     primary_identifier: "eslint.react-missing-noopener"
     secondary_identifiers:
     - name: "ESLint rule ID/react-missing-noopener"
@@ -662,6 +648,7 @@ rules:
       code ('Eval Injection')"
     category: "security"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-require.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-non-literal-require"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-non-literal-require"
@@ -1184,6 +1171,7 @@ rules:
     cwe: "CWE-208"
     shortDescription: "Observable timing discrepancy"
     category: "security"
+    license: "MIT"
     primary_identifier: "eslint.detect-possible-timing-attacks"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-possible-timing-attacks"
@@ -1205,6 +1193,7 @@ rules:
     shortDescription: "Improper neutralization of input during web page generation
       (XSS)"
     source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-disable-mustache-escape.js"
+    license: "MIT"
     primary_identifier: "eslint.detect-disable-mustache-escape"
     secondary_identifiers:
     - name: "ESLint rule ID/detect-disable-mustache-escape"

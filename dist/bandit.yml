@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.40
+# rule-set version: v1.3.41
 # yamllint enable
 ---
 rules:
@@ -36,6 +36,7 @@ rules:
     cwe: "CWE-754"
     category: "security"
     shortDescription: "Improper check for unusual or exceptional conditions"
+    license: "MIT"
     primary_identifier: "bandit.B101"
     secondary_identifiers:
     - name: "Bandit Test ID B101"
@@ -50,59 +51,6 @@ rules:
       import unittest
       ...
   severity: "INFO"
-- id: "bandit.B104"
-  languages:
-  - "python"
-  message: |
-    Binding to all network interfaces can potentially open up a service to
-    traffic on unintended interfaces, that may not be properly documented or
-    secured. By passing "0.0.0.0", "::" or an empty string as the address to the `socket.bind`
-    function,
-    the application will bind to all interfaces.
-
-    Consider passing in the interface ip address through an environment variable,
-    configuration file, or by determining the primary interface(s) IP address.
-
-    Example getting the IP address from an environment variable `IP_ADDRESS`:
-    ```
-    # Get the IP_ADDRESS env variable, or bind to
-    # 127.0.0.1 if it is not set
-    address = os.getenv("IP_ADDRESS", "127.0.0.1")
-    # Create an internet socket
-    sock = socket.socket(socket.AF_INET)
-    # Set the port to listen on
-    port = 9777
-    # Bind to the address and port combination
-    sock.bind((address, port))
-    # Listen for connections
-    sock.listen()
-    # Handle the connection
-    ```
-  metadata:
-    cwe: "CWE-200"
-    category: "security"
-    owasp: "A6:2017-Security Misconfiguration"
-    shortDescription: "Exposure of sensitive information to an unauthorized actor"
-    primary_identifier: "bandit.B104"
-    secondary_identifiers:
-    - name: "Bandit Test ID B104"
-      type: "bandit_test_id"
-      value: "B104"
-  patterns:
-  - pattern-either:
-    - pattern: |
-        $S = socket.socket(...)
-        ...
-        $S.bind(("0.0.0.0", ...))
-    - pattern: |
-        $S = socket.socket(...)
-        ...
-        $S.bind(("::", ...))
-    - pattern: |
-        $S = socket.socket(...)
-        ...
-        $S.bind(("", ...))
-  severity: "INFO"
 - id: "bandit.B412"
   languages:
   - "python"
@@ -112,6 +60,7 @@ rules:
     cwe: "CWE-284"
     owasp: "A5:2017-Broken Access Control"
     shortDescription: "Improper Access Control"
+    license: "MIT"
     primary_identifier: "bandit.B412"
     secondary_identifiers:
     - name: "Bandit Test ID B412"
@@ -121,1233 +70,6 @@ rules:
   - pattern: "wsgiref.handlers.CGIHandler(...)"
   - pattern: "twisted.web.twcgi.CGIDirectory(...)"
   severity: "ERROR"
-- id: "bandit.B305"
-  languages:
-  - "python"
-  message: |
-    Cryptographic algorithms provide many different modes of operation, only some of which provide
-    message integrity. Without message integrity it could be possible for an adversary to attempt
-    to tamper with the ciphertext which could lead to compromising the encryption key. Newer
-    algorithms
-    apply message integrity to validate ciphertext has not been tampered with.
-
-    Instead of using an algorithm that requires configuring a cipher mode, an algorithm
-    that has built-in message integrity should be used. Consider using `ChaCha20Poly1305` or
-    `AES-256-GCM` instead.
-
-    For older applications that don't have support for `ChaCha20Poly1305`, `AES-256-GCM` is
-    recommended, however it has many drawbacks:
-      - Slower than `ChaCha20Poly1305`.
-      - Catastrophic failure if nonce values are reused.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B305"
-    secondary_identifiers:
-    - name: "Bandit Test ID B305"
-      type: "bandit_test_id"
-      value: "B305"
-  pattern: "cryptography.hazmat.primitives.ciphers.modes.ECB(...)"
-  severity: "WARNING"
-- id: "bandit.B304-7"
-  languages:
-  - "python"
-  message: |
-    The Blowfish encryption algorithm was meant as a drop-in replacement for DES and was created in
-    1993. Smaller key sizes may make the ciphertext vulnerable to [birthday
-    attacks](https://en.wikipedia.org/wiki/Birthday_attack). While no known attacks against
-    Blowfish
-    exist, it should never be used to encrypt files over 4GB in size. If possible consider
-    using ChaCha20Poly1305 or AES-GCM instead of Blowfish.
-
-    For older applications that don't have support for `ChaCha20Poly1305`, `AES-256-GCM` is
-    recommended, however it has many drawbacks:
-      - Slower than `ChaCha20Poly1305`.
-      - Catastrophic failure if nonce values are reused.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-7"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Cryptodome.Cipher.Blowfish.new(...)"
-    - pattern: "Crypto.Cipher.Blowfish.new(...)"
-  severity: "WARNING"
-- id: "bandit.B304-8"
-  languages:
-  - "python"
-  message: |
-    DES, TripleDES, RC2 and RC4 are all considered broken or insecure cryptographic algorithms.
-    Newer algorithms apply message integrity to validate ciphertext has not been tampered
-    with. Consider using `ChaCha20Poly1305` instead as it is easier and faster than the
-    alternatives such as `AES-256-GCM`.
-
-    For older applications that don't have support for `ChaCha20Poly1305`,
-    `AES-256-GCM` is recommended, however it has many drawbacks:
-    - Slower than `ChaCha20Poly1305`.
-    - Catastrophic failure if nonce values are reused.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-8"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Cryptodome.Cipher.DES.new(...)"
-    - pattern: "Crypto.Cipher.DES.new(...)"
-  severity: "WARNING"
-- id: "bandit.B304-5"
-  languages:
-  - "python"
-  message: |
-    DES, TripleDES, RC2 and RC4 are all considered broken or insecure cryptographic algorithms.
-    Newer algorithms apply message integrity to validate ciphertext has not been tampered
-    with. Consider using `ChaCha20Poly1305` instead as it is easier and faster than the
-    alternatives such as `AES-256-GCM`.
-
-    For older applications that don't have support for `ChaCha20Poly1305`,
-    `AES-256-GCM` is recommended, however it has many drawbacks:
-    - Slower than `ChaCha20Poly1305`.
-    - Catastrophic failure if nonce values are reused.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-5"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Cryptodome.Cipher.ARC2.new(...)"
-    - pattern: "Crypto.Cipher.ARC2.new"
-  severity: "WARNING"
-- id: "bandit.B304-6"
-  languages:
-  - "python"
-  message: |
-    DES, TripleDES, RC2 and RC4 are all considered broken or insecure cryptographic algorithms.
-    Newer algorithms apply message integrity to validate ciphertext has not been tampered
-    with. Consider using `ChaCha20Poly1305` instead as it is easier and faster than the
-    alternatives such as `AES-256-GCM`.
-
-    For older applications that don't have support for `ChaCha20Poly1305`,
-    `AES-256-GCM` is recommended, however it has many drawbacks:
-    - Slower than `ChaCha20Poly1305`.
-    - Catastrophic failure if nonce values are reused.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-6"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Cryptodome.Cipher.ARC4.new(...)"
-    - pattern: "Crypto.Cipher.ARC4.new(...)"
-  severity: "WARNING"
-- id: "bandit.B304-9"
-  languages:
-  - "python"
-  message: |
-    The application was found using the `xor` algorithm, which can be trivially decoded.
-    Newer algorithms apply message integrity to validate ciphertext has not been tampered
-    with. Consider using `ChaCha20Poly1305` instead as it is easier and faster than the
-    alternatives such as `AES-256-GCM`.
-
-    For older applications that don't have support for `ChaCha20Poly1305`,
-    `AES-256-GCM` is recommended, however it has many drawbacks:
-    - Slower than `ChaCha20Poly1305`.
-    - Catastrophic failure if nonce values are reused.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-9"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Cryptodome.Cipher.XOR.new(...)"
-    - pattern: "Crypto.Cipher.XOR.new(...)"
-  severity: "WARNING"
-- id: "bandit.B505-1"
-  languages:
-  - "python"
-  message: |
-    The application is generating an RSA key that is less than the recommended 2048 bits.
-    The National Institute of Standards and Technology (NIST) deprecated signing Digital
-    Certificates that contained RSA Public Keys of 1024 bits in December 2010. While
-    1024-bit RSA keys have not been factored yet, advances in compute may make it possible
-    in the near future.
-
-    Consider upgrading to the newer asymmetric algorithm such as `X25519` which handles
-    the complexities of generating key pairs and choosing correct key sizes for you:
-    ```
-    from cryptography.hazmat.primitives.asymmetric.x25519 import X25519PrivateKey
-
-    # Generate a private key for use in the exchange.
-    private_key = X25519PrivateKey.generate()
-    # Work with private key/exchange with a peer's
-    # public key to created a shared and derived key
-    # ...
-    ```
-
-    Otherwise use a key size greater than 2048 when generating RSA keys:
-    ```
-    from cryptography.hazmat.primitives.asymmetric import rsa
-    # Generate a private key of 4096 bits
-    private_key = rsa.generate_private_key(
-        # do not change the exponent value from 65537
-        public_exponent=65537,
-        key_size=4096,
-    )
-    # Work with the private key to sign/encrypt data
-    # ...
-    ```
-
-    For more information on using the cryptography module see:
-    - https://cryptography.io/en/latest
-  metadata:
-    cwe: "CWE-326"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Inadequate encryption strength"
-    primary_identifier: "bandit.B505-1"
-    secondary_identifiers:
-    - name: "Bandit Test ID B505"
-      type: "bandit_test_id"
-      value: "B505"
-  patterns:
-  - pattern-either:
-    - pattern: |
-        cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key(...,key_size=$SIZE,...)
-    - pattern: |
-        cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key($EXP, $SIZE,...)
-    - pattern: |
-        cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key($SIZE, ...)
-    - pattern: |
-        cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key(...,key_size=$SIZE,...)
-    - pattern: |
-        cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key($EXP, $SIZE, ...)
-    - pattern: "cryptography.hazmat.primitives.asymmetric.dsa.generate_private_key($SIZE,...)"
-    - pattern: "Crypto.PublicKey.RSA.generate($SIZE, ...)"
-    - pattern: "Crypto.PublicKey.DSA.generate($SIZE, ...)"
-    - pattern: "Cryptodome.PublicKey.DSA.generate($SIZE, ...)"
-    - pattern: "Cryptodome.PublicKey.RSA.generate($SIZE, ...)"
-    - pattern: "Crypto.PublicKey.DSA.generate(bits=$SIZE, ...)"
-    - pattern: "Cryptodome.PublicKey.DSA.generate(bits=$SIZE, ...)"
-    - pattern: "pycrypto_rsa.generate(bits=$SIZE, ...)"
-    - pattern: "pycrypto_dsa.generate(bits=$SIZE, ...)"
-    - pattern: "pycryptodomex_rsa.generate(bits=$SIZE, ...)"
-    - pattern: "pycryptodomex_rsa.generate($SIZE, ...)"
-    - pattern: "pycryptodomex_dsa.generate(bits=$SIZE, ...)"
-    - pattern: "pycryptodomex_dsa.generate($SIZE, ...)"
-  - metavariable-comparison:
-      comparison: "$SIZE < 2048"
-      metavariable: "$SIZE"
-  severity: "ERROR"
-- id: "bandit.B505-2"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insufficient curve size for the Elliptical
-    Cryptography (EC) asymmetric algorithm. NIST recommends using a key size of
-    224 or greater.
-
-    To remediate this issue, replace the current key size with `ec.SECP384R1`,
-
-    Example using `ec.SECP384R1`:
-    ```
-    from cryptography.hazmat.primitives.asymmetric import ec
-    # Generate an EC private key using SECP384R1
-    private_key = ec.generate_private_key(
-        ec.SECP384R1()
-    )
-    # Work with/sign data using the key
-    # ...
-    ```
-
-    For more information on the cryptography module's EC section see:
-    - https://cryptography.io/en/latest/hazmat/primitives/asymmetric/ec/
-  metadata:
-    cwe: "CWE-326"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Inadequate encryption strength"
-    primary_identifier: "bandit.B505-2"
-    secondary_identifiers:
-    - name: "Bandit Test ID B505"
-      type: "bandit_test_id"
-      value: "B505"
-  patterns:
-  - pattern-inside: |-
-      cryptography.hazmat.primitives.asymmetric.ec.generate_private_key(...)
-  - pattern: "cryptography.hazmat.primitives.asymmetric.ec.$SIZE"
-  - metavariable-pattern:
-      metavariable: "$SIZE"
-      pattern-either:
-      - pattern: "SECP192R1"
-      - pattern: "SECT163K1"
-      - pattern: "SECT163R2"
-  - focus-metavariable: "$SIZE"
-  severity: "ERROR"
-- id: "bandit.B304-3"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD5
-    and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-    It is strongly recommended that a standard digest algorithm be chosen instead as implementing
-    a custom algorithm is prone to errors.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-3"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Crypto.Hash.MD5.new(...)"
-    - pattern: "Cryptodome.Hash.MD5.new (...)"
-  severity: "WARNING"
-- id: "bandit.B304-4"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD5
-    and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-    It is strongly recommended that a standard digest algorithm be chosen instead as implementing
-    a custom algorithm is prone to errors.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-4"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Crypto.Hash.SHA.new(...)"
-    - pattern: "Cryptodome.Hash.SHA.new (...)"
-  severity: "WARNING"
-- id: "bandit.B304-10"
-  languages:
-  - "python"
-  message: |
-    DES, TripleDES, RC2 and RC4 are all considered broken or insecure cryptographic algorithms.
-    Newer algorithms apply message integrity to validate ciphertext has not been tampered
-    with. Consider using `ChaCha20Poly1305` instead as it is easier and faster than the
-    alternatives such as `AES-256-GCM`.
-
-    For older applications that don't have support for `ChaCha20Poly1305`,
-    `AES-256-GCM` is recommended, however it has many drawbacks:
-    - Slower than `ChaCha20Poly1305`.
-    - Catastrophic failure if nonce values are reused.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-10"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.ARC4(...)"
-  severity: "WARNING"
-- id: "bandit.B304-11"
-  languages:
-  - "python"
-  message: |
-    The Blowfish encryption algorithm was meant as a drop-in replacement for DES and was created in
-    1993. Smaller key sizes may make the ciphertext vulnerable to [birthday
-    attacks](https://en.wikipedia.org/wiki/Birthday_attack). While no known attacks against
-    Blowfish
-    exist, it should never be used to encrypt files over 4GB in size. If possible consider
-    using ChaCha20Poly1305 or AES-GCM instead of Blowfish.
-
-    For older applications that don't have support for `ChaCha20Poly1305`, `AES-256-GCM` is
-    recommended, however it has many drawbacks:
-      - Slower than `ChaCha20Poly1305`.
-      - Catastrophic failure if nonce values are reused.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-11"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.Blowfish(...)"
-  severity: "WARNING"
-- id: "bandit.B304-12"
-  languages:
-  - "python"
-  message: |
-    The IDEA encryption algorithm was meant as a drop-in replacement for DES and was created in
-    1991. A number of [vulnerabilities and
-    exploits](https://en.wikipedia.org/wiki/International_Data_Encryption_Algorithm#Security) have
-    been identified to work against IDEA and
-    it is no longer recommended. If possible consider
-    using ChaCha20Poly1305 or AES-GCM instead of Blowfish.
-
-    For older applications that don't have support for `ChaCha20Poly1305`, `AES-256-GCM` is
-    recommended, however it has many drawbacks:
-      - Slower than `ChaCha20Poly1305`.
-      - Catastrophic failure if nonce values are reused.
-
-    Example using `ChaCha20Poly1305`:
-    ```
-    import os
-    # Import ChaCha20Poly1305 from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = ChaCha20Poly1305.generate_key()
-    # Create a new ChaCha20Poly1305 instance with our secure key
-    chacha = ChaCha20Poly1305(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = chacha.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    chacha.decrypt(nonce, cipher_text, aad)
-    ```
-
-    Example using `AESGCM`:
-    ```
-    import os
-    # Import AESGCM from cryptography
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    # Our plaintext to encrypt
-    plain_text = b"Secret text to encrypt"
-    # We do not require authenticated but unencrypted data, so set to None
-    aad = None
-    # Generate a secure key
-    key = AESGCM.generate_key(bit_length=128)
-    # Create a new AESGCM instance with our secure key
-    aesgcm = AESGCM(key)
-    # Note: nonce values _must_ be regenerated every time they are used.
-    nonce = os.urandom(12)
-    # Encrypt our plaintext
-    cipher_text = aesgcm.encrypt(nonce, plain_text, aad)
-    # Decrypt the plain text using the nonce and cipher_text
-    aesgcm.decrypt(nonce, cipher_text, aad)
-    ```
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
-    primary_identifier: "bandit.B304-12"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  pattern: "cryptography.hazmat.primitives.ciphers.algorithms.IDEA(...)"
-  severity: "WARNING"
-- id: "bandit.B303-7"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD5
-    and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-    It is strongly recommended that a standard digest algorithm be chosen instead as implementing
-    a custom algorithm is prone to errors.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B303-7"
-    secondary_identifiers:
-    - name: "Bandit Test ID B303"
-      type: "bandit_test_id"
-      value: "B303"
-  pattern: "cryptography.hazmat.primitives.hashes.MD5(...)"
-  severity: "WARNING"
-- id: "bandit.B303-8"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD5
-    and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-    It is strongly recommended that a standard digest algorithm be chosen instead as implementing
-    a custom algorithm is prone to error.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B303-8"
-    secondary_identifiers:
-    - name: "Bandit Test ID B303"
-      type: "bandit_test_id"
-      value: "B303"
-  pattern: "cryptography.hazmat.primitives.hashes.SHA1(...)"
-  severity: "WARNING"
-- id: "bandit.B304-1"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD5
-    and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-1"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Crypto.Hash.MD2.new(...)"
-    - pattern: "Cryptodome.Hash.MD2.new (...)"
-  severity: "WARNING"
-- id: "bandit.B304-2"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD4,
-     MD5  and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B304-2"
-    secondary_identifiers:
-    - name: "Bandit Test ID B304"
-      type: "bandit_test_id"
-      value: "B304"
-  patterns:
-  - pattern-either:
-    - pattern: "Crypto.Hash.MD4.new(...)"
-    - pattern: "Cryptodome.Hash.MD4.new (...)"
-  severity: "WARNING"
-- id: "bandit.B303-1"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD4,
-     MD5  and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B303-1"
-    secondary_identifiers:
-    - name: "Bandit Test ID B303"
-      type: "bandit_test_id"
-      value: "B303"
-  pattern: "hashlib.md5(...)"
-  severity: "WARNING"
-- id: "bandit.B303-2"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD4,
-     MD5  and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-
-    Note that the `Crypto` and `Cryptodome` Python packages are no longer recommended for
-    new applications, instead consider using the [cryptography](https://cryptography.io/) package.
-
-    Example of creating a SHA-384 hash using the `cryptography` package:
-    ```
-    from cryptography.hazmat.primitives import hashes
-    # Create a SHA384 digest
-    digest = hashes.Hash(hashes.SHA384())
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    result = digest.finalize()
-    ```
-
-    For more information on secure password storage see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-
-    For more information on the cryptography module see:
-    - https://cryptography.io/en/latest/
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B303-2"
-    secondary_identifiers:
-    - name: "Bandit Test ID B303"
-      type: "bandit_test_id"
-      value: "B303"
-  pattern: "hashlib.sha1(...)"
-  severity: "WARNING"
-- id: "bandit.B324"
-  languages:
-  - "python"
-  message: |
-    The application was found using an insecure or risky digest or signature algorithm. MD2, MD4,
-    MD5  and SHA1 hash algorithms have been found to be vulnerable to producing collisions.
-
-    This means
-    that two different values, when hashed, can lead to the same hash value. If the application is
-    trying
-    to use these hash methods for storing passwords, then it is recommended to switch to a
-    password hashing
-    algorithm such as Argon2id or PBKDF2.
-    It is strongly recommended that a standard digest algorithm be chosen instead as implementing
-    a custom algorithm is prone to errors.
-
-    Example using `hashlib.sha384()` to create a SHA384 hash:
-    ```
-    import hashlib
-    # Create a SHA384 digest
-    digest = hashlib.sha384()
-    # Update the digest with some initial data
-    digest.update(b"some data to hash")
-    # Add more data to the digest
-    digest.update(b"some more data")
-    # Finalize the digest as bytes
-    digest.digest()
-    ```
-  metadata:
-    cwe: "CWE-327"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Use of a broken or risky cryptographic algorithm"
-    primary_identifier: "bandit.B324"
-    secondary_identifiers:
-    - name: "Bandit Test ID B324"
-      type: "bandit_test_id"
-      value: "B324"
-  patterns:
-  - pattern-either:
-    - pattern: "hashlib.new(\"=~/[M|m][D|d][4|5]/\", ...)"
-    - pattern: "hashlib.new(..., name=\"=~/[M|m][D|d][4|5]/\", ...)"
-    - pattern: "hashlib.new('sha1')"
-    - pattern: "hashlib.new(..., name='SHA1')"
-    - pattern: "hashlib.new('sha', string='test')"
-    - pattern: "hashlib.new(name='SHA', string='test')"
-  severity: "WARNING"
 - id: "bandit.B413"
   languages:
   - "python"
@@ -1363,6 +85,7 @@ rules:
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
     category: "security"
     shortDescription: "Use of unmaintained third party components"
+    license: "MIT"
     primary_identifier: "bandit.B413"
     secondary_identifiers:
     - name: "Bandit Test ID B413"
@@ -1392,386 +115,13 @@ rules:
     cwe: "CWE-310"
     category: "security"
     cisa: "https://www.cisa.gov/uscert/ncas/alerts/TA13-207A"
+    license: "MIT"
     primary_identifier: "bandit.B415"
     secondary_identifiers:
     - name: "Bandit Test ID B415"
       type: "bandit_test_id"
       value: "B415"
   severity: "ERROR"
-- id: "bandit.B301-2"
-  languages:
-  - "python"
-  message: |
-    The application was found using `cPickle` which is vulnerable to deserialization attacks.
-    Deserialization attacks exploit the process of reading serialized data and turning it back
-    into an object. By constructing malicious objects and serializing them, an adversary may
-    attempt to:
-
-    - Inject code that is executed upon object construction, which occurs during the
-    deserialization process.
-    - Exploit mass assignment by including fields that are not normally a part of the serialized
-    data but are read in during deserialization.
-
-    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
-    chosen allows
-    the application to specify exactly which object types are allowed to be deserialized.
-
-    To protect against mass assignment, only allow deserialization of the specific fields that are
-    required. If this is not easily done, consider creating an intermediary type that
-    can be serialized with only the necessary fields exposed.
-
-    Example JSON deserializer using an intermediary type that is validated against a schema to
-    ensure
-    it is safe from mass assignment:
-    ```
-    import jsonschema
-
-    # Create a schema to validate our user-supplied input against
-    # an intermediary object
-    intermediary_schema = {
-        "type" : "object",
-        "properties" :  {
-            "name": {"type" : "string"}
-        },
-        "required": ["name"],
-        # Protect against random properties being added to the object
-        "additionalProperties": False,
-    }
-    # If a user attempted to add "'is_admin': True" it would cause a validation error
-    intermediary_object = {'name': 'test user'}
-
-    try:
-        # Validate the user supplied intermediary object against our schema
-        jsonschema.validate(instance=intermediary_object, schema=intermediary_schema)
-        user_object = {'user':
-            {
-                # Assign the deserialized data from intermediary object
-                'name': intermediary_object['name'],
-                # Add in protected data in object definition (or set it from a class constructor)
-                'is_admin': False,
-            }
-        }
-        # Work with the user_object
-    except jsonschema.exceptions.ValidationError as ex:
-        # Gracefully handle validation errors
-        # ...
-    ```
-
-    For more details on deserialization attacks in general, see OWASP's guide:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-502"
-    owasp: "A8:2017-Insecure Deserialization"
-    category: "security"
-    shortDescription: "Deserialization of untrusted data"
-    primary_identifier: "bandit.B301-2"
-    secondary_identifiers:
-    - name: "Bandit Test ID B301"
-      type: "bandit_test_id"
-      value: "B301"
-  pattern: "cPickle.$FUNC(...)"
-  severity: "WARNING"
-- id: "bandit.B301-3"
-  languages:
-  - "python"
-  message: |
-    The application was found using `dill` which is vulnerable to deserialization attacks.
-    Deserialization attacks exploit the process of reading serialized data and turning it back
-    into an object. By constructing malicious objects and serializing them, an adversary may
-    attempt to:
-
-    - Inject code that is executed upon object construction, which occurs during the
-    deserialization process.
-    - Exploit mass assignment by including fields that are not normally a part of the serialized
-    data but are read in during deserialization.
-
-    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
-    chosen allows
-    the application to specify exactly which object types are allowed to be deserialized.
-
-    To protect against mass assignment, only allow deserialization of the specific fields that are
-    required. If this is not easily done, consider creating an intermediary type that
-    can be serialized with only the necessary fields exposed.
-
-    Example JSON deserializer using an intermediary type that is validated against a schema to
-    ensure
-    it is safe from mass assignment:
-    ```
-    import jsonschema
-
-    # Create a schema to validate our user-supplied input against
-    # an intermediary object
-    intermediary_schema = {
-        "type" : "object",
-        "properties" :  {
-            "name": {"type" : "string"}
-        },
-        "required": ["name"],
-        # Protect against random properties being added to the object
-        "additionalProperties": False,
-    }
-    # If a user attempted to add "'is_admin': True" it would cause a validation error
-    intermediary_object = {'name': 'test user'}
-
-    try:
-        # Validate the user supplied intermediary object against our schema
-        jsonschema.validate(instance=intermediary_object, schema=intermediary_schema)
-        user_object = {'user':
-            {
-                # Assign the deserialized data from intermediary object
-                'name': intermediary_object['name'],
-                # Add in protected data in object definition (or set it from a class constructor)
-                'is_admin': False,
-            }
-        }
-        # Work with the user_object
-    except jsonschema.exceptions.ValidationError as ex:
-        # Gracefully handle validation errors
-        # ...
-    ```
-
-    For more details on deserialization attacks in general, see OWASP's guide:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-502"
-    owasp: "A8:2017-Insecure Deserialization"
-    category: "security"
-    shortDescription: "Deserialization of untrusted data"
-    primary_identifier: "bandit.B301-3"
-    secondary_identifiers:
-    - name: "Bandit Test ID B301"
-      type: "bandit_test_id"
-      value: "B301"
-  pattern-either:
-  - pattern: "dill.$FUNC(...)"
-  severity: "WARNING"
-- id: "bandit.B302"
-  languages:
-  - "python"
-  message: |
-    The application was found using `dill` which is vulnerable to deserialization attacks.
-    Deserialization attacks exploit the process of reading serialized data and turning it back
-    into an object. By constructing malicious objects and serializing them, an adversary may
-    attempt to:
-
-    - Inject code that is executed upon object construction, which occurs during the
-    deserialization process.
-    - Exploit mass assignment by including fields that are not normally a part of the serialized
-    data but are read in during deserialization.
-
-    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
-    chosen allows
-    the application to specify exactly which object types are allowed to be deserialized.
-
-    To protect against mass assignment, only allow deserialization of the specific fields that are
-    required. If this is not easily done, consider creating an intermediary type that
-    can be serialized with only the necessary fields exposed.
-
-    Example JSON deserializer using an intermediary type that is validated against a schema to
-    ensure
-    it is safe from mass assignment:
-    ```
-    import jsonschema
-
-    # Create a schema to validate our user-supplied input against
-    # an intermediary object
-    intermediary_schema = {
-        "type" : "object",
-        "properties" :  {
-            "name": {"type" : "string"}
-        },
-        "required": ["name"],
-        # Protect against random properties being added to the object
-        "additionalProperties": False,
-    }
-    # If a user attempted to add "'is_admin': True" it would cause a validation error
-    intermediary_object = {'name': 'test user'}
-
-    try:
-        # Validate the user supplied intermediary object against our schema
-        jsonschema.validate(instance=intermediary_object, schema=intermediary_schema)
-        user_object = {'user':
-            {
-                # Assign the deserialized data from intermediary object
-                'name': intermediary_object['name'],
-                # Add in protected data in object definition (or set it from a class constructor)
-                'is_admin': False,
-            }
-        }
-        # Work with the user_object
-    except jsonschema.exceptions.ValidationError as ex:
-        # Gracefully handle validation errors
-        # ...
-    ```
-
-    For more details on deserialization attacks in general, see OWASP's guide:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-502"
-    owasp: "A8:2017-Insecure Deserialization"
-    category: "security"
-    shortDescription: "Deserialization of untrusted data"
-    primary_identifier: "bandit.B302"
-    secondary_identifiers:
-    - name: "Bandit Test ID B302"
-      type: "bandit_test_id"
-      value: "B302"
-  pattern-either:
-  - pattern: "marshal.dump(...)"
-  - pattern: "marshal.dumps(...)"
-  - pattern: "marshal.load(...)"
-  - pattern: "marshal.loads(...)"
-  severity: "WARNING"
-- id: "bandit.B301-1"
-  languages:
-  - "python"
-  message: |
-    The application was found using `pickle` which is vulnerable to deserialization attacks.
-    Deserialization attacks exploit the process of reading serialized data and turning it back
-    into an object. By constructing malicious objects and serializing them, an adversary may
-    attempt to:
-
-    - Inject code that is executed upon object construction, which occurs during the
-    deserialization process.
-    - Exploit mass assignment by including fields that are not normally a part of the serialized
-    data but are read in during deserialization.
-
-    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
-    chosen allows
-    the application to specify exactly which object types are allowed to be deserialized.
-
-    To protect against mass assignment, only allow deserialization of the specific fields that are
-    required. If this is not easily done, consider creating an intermediary type that
-    can be serialized with only the necessary fields exposed.
-
-    Example JSON deserializer using an intermediary type that is validated against a schema to
-    ensure
-    it is safe from mass assignment:
-    ```
-    import jsonschema
-
-    # Create a schema to validate our user-supplied input against
-    # an intermediary object
-    intermediary_schema = {
-        "type" : "object",
-        "properties" :  {
-            "name": {"type" : "string"}
-        },
-        "required": ["name"],
-        # Protect against random properties being added to the object
-        "additionalProperties": False,
-    }
-    # If a user attempted to add "'is_admin': True" it would cause a validation error
-    intermediary_object = {'name': 'test user'}
-
-    try:
-        # Validate the user supplied intermediary object against our schema
-        jsonschema.validate(instance=intermediary_object, schema=intermediary_schema)
-        user_object = {'user':
-            {
-                # Assign the deserialized data from intermediary object
-                'name': intermediary_object['name'],
-                # Add in protected data in object definition (or set it from a class constructor)
-                'is_admin': False,
-            }
-        }
-        # Work with the user_object
-    except jsonschema.exceptions.ValidationError as ex:
-        # Gracefully handle validation errors
-        # ...
-    ```
-
-    For more details on deserialization attacks in general, see OWASP's guide:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-502"
-    owasp: "A8:2017-Insecure Deserialization"
-    category: "security"
-    shortDescription: "Deserialization of untrusted data"
-    primary_identifier: "bandit.B301-1"
-    secondary_identifiers:
-    - name: "Bandit Test ID B301"
-      type: "bandit_test_id"
-      value: "B301"
-  pattern-either:
-  - pattern: "pickle.$FUNC(...)"
-  - pattern: "_pickle.$FUNC(...)"
-  severity: "WARNING"
-- id: "bandit.B301-4"
-  languages:
-  - "python"
-  message: |
-    The application was found using `shelve` which is vulnerable to deserialization attacks as
-    it calls `pickle` internally.
-    Deserialization attacks exploit the process of reading serialized data and turning it back
-    into an object. By constructing malicious objects and serializing them, an adversary may
-    attempt to:
-
-    - Inject code that is executed upon object construction, which occurs during the
-    deserialization process.
-    - Exploit mass assignment by including fields that are not normally a part of the serialized
-    data but are read in during deserialization.
-
-    Consider safer alternatives such as serializing data in the JSON format. Ensure any format
-    chosen allows
-    the application to specify exactly which object types are allowed to be deserialized.
-
-    To protect against mass assignment, only allow deserialization of the specific fields that are
-    required. If this is not easily done, consider creating an intermediary type that
-    can be serialized with only the necessary fields exposed.
-
-    Example JSON deserializer using an intermediary type that is validated against a schema to
-    ensure
-    it is safe from mass assignment:
-    ```
-    import jsonschema
-
-    # Create a schema to validate our user-supplied input against
-    # an intermediary object
-    intermediary_schema = {
-        "type" : "object",
-        "properties" :  {
-            "name": {"type" : "string"}
-        },
-        "required": ["name"],
-        # Protect against random properties being added to the object
-        "additionalProperties": False,
-    }
-    # If a user attempted to add "'is_admin': True" it would cause a validation error
-    intermediary_object = {'name': 'test user'}
-
-    try:
-        # Validate the user supplied intermediary object against our schema
-        jsonschema.validate(instance=intermediary_object, schema=intermediary_schema)
-        user_object = {'user':
-            {
-                # Assign the deserialized data from intermediary object
-                'name': intermediary_object['name'],
-                # Add in protected data in object definition (or set it from a class constructor)
-                'is_admin': False,
-            }
-        }
-        # Work with the user_object
-    except jsonschema.exceptions.ValidationError as ex:
-        # Gracefully handle validation errors
-        # ...
-    ```
-
-    For more details on deserialization attacks in general, see OWASP's guide:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-502"
-    owasp: "A8:2017-Insecure Deserialization"
-    category: "security"
-    shortDescription: "Deserialization of untrusted data"
-    primary_identifier: "bandit.B301-4"
-    secondary_identifiers:
-    - name: "Bandit Test ID B301"
-      type: "bandit_test_id"
-      value: "B301"
-  pattern-either:
-  - pattern: "shelve.$FUNC(...)"
-  severity: "WARNING"
 - id: "bandit.B506"
   languages:
   - "python"
@@ -1818,6 +168,7 @@ rules:
     owasp: "A8:2017-Insecure Deserialization"
     category: "security"
     shortDescription: "Deserialization of untrusted data"
+    license: "MIT"
     primary_identifier: "bandit.B506"
     secondary_identifiers:
     - name: "Bandit Test ID B506"
@@ -1906,6 +257,7 @@ rules:
     category: "security"
     shortDescription: "Improper neutralization of special elements used in an SQL
       Command ('SQL Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B610"
     secondary_identifiers:
     - name: "Bandit Test ID B610"
@@ -1988,6 +340,7 @@ rules:
     category: "security"
     shortDescription: "Improper neutralization of special elements used in an SQL
       Command ('SQL Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B611"
     secondary_identifiers:
     - name: "Bandit Test ID B611"
@@ -1998,173 +351,6 @@ rules:
     - pattern: "$MODEL.objects.raw($QUERY, ...)"
     - pattern: "django.db.models.expressions.RawSQL(...)"
   severity: "ERROR"
-- id: "bandit.B701"
-  languages:
-  - "python"
-  message: |
-    The application was found using Jinja2 `Environment` without autoescaping enabled. If using in
-    the context of HTML this could lead to Cross-Site Scripting (XSS) attacks when rendering with
-    user-supplied input.
-
-    Unfortunately, Jinja2 does not support context-aware escaping, meaning it is insufficient to
-    protect against
-    XSS for the various web contexts. It is important to encode the data depending on the specific
-    context
-    it
-    is used in. There are at least six context types:
-
-    - Inside HTML tags `<div>context 1</div>`
-    - Inside attributes: `<div class="context 2"></div>`
-    - Inside event attributes `<button onclick="context 3">button</button>`
-    - Inside script blocks: `<script>var x = "context 4"</script>`
-    - Unsafe element HTML assignment: `element.innerHTML = "context 5"`
-    - Inside URLs: `<iframe src="context 6"></iframe><a href="context 6">link</a>`
-
-    Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if
-    user input
-    is ever output inside of script tags.
-
-    User input that is displayed within the application must be encoded, sanitized or validated
-    to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
-    taken
-    to not mix server-side templating with client-side templating, as the server-side templating
-    will
-    not encode things like {{ 7*7 }} which may execute client-side templating features.
-
-    It is _NOT_ advised to encode user input prior to inserting into a data store. The data will
-    need to be
-    encoded depending on context of where it is output. It is much safer to force the displaying
-    system to
-    handle the encoding and not attempt to guess how it should be encoded.
-
-    To handle different contexts, one approach would be to write custom Jinja2 filters. Below is
-    an example
-    that escapes or encodes links and potentially malicious script, note this does not include
-    other contexts
-    such as CSS or attributes:
-    ```
-    from jinja2 import Environment, select_autoescape, FileSystemLoader
-    from jinja2 import pass_eval_context
-    from markupsafe import Markup, escape
-
-    @pass_eval_context
-    def escape_link(eval_ctx, value):
-        bad_link = "#JinjatmplZ"
-        # Block any values that start with // as that could be used to inject
-        # links to third party pages see:
-    https://en.wikipedia.org/wiki/Wikipedia:Protocol-relative_URL
-        if value.startswith('//'):
-            return bad_link
-
-        # Only allow relative links
-        # if you want to allow links that start with http or ws replace with below:
-        # if not value.startswith('/'): and not value.startswith('http') and not
-    value.startswith('ws')
-        if not value.startswith('/'):
-            return bad_link
-
-        # Alternatively, you could only call escape if autoescape is true
-        # if eval_ctx.autoescape:
-        #    return escape(value)
-        # else
-        #    return value
-
-        return escape(value)
-
-    # Create a replacement table
-    js_replacement = str.maketrans({
-            '\0':    "\\u0000",
-            '\t': "\\t",
-            '\n': "\\n",
-            '\v': "\\u000b",
-            '\f': "\\f`",
-            '\r': "\\r",
-            '"':  "\\u0022",
-            '`':  "\\u0060",
-            '&':  "\\u0026",
-            '\'': "\\u0027",
-            '+':  "\\u002b",
-            '/':  "\\/",
-            '<':  "\\u003c",
-            '>':  "\\u003e",
-            '\\': "\\\\",
-            '(': "\\u0028",
-            ')': "\\u0029",
-        })
-
-    @pass_eval_context
-    def escape_js(eval_ctx, value):
-        """
-        Escape the input for use in <script> context, USE WITH CAUTION
-        It is strongly recommended to _never_ pass user-supplied input to
-        the JavaScript context. This may still be unsafe depending where
-        used, it does not consider characters used  in regular expressions
-        for example.
-        """
-
-        #if eval_ctx.autoescape:
-        #    value = escape(value)
-        # Escape by default
-        value = escape(value)
-        # Translate any potential characters using our translation table
-        return value.translate(js_replacement)
-
-    # Create our environment, setting autoescape to use the default
-    # select_autoescape function
-    env = Environment(
-        loader=FileSystemLoader(os.getcwd()+"/template"),
-        autoescape=select_autoescape,
-    )
-    # Add an escape link filter to be used in our template
-    env.filters["escape_link"] = escape_link
-    env.filters["escape_js"] = escape_js
-    # Load our template file
-    template = env.get_template("mytemplate.html")
-    # Render with different variables which call our filters
-    print(template.render(
-        html_context="<img src=x onerror=alert(1)>",
-        link_context="/# onclick=alert(1)<script>alert(1)</script>",
-        script_context="alert(1);alert`1`",)
-    )
-
-    # Sample template:
-    """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>My Webpage</title>
-    </head>
-    <body>
-        <h1>My Webpage</h1>
-        {{ html_context }}
-        <a href="{{ link_context | escape_link }}">link</a>
-        <script>{{ script_context | escape_js }}</script>
-    </body>
-    </html>
-    """
-    ```
-
-    For more information on autoescape see:
-    - https://jinja.palletsprojects.com/en/3.1.x/api/#autoescaping
-
-    For more information on XSS see OWASP:
-    - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-116"
-    owasp: "A7:2017-Cross-Site Scripting (XSS)"
-    category: "security"
-    shortDescription: "Improper encoding or escaping of output"
-    primary_identifier: "bandit.B701"
-    secondary_identifiers:
-    - name: "Bandit Test ID B701"
-      type: "bandit_test_id"
-      value: "B701"
-  patterns:
-  - pattern-not: "jinja2.Environment(..., autoescape=True, ...)"
-  - pattern-not: "jinja2.Environment(..., autoescape=jinja2.select_autoescape(...),
-      ...)"
-  - pattern: "jinja2.Environment(...)"
-  severity: "WARNING"
 - id: "bandit.B703"
   languages:
   - "python"
@@ -2178,6 +364,7 @@ rules:
     owasp: "A7:2017-Cross-Site Scripting (XSS)"
     shortDescription: "Improper Neutralization of Input During Web Page Generation
       ('Cross-site Scripting')"
+    license: "MIT"
     primary_identifier: "bandit.B703"
     secondary_identifiers:
     - name: "Bandit Test ID B703"
@@ -2191,189 +378,6 @@ rules:
       - pattern: "django.utils.safestring.mark_safe(...)"
       - pattern-not: "django.utils.safestring.mark_safe(\"...\")"
   severity: "WARNING"
-- id: "bandit.B702"
-  languages:
-  - "python"
-  message: |
-    The application was found using mako templates without `default_filters` being passed to the
-    `Template` or `TemplateLookup` constructors. If using in the context of HTML, this could lead
-    to Cross-Site Scripting (XSS) attacks when rendering with
-    user-supplied input.
-
-    Unfortunately, Jinja2 does not support context-aware escaping, meaning it is insufficient to
-    protect against
-    XSS for the various web contexts. It is important to encode the data depending on the specific
-    context
-    it
-    is used in. There are at least six context types:
-
-    - Inside HTML tags `<div>context 1</div>`
-    - Inside attributes: `<div class="context 2"></div>`
-    - Inside event attributes `<button onclick="context 3">button</button>`
-    - Inside script blocks: `<script>var x = "context 4"</script>`
-    - Unsafe element HTML assignment: `element.innerHTML = "context 5"`
-    - Inside URLs: `<iframe src="context 6"></iframe><a href="context 6">link</a>`
-
-    Script blocks alone have multiple ways they need to be encoded. Extra care must be taken if
-    user input
-    is ever output inside of script tags.
-
-    User input that is displayed within the application must be encoded, sanitized or validated
-    to ensure it cannot be treated as HTML or executed as Javascript code. Care must also be
-    taken
-    to not mix server-side templating with client-side templating, as the server-side templating
-    will
-    not encode things like {{ 7*7 }} which may execute client-side templating features.
-
-    It is _NOT_ advised to encode user input prior to inserting into a data store. The data will
-    need to be
-    encoded depending on context of where it is output. It is much safer to force the displaying
-    system to
-    handle the encoding and not attempt to guess how it should be encoded.
-
-    To handle different contexts, one approach would be to write custom mako filters. Below is
-    an example
-    that escapes or encodes links and potentially malicious script, note this does not include
-    other contexts
-    such as CSS or attributes:
-    ```
-    # filters.py module:
-
-    def escape_link(value):
-        bad_link = "#JinjatmplZ"
-        # Block any values that start with // as that could be used to inject
-        # links to third party pages see:
-    https://en.wikipedia.org/wiki/Wikipedia:Protocol-relative_URL
-        if value.startswith('//'):
-            return bad_link
-
-        # Only allow relative links
-        # if you want to allow links that start with http or ws replace with below:
-        # if not value.startswith('/'): and not value.startswith('http') and not
-    value.startswith('ws')
-        if not value.startswith('/'):
-            return bad_link
-
-        return value
-
-    # Create a replacement table
-    js_replacement = str.maketrans({
-        '\0':    "\\u0000",
-        '\t': "\\t",
-        '\n': "\\n",
-        '\v': "\\u000b",
-        '\f': "\\f`",
-        '\r': "\\r",
-        '"':  "\\u0022",
-        '`':  "\\u0060",
-        '&':  "\\u0026",
-        '\'': "\\u0027",
-        '+':  "\\u002b",
-        '/':  "\\/",
-        '<':  "\\u003c",
-        '>':  "\\u003e",
-        '\\': "\\\\",
-        '(': "\\u0028",
-        ')': "\\u0029",
-    })
-
-    def escape_js(value):
-        # Escape the input for use in <script> context, USE WITH CAUTION
-        # It is strongly recommended to never pass user-supplied input to
-        # the JavaScript context.
-
-        # Translate any potential characters using our translation table
-        return value.translate(js_replacement)
-
-    #####################################################################
-    # main module:                                                      #
-    #####################################################################
-    from mako.template import Template
-    # Define our template, note the calls to our custom filters depending
-    # on context
-    template_text = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>My Webpage</title>
-    </head>
-    <body>
-        <h1>My Webpage</h1>
-        ${html_context}
-        <a href="${link_context | escape_link}">link</a>
-        <script>${script_context | escape_js}</script>
-    </body>
-    </html>
-    """
-    # Load our template with default filters and our imported filters for
-    # usage in template files
-    t = Template(template_text,
-                # By default enable the html filter with 'h'
-                default_filters=['h'],
-                # Import our custom filters
-                imports=["from filters import escape_link, escape_js"])
-
-    # Render our template
-    print(t.render(html_context="<img src=x onerror=alert(1)>",
-        link_context="/# onclick=alert(1)<script>alert(1)</script>",
-        script_context="alert(1)<img src=x onerror=alert(1)>",)
-    )
-    ```
-  metadata:
-    cwe: "CWE-79"
-    category: "security"
-    owasp: "A7:2017-Cross-Site Scripting (XSS)"
-    shortDescription: "Improper neutralization of input during web page generation
-      ('Cross-site Scripting')"
-    primary_identifier: "bandit.B702"
-    secondary_identifiers:
-    - name: "Bandit Test ID B702"
-      type: "bandit_test_id"
-      value: "B702"
-  pattern: "mako.template.Template(...)"
-  severity: "WARNING"
-- id: "bandit.B307"
-  languages:
-  - "python"
-  message: |
-    The application was found calling the `eval` function with a non-literal variable. If the
-    variable comes from user-supplied input, an adversary could compromise the entire system by
-    executing arbitrary python code.
-
-    To remediate this issue, remove all calls to `eval` and consider alternative methods for
-    executing
-    the necessary business logic. There is almost no safe method of calling `eval` with
-    user-supplied input.
-
-    If the application only needs to convert strings into objects, consider using `json.loads`.
-    In some cases `ast.literal_eval` is recommended, but this should be avoided as it can still
-    suffer from other issues such as the ability for malicious code to crash the python
-    interpreter or application.
-
-    Example using `json.loads`` to load in arbitrary data to create data structures:
-    ```
-    # User supplied data as a blob of JSON
-    user_supplied_data = """{"user": "test", "metadata": [1,2,3]}"""
-    # Load the JSON
-    user_object = json.loads(user_supplied_data)
-    # Manually add protected properties _after_ loading, never before
-    user_object["is_admin"] = False
-    # Work with the object
-    ```
-  metadata:
-    cwe: "CWE-95"
-    owasp: "A1:2017-Injection"
-    category: "security"
-    shortDescription: "Improper neutralization of directives in dynamically evaluated
-      code ('Eval Injection')"
-    primary_identifier: "bandit.B307"
-    secondary_identifiers:
-    - name: "Bandit Test ID B307"
-      type: "bandit_test_id"
-      value: "B307"
-  patterns:
-  - pattern: "eval(...)"
-  severity: "WARNING"
 - id: "bandit.B112"
   languages:
   - "python"
@@ -2382,6 +386,7 @@ rules:
   metadata:
     cwe: "CWE-703"
     shortDescription: "Improper Check or Handling of Exceptional Conditions"
+    license: "MIT"
     primary_identifier: "bandit.B112"
     secondary_identifiers:
     - name: "Bandit Test ID B112"
@@ -2509,6 +514,7 @@ rules:
   metadata:
     cwe: "CWE-703"
     shortDescription: "Improper Check or Handling of Exceptional Conditions"
+    license: "MIT"
     primary_identifier: "bandit.B110"
     secondary_identifiers:
     - name: "Bandit Test ID B110"
@@ -2662,6 +668,7 @@ rules:
     category: "security"
     shortDescription: "Improper neutralization of special elements used in an OS command
       ('OS Command Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B102"
     secondary_identifiers:
     - name: "Bandit Test ID B102"
@@ -2670,56 +677,6 @@ rules:
   patterns:
   - pattern: "exec(...)"
   - pattern-not: "exec(\"...\")"
-  severity: "WARNING"
-- id: "bandit.B404"
-  languages:
-  - "python"
-  message: |
-    Consider possible security implications associated with subprocess module.
-  metadata:
-    cwe: "CWE-78"
-    owasp: "A8:2017-Insecure Deserialization"
-    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    primary_identifier: "bandit.B404"
-    secondary_identifiers:
-    - name: "Bandit Test ID B404"
-      type: "bandit_test_id"
-      value: "B404"
-  patterns:
-  - pattern: "import subprocess"
-  severity: "WARNING"
-- id: "bandit.B609"
-  languages:
-  - "python"
-  message: |
-    Detected use of the wildcard character in a system call that spawns a shell.This subjects the
-    wildcard to normal shell expansion, which can have unintended consequencesif there exist any
-    non-standard file names. Consider a file named `-e sh script.sh`.
-  metadata:
-    cwe: "CWE-155"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Improper Neutralization of Wildcards or Matching Symbols"
-    primary_identifier: "bandit.B609"
-    secondary_identifiers:
-    - name: "Bandit Test ID B609"
-      type: "bandit_test_id"
-      value: "B609"
-  patterns:
-  - pattern-either:
-    - pattern-inside: |-
-        os.system("...")
-    - pattern-inside: |-
-        os.popen("...")
-    - pattern-inside: |-
-        os.popen2("...")
-    - pattern-inside: |-
-        os.popen3("...")
-    - pattern-inside: |-
-        os.popen4("...")
-    - pattern-inside: |-
-        subprocess.$W(..., shell=True, ...)
-  - pattern-regex: "(tar|chmod|chown|rsync)(.*?)\\*"
   severity: "WARNING"
 - id: "bandit.B607"
   languages:
@@ -2732,6 +689,7 @@ rules:
     owasp: "A1:2017-Injection"
     shortDescription: "Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B607"
     secondary_identifiers:
     - name: "Bandit Test ID B607"
@@ -2757,6 +715,7 @@ rules:
     owasp: "A1:2017-Injection"
     shortDescription: "Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B605"
     secondary_identifiers:
     - name: "Bandit Test ID B605"
@@ -2777,70 +736,6 @@ rules:
     - pattern: "commands.getoutput(...)"
     - pattern: "commands.getstatusoutput(\"\")"
   severity: "INFO"
-- id: "bandit.B601"
-  languages:
-  - "python"
-  message: |
-    Unverified SSL context detected. This will permit insecure connections without `verifyingSSL`
-    certificates. Use `ssl.create_default_context()` instead.
-  metadata:
-    cwe: "CWE-78"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    primary_identifier: "bandit.B601"
-    secondary_identifiers:
-    - name: "Bandit Test ID B601"
-      type: "bandit_test_id"
-      value: "B601"
-  patterns:
-  - pattern-inside: |
-      import paramiko
-      ...
-  - pattern: "$CLIENT.exec_command(...)"
-  severity: "WARNING"
-- id: "bandit.B606"
-  languages:
-  - "python"
-  message: |
-    Found dynamic content when spawning a process. This is dangerous if externaldata can reach this
-    function call because it allows a malicious actor toexecute commands. Ensure no external data
-    reaches here.
-  metadata:
-    cwe: "CWE-78"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    primary_identifier: "bandit.B606"
-    secondary_identifiers:
-    - name: "Bandit Test ID B606"
-      type: "bandit_test_id"
-      value: "B606"
-  patterns:
-  - pattern-either:
-    - patterns:
-      - pattern-not: "os.$W(\"...\", ...)"
-      - pattern-either:
-        - pattern: "os.execl(...)"
-        - pattern: "os.execle(...)"
-        - pattern: "os.execlp(...)"
-        - pattern: "os.execlpe(...)"
-        - pattern: "os.execv(...)"
-        - pattern: "os.execve(...)"
-        - pattern: "os.execvp(...)"
-        - pattern: "os.execvpe(...)"
-        - pattern: "os.startfile(...)"
-    - patterns:
-      - pattern-either:
-        - pattern: "os.spawnl(...)"
-        - pattern: "os.spawnle(...)"
-        - pattern: "os.spawnlp(...)"
-        - pattern: "os.spawnlpe(...)"
-        - pattern: "os.spawnv(...)"
-        - pattern: "os.spawnve(...)"
-        - pattern: "os.spawnvp(...)"
-        - pattern: "os.spawnvpe(...)"
-  severity: "WARNING"
 - id: "bandit.B603"
   languages:
   - "python"
@@ -2858,6 +753,7 @@ rules:
     owasp: "A1:2017-Injection"
     shortDescription: "Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B603"
     secondary_identifiers:
     - name: "Bandit Test ID B603"
@@ -2879,39 +775,6 @@ rules:
     - pattern: |
         subprocess.$FUNC($ARG)
   severity: "WARNING"
-- id: "bandit.B602"
-  languages:
-  - "python"
-  message: |
-    Found `subprocess` function `$FUNC` with `shell=True`. This is dangerous because this call will
-    spawn the command using a shell process. Doing so propagates current shell settings and
-    variables,
-    which makes it much easier for a malicious actor to execute commands. Use `shell=False`
-    instead.
-  metadata:
-    cwe: "CWE-78"
-    owasp: "A1:2017-Injection"
-    shortDescription: "Improper Neutralization of Special Elements used in an OS Command
-      ('OS Command Injection')"
-    primary_identifier: "bandit.B602"
-    secondary_identifiers:
-    - name: "Bandit Test ID B602"
-      type: "bandit_test_id"
-      value: "B602"
-  patterns:
-  - pattern-not: "subprocess.$FUNC(..., shell=False, ...)"
-  - pattern-not: "subprocess.$FUNC(..., shell=False)"
-  - pattern-not: "subprocess.$FUNC(..., shell=0)"
-  - pattern-not: "subprocess.$FUNC(..., shell=[])"
-  - pattern-not: "subprocess.$FUNC(..., shell={})"
-  - pattern-not: "subprocess.$FUNC(..., shell=None)"
-  - pattern-either:
-    - pattern: "subprocess.$FUNC(..., shell=True, ...)"
-    - pattern: "subprocess.$FUNC(..., shell='True', ...)"
-    - pattern: "subprocess.$FUNC(..., shell='False', ...)"
-    - pattern: "subprocess.$FUNC(..., shell='None', ...)"
-    - pattern: "subprocess.$FUNC(..., shell=$X, ...)"
-  severity: "ERROR"
 - id: "bandit.B604"
   languages:
   - "python"
@@ -2922,6 +785,7 @@ rules:
     owasp: "A1:2017-Injection"
     shortDescription: "Improper Neutralization of Special Elements used in an OS Command
       ('OS Command Injection')"
+    license: "MIT"
     primary_identifier: "bandit.B604"
     secondary_identifiers:
     - name: "Bandit Test ID B604"
@@ -2930,43 +794,6 @@ rules:
   patterns:
   - pattern-not: "subprocess.$FUNC(..., shell=True, ...)"
   - pattern: "$FOO(..., shell=True, ...)"
-  severity: "WARNING"
-- id: "bandit.B103"
-  languages:
-  - "python"
-  message: |
-    The application was found setting file permissions to overly permissive values. Consider
-    using the following values if the application user is the only process to access
-    the file:
-
-    - 0400 - read only access to the file
-    - 0200 - write only access to the file
-    - 0600 - read/write access to the file
-
-    Example creating a file with read/write permissions for the application user:
-    ```
-    # Use octal values to set 0o600 (read/write access to the file) for the current
-    # user
-    os.chmod('somefile.txt', 0o600)
-    ```
-
-    For all other values please see:
-    https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation
-  metadata:
-    shortDescription: "Incorrect permission assignment for critical resource"
-    cwe: "CWE-732"
-    category: "security"
-    owasp: "A6:2017-Security Misconfiguration"
-    primary_identifier: "bandit.B103"
-    secondary_identifiers:
-    - name: "Bandit Test ID B103"
-      type: "bandit_test_id"
-      value: "B103"
-  patterns:
-  - pattern: "os.chmod(...,$MASK)"
-  - metavariable-regex:
-      metavariable: "$MASK"
-      regex: "(0x..f|0o..[2,3,7]|stat.S_IXGRP|stat.S_IWOTH)"
   severity: "WARNING"
 - id: "bandit.B202"
   languages:
@@ -3049,6 +876,7 @@ rules:
     cwe: "CWE-22"
     shortDescription: "Improper Limitation of a Pathname to a Restricted Directory
       ('Path Traversal')"
+    license: "MIT"
     primary_identifier: "bandit.B202"
     secondary_identifiers:
     - name: "Bandit Test ID B202"
@@ -3071,87 +899,6 @@ rules:
       - pattern: "tarfile.extractall(...)"
       - pattern: "tarfile.extractall(..., members=[])"
   severity: "ERROR"
-- id: "bandit.B201"
-  languages:
-  - "python"
-  message: |
-    The Flask application is running with `debug=True` configured. By enabling this option, certain
-    exceptions or errors could cause sensitive information to be leaked in HTTP responses.
-
-    Additionally, it is not recommended to run a Flask application using `Flask.run(...)` in
-    production. Instead, a WSGI server such as
-    [gunicorn](https://flask.palletsprojects.com/en/2.3.x/deploying/gunicorn/)
-    or [waitress](https://flask.palletsprojects.com/en/2.3.x/deploying/waitress/) be used instead.
-
-    For more information on deployment options for Flask applications see:
-    - https://flask.palletsprojects.com/en/2.3.x/deploying/
-  metadata:
-    cwe: "CWE-489"
-    category: "security"
-    owasp: "A6:2017-Security Misconfiguration"
-    shortDescription: "Active debug code"
-    primary_identifier: "bandit.B201"
-    secondary_identifiers:
-    - name: "Bandit Test ID B201"
-      type: "bandit_test_id"
-      value: "B201"
-  patterns:
-  - pattern-inside: |
-      import flask
-      ...
-  - pattern: "$APP.run(..., debug=True, ...)"
-  severity: "WARNING"
-- id: "bandit.B321"
-  languages:
-  - "python"
-  message: |
-    The application was found using an FTP library. As FTP does not provide encryption, it is
-    strongly recommended that any file transfers be done over a more secure transport such as
-    SSH.
-
-    The [paramiko](https://www.paramiko.org/) library can be used with an SCP module to allow
-    secure file transfers.
-
-    Example using `paramiko` SSH client and the `scp` module:
-    ```
-    import paramiko
-    import scp
-
-    # Create an SSH client
-    with paramiko.SSHClient() as ssh:
-        # Load the system host keys so we can confirm the
-        # host we are connecting to is legitimate
-        ssh.load_system_host_keys('/home/appuser/.ssh/known_hosts')
-
-        # Connect to the remote host using our SSH private key
-        ssh.connect(hostname='example.org',
-                    port=22,
-                    username='appuser',
-                    key_filename='/home/appuser/.ssh/private_key')
-
-        # Create an SCP client with the ssh transport and copy files
-        with scp.SCPClient(ssh.get_transport()) as secure_copy:
-            secure_copy.get('remote/test.file', 'local/test.file')
-            secure_copy.put('local/some.file', 'remote/some.file')
-    ```
-
-    For more information on the paramiko module see:
-    - https://www.paramiko.org/
-
-    For more information on the scp module see:
-    - https://github.com/jbardin/scp.py
-  metadata:
-    cwe: "CWE-319"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Cleartext transmission of sensitive information"
-    primary_identifier: "bandit.B321"
-    secondary_identifiers:
-    - name: "Bandit Test ID B321"
-      type: "bandit_test_id"
-      value: "B321"
-  pattern: "ftplib.$ANYTHING(...)"
-  severity: "WARNING"
 - id: "bandit.B402"
   languages:
   - "python"
@@ -3162,6 +909,7 @@ rules:
     cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
     shortDescription: "Cleartext Transmission of Sensitive Information"
+    license: "MIT"
     primary_identifier: "bandit.B402"
     secondary_identifiers:
     - name: "Bandit Test ID B402"
@@ -3173,29 +921,6 @@ rules:
     - pattern: "from ftplib import FTP"
     - pattern: "ftplib.FTP(...)"
   severity: "ERROR"
-- id: "bandit.B309"
-  languages:
-  - "python"
-  message: |
-    The HTTPSConnection API has changed frequently with minor releases of Python.Ensure you are
-    using the API for your version of Python securely. For example, Python 3 versions prior to
-    3.4.3
-    will not verify SSL certificates by default.
-  metadata:
-    cwe: "CWE-295"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Improper Certificate Validation"
-    primary_identifier: "bandit.B309"
-    secondary_identifiers:
-    - name: "Bandit Test ID B309"
-      type: "bandit_test_id"
-      value: "B309"
-  patterns:
-  - pattern-either:
-    - pattern: "httplib.HTTPSConnection(...)"
-    - pattern: "http.client.HTTPSConnection(...)"
-    - pattern: "six.moves.http_client.HTTPSConnection(...)"
-  severity: "WARNING"
 - id: "bandit.B612"
   languages:
   - "python"
@@ -3218,6 +943,7 @@ rules:
     cwe: "CWE-94"
     shortDescription: "Improper control of generation of code ('Code Injection')"
     category: "security"
+    license: "MIT"
     primary_identifier: "bandit.B612"
     secondary_identifiers:
     - name: "Bandit Test ID B612"
@@ -3257,6 +983,7 @@ rules:
     owasp: "A3:2017-Sensitive Data Exposure"
     category: "security"
     shortDescription: "Use of insufficiently random values"
+    license: "MIT"
     primary_identifier: "bandit.B311"
     secondary_identifiers:
     - name: "Bandit Test ID B311"
@@ -3295,6 +1022,7 @@ rules:
     cwe: "CWE-400"
     category: "security"
     shortDescription: "Uncontrolled resource consumption"
+    license: "MIT"
     primary_identifier: "bandit.B113"
     secondary_identifiers:
     - name: "Bandit Test ID B113"
@@ -3321,26 +1049,6 @@ rules:
       metavariable: "$METHOD"
       regex: "(get|put|delete|post|options|head|patch)"
   severity: "WARNING"
-- id: "bandit.B107"
-  languages:
-  - "python"
-  message: |
-    Hardcoded password is used as a default argument to `$FUNC`. This could be dangerous if a real
-    password is not supplied.
-  metadata:
-    cwe: "CWE-259"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Use of Hard-coded Password"
-    primary_identifier: "bandit.B107"
-    secondary_identifiers:
-    - name: "Bandit Test ID B107"
-      type: "bandit_test_id"
-      value: "B107"
-  patterns:
-  - pattern: |
-      def $FUNC(..., password="...", ...):
-        ...
-  severity: "WARNING"
 - id: "bandit.B106"
   languages:
   - "python"
@@ -3350,6 +1058,7 @@ rules:
     cwe: "CWE-259"
     owasp: "A3:2017-Sensitive Data Exposure"
     shortDescription: "Use of Hard-coded Password"
+    license: "MIT"
     primary_identifier: "bandit.B106"
     secondary_identifiers:
     - name: "Bandit Test ID B106"
@@ -3370,6 +1079,7 @@ rules:
     cwe: "CWE-259"
     owasp: "A3:2017-Sensitive Data Exposure"
     shortDescription: "Use of Hard-coded Password"
+    license: "MIT"
     primary_identifier: "bandit.B105"
     secondary_identifiers:
     - name: "Bandit Test ID B105"
@@ -3415,6 +1125,7 @@ rules:
     cwe: "CWE-319"
     category: "security"
     shortDescription: "Cleartext transmission of sensitive information"
+    license: "MIT"
     primary_identifier: "bandit.B508"
     secondary_identifiers:
     - name: "Bandit Test ID B508"
@@ -3457,6 +1168,7 @@ rules:
     cwe: "CWE-319"
     category: "security"
     shortDescription: "Cleartext Transmission of Sensitive Information"
+    license: "MIT"
     primary_identifier: "bandit.B509"
     secondary_identifiers:
     - name: "Bandit Test ID B509"
@@ -3467,241 +1179,6 @@ rules:
   - pattern: "pysnmp.hlapi.UsmUserData($ARG1)"
   - pattern: "pysnmp.hlapi.UsmUserData(...,'noAuthNoPriv',...)"
   - pattern: "pysnmp.hlapi.UsmUserData(...,'authNoPriv',...)"
-  severity: "WARNING"
-- id: "bandit.B608"
-  languages:
-  - "python"
-  message: |
-    SQL Injection is a critical vulnerability that can lead to data or system compromise. By
-    dynamically generating SQL query strings, user input may be able to influence the logic of
-    the SQL statement. This could lead to an adversary accessing information they should
-    not have access to, or in some circumstances, being able to execute OS functionality or code.
-
-    Replace all dynamically generated SQL queries with parameterized queries. In situations where
-    dynamic queries must be created, never use direct user input, but instead use a map or
-    dictionary of valid values and resolve them using a user supplied key.
-
-    For example, some database drivers do not allow parameterized queries for `>` or `<` comparison
-    operators. In these cases, do not use a user supplied `>` or `<` value, but rather have the
-    user
-    supply a `gt` or `lt` value. The alphabetical values are then used to look up the `>` and `<`
-    values to be used in the construction of the dynamic query. The same goes for other queries
-    where
-    column or table names are required but cannot be parameterized.
-
-    Example using `PreparedStatement` queries:
-    ```
-    import sqlite3
-
-    # Create a new database (in memory)
-    con = sqlite3.connect(":memory:")
-    # Get a cursor from the connection
-    cur = con.cursor()
-    # Create a tuple of the value to be used in the parameterized query
-    params = ('user-input',)
-    # execute the statement, passing in the params for the value
-    cur.execute("select name from sqlite_master where name = ?", params)
-    # work with the result
-    result = cur.fetchall()
-    ```
-
-    For more information on SQL Injection see OWASP:
-    https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
-  metadata:
-    cwe: "CWE-89"
-    owasp: "A1:2017-Injection"
-    category: "security"
-    shortDescription: "Improper neutralization of special elements used in an SQL
-      Command ('SQL Injection')"
-    primary_identifier: "bandit.B608"
-    secondary_identifiers:
-    - name: "Bandit Test ID B608"
-      type: "bandit_test_id"
-      value: "B608"
-  patterns:
-  - pattern-either:
-    - pattern: "$DB.execute(\"...\" % ...)"
-    - pattern: "$DB.execute(\"...\".format(...))"
-    - pattern: "$DB.execute(f\"...\")"
-    - pattern: "$DB.execute(\"...\" + $V + \"...\")"
-    - patterns:
-      - pattern-either:
-        - pattern-inside: |
-            ...
-            $SQL = "..." % ...
-            ...
-        - pattern-inside: |
-            ...
-            $SQL = $SQL + "..." % ...
-            ...
-        - pattern-inside: |
-            ...
-            $SQL = "...".format(...)
-            ...
-        - pattern-inside: |
-            ...
-            $SQL = f"...{$X}..."
-            ...
-      - pattern: "$DB.execute($SQL)"
-  severity: "WARNING"
-- id: "bandit.B507"
-  languages:
-  - "python"
-  message: |
-    The application was found to ignore host keys. Host keys are important as
-    they provide assurance that the client can prove that the host is trusted.
-    By ignoring these host keys, it is impossible for the client to validate the
-    connection is to a trusted host.
-
-    To remediate this issue, remove the call to `set_missing_host_key_policy(...)` which
-    sets the host key policy. Instead, load key files using either `load_system_host_keys`
-    or `load_host_keys` to only allow known good hosts. By not setting a host key policy
-    for unknown hosts, `paramiko`'s default policy is to use `RejectPolicy`.
-
-    Example configuration connecting to a known, trusted host, and not allowing connections
-    to unknown hosts:
-    ```
-    import paramiko
-
-    # Create an SSH client
-    with paramiko.SSHClient() as ssh:
-        # Load the system host keys so we can confirm the
-        # host we are connecting to is legitimate
-        ssh.load_system_host_keys('/home/appuser/.ssh/known_hosts')
-
-        # Connect to the remote host using our SSH private key
-        ssh.connect(hostname='example.org',
-                    port=22,
-                    username='appuser',
-                    key_filename='/home/appuser/.ssh/private_key')
-    ```
-
-    For more information on `set_missing_host_key_policy` see:
-    - https://docs.paramiko.org/en/stable/api/client.html#paramiko.client.SSHClient.set_missing_host_key_policy
-  metadata:
-    cwe: "CWE-322"
-    category: "security"
-    owasp: "A5:2017-Broken Access Control"
-    shortDescription: "Key exchange without entity authentication"
-    primary_identifier: "bandit.B507"
-    secondary_identifiers:
-    - name: "Bandit Test ID B507"
-      type: "bandit_test_id"
-      value: "B507"
-  patterns:
-  - pattern-inside: |
-      $CLIENT = paramiko.client.SSHClient(...)
-      ...
-      $CLIENT.set_missing_host_key_policy(...)
-  - pattern-either:
-    - pattern: "paramiko.client.AutoAddPolicy"
-    - pattern: "paramiko.client.WarningPolicy"
-  severity: "ERROR"
-- id: "bandit.B501"
-  languages:
-  - "python"
-  message: |
-    The application was found using the `requests` module without configuring a timeout value for
-    connections. The `verify=False` argument has been set, which effectively disables the
-    validation
-    of server certificates.
-
-    This allows for an adversary who is in between the application and the target host to intercept
-    potentially sensitive information or transmit malicious data.
-
-    To remediate this issue either remove the `verify=False` argument, or set `verify=True`to each
-    `requests` call.
-
-    Example verifying server certificates for an HTTP GET request:
-    ```
-    # Issue a GET request to https://example.com with a timeout of 10 seconds and verify the
-    # server certificate explicitly.
-    response = requests.get('https://example.com', timeout=10, verify=True)
-    # Work with the response object
-    # ...
-    ```
-
-    For more information on using the requests module see:
-    - https://requests.readthedocs.io/en/latest/api/
-  metadata:
-    cwe: "CWE-295"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Improper certificate validation"
-    primary_identifier: "bandit.B501"
-    secondary_identifiers:
-    - name: "Bandit Test ID B501"
-      type: "bandit_test_id"
-      value: "B501"
-  patterns:
-  - pattern-either:
-    - pattern: "requests.put(..., verify=False, ...)"
-    - pattern: "requests.patch(..., verify=False, ...)"
-    - pattern: "requests.delete(..., verify=False, ...)"
-    - pattern: "requests.head(..., verify=False, ...)"
-    - pattern: "requests.options(..., verify=False, ...)"
-    - pattern: "requests.request(..., verify=False, ...)"
-    - pattern: "requests.get(..., verify=False, ...)"
-    - pattern: "requests.post(..., verify=False, ...)"
-  severity: "ERROR"
-- id: "bandit.B504"
-  languages:
-  - "python"
-  message: |
-    The application was found calling `ssl.wrap_socket` without a TLS protocol version specified.
-    Additionally, `ssl.wrap_socket` has been deprecated since Python 3.7. It is strongly
-    recommended
-    that newer applications use TLS 1.2 or 1.3 and `SSLContext.wrap_socket`.
-
-    To remediate this issue, create a new TLS context and pass in `ssl.PROTOCOL_TLS_CLIENT`
-    for clients or `ssl.PROTOCOL_TLS_SERVER` for servers to the `ssl.SSLContext(...)` `protocol=`
-    argument. When converting the socket to a TLS socket, use the new `SSLContext.wrap_socket`
-    method instead.
-
-
-    Example creating a TLS 1.3 client socket connection by using a newer version of Python
-    (3.11.4) and
-    the SSL module:
-    ```
-    import ssl
-    import socket
-
-    # Create our initial socket
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        # Connect the socket
-        sock.connect(('www.example.org', 443))
-
-        # Create a new SSLContext with protocol set to ssl.PROTOCOL_TLS_CLIENT
-        # This will auto-select the highest grade TLS protocol version (1.3)
-        context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_CLIENT)
-        # Load our a certificates for server certificate authentication
-        context.load_verify_locations('cert.pem')
-        # Create our TLS socket, and validate the server hostname matches
-        with context.wrap_socket(sock, server_hostname="www.example.org") as tls_sock:
-            # Send some bytes over the socket (HTTP request in this case)\
-            data = bytes('GET / HTTP/1.1\r\nHost: example.org\r\n\r\n', 'utf-8')
-            sent_bytes = tls_sock.send(data)
-            # Validate number of sent bytes
-            # ...
-            # Read the response
-            resp = tls_sock.recv()
-            # Work with the response
-            # ...
-    ```
-
-    For more information on the ssl module see:
-    - https://docs.python.org/3/library/ssl.html
-  metadata:
-    cwe: "CWE-326"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Inadequate encryption strength"
-    primary_identifier: "bandit.B504"
-    secondary_identifiers:
-    - name: "Bandit Test ID B504"
-      type: "bandit_test_id"
-      value: "B504"
-  patterns:
-  - pattern: "ssl.wrap_socket()"
   severity: "WARNING"
 - id: "bandit.B502"
   languages:
@@ -3762,6 +1239,7 @@ rules:
     cwe: "CWE-326"
     owasp: "A3:2017-Sensitive Data Exposure"
     shortDescription: "Inadequate Encryption Strength"
+    license: "MIT"
     primary_identifier: "bandit.B502"
     secondary_identifiers:
     - name: "Bandit Test ID B502"
@@ -3778,64 +1256,6 @@ rules:
     - pattern: "pyOpenSSL.SSL.SSLv3_METHOD"
     - pattern: "pyOpenSSL.SSL.TLSv1_METHOD"
     - pattern: "pyOpenSSL.SSL.TLSv1_1_METHOD"
-  severity: "ERROR"
-- id: "bandit.B323"
-  languages:
-  - "python"
-  message: |
-    The application was found creating a SSL context using the `_create_unverified_context`.
-    This effectively disables the validation of server certificates.
-
-    This allows for an adversary who is in between the application and the target host to intercept
-    potentially sensitive information or transmit malicious data.
-
-    To remediate this issue remove the call to `_create_unverified_context` and either create a
-    default
-    context using `ssl.create_default_context` or create a context with TLS 1.3.
-
-    Example creating a TLS 1.3 client socket connection by using a newer version of Python
-    (3.11.4) and
-    the SSL module:
-    ```
-    import ssl
-    import socket
-
-    # Create our initial socket
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        # Connect the socket
-        sock.connect(('www.example.org', 443))
-
-        # Create a new SSLContext with protocol set to ssl.PROTOCOL_TLS_CLIENT
-        # This will auto-select the highest grade TLS protocol version (1.3)
-        context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_CLIENT)
-        # Load our a certificates for server certificate authentication
-        context.load_verify_locations('cert.pem')
-        # Create our TLS socket, and validate the server hostname matches
-        with context.wrap_socket(sock, server_hostname="www.example.org") as tls_sock:
-            # Send some bytes over the socket (HTTP request in this case)\
-            data = bytes('GET / HTTP/1.1\r\nHost: example.org\r\n\r\n', 'utf-8')
-            sent_bytes = tls_sock.send(data)
-            # Validate number of sent bytes
-            # ...
-            # Read the response
-            resp = tls_sock.recv()
-            # Work with the response
-            # ...
-    ```
-
-    Unverified SSL context detected. This will permit insecure connections without `verifyingSSL`
-    certificates. Use `ssl.create_default_context()` instead.
-  metadata:
-    cwe: "CWE-295"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    category: "security"
-    shortDescription: "Improper certificate validation"
-    primary_identifier: "bandit.B323"
-    secondary_identifiers:
-    - name: "Bandit Test ID B323"
-      type: "bandit_test_id"
-      value: "B323"
-  pattern: "ssl._create_unverified_context(...)"
   severity: "ERROR"
 - id: "bandit.B401"
   languages:
@@ -3873,6 +1293,7 @@ rules:
     category: "security"
     owasp: "A3:2017-Sensitive Data Exposure"
     shortDescription: "Cleartext transmission of sensitive information"
+    license: "MIT"
     primary_identifier: "bandit.B401"
     secondary_identifiers:
     - name: "Bandit Test ID B401"
@@ -3890,6 +1311,7 @@ rules:
     cwe: "CWE-319"
     owasp: "A3:2017-Sensitive Data Exposure"
     shortDescription: "Cleartext Transmission of Sensitive Information"
+    license: "MIT"
     primary_identifier: "bandit.B312"
     secondary_identifiers:
     - name: "Bandit Test ID B312"
@@ -3897,84 +1319,6 @@ rules:
       value: "B312"
   pattern: "telnetlib.$ANYTHING(...)"
   severity: "WARNING"
-- id: "bandit.B108"
-  languages:
-  - "python"
-  message: |
-    The application was found creating files in shared system temporary directories
-    (`/tmp` or `/var/tmp`) without using the `tempfile.TemporaryFile` function. Depending
-    on how the application uses this temporary file, an attacker may be able to create
-    symlinks that point to other files prior to the application creating or writing
-    to the target file, leading to unintended files being created or overwritten.
-
-    Example using `tempfile.TemporaryFile` to write a file:
-    ```
-    import tempfile
-
-    # Open a new temporary file using a context manager
-    with tempfile.TemporaryFile() as fp:
-        # Write some data to the temporary file
-        fp.write(b'Some data')
-        # Seek back to beginning of file
-        fp.seek(0)
-        # Read it
-        data = fp.read()
-    # File is automatically closed/removed once we exit the with context
-    ```
-
-    For more information on alternative tempfile functions see:
-    - https://docs.python.org/3/library/tempfile.html
-  metadata:
-    cwe: "CWE-377"
-    category: "security"
-    shortDescription: "Insecure temporary file"
-    primary_identifier: "bandit.B108"
-    secondary_identifiers:
-    - name: "Bandit Test ID B108"
-      type: "bandit_test_id"
-      value: "B108"
-  pattern: "$CALL(\"=~/^\\/tmp.*/\", ...)"
-  severity: "WARNING"
-- id: "bandit.B306"
-  languages:
-  - "python"
-  message: |
-    The application was found creating temporary files with the insecure `mktemp` method.
-    Depending on how the application uses this temporary file, an attacker may be able to create
-    symlinks that point to other files prior to the application creating or writing
-    to the target file, leading to unintended files being created or overwritten.
-
-    To remediate this issue consider using `tempfile.TemporaryFile` instead.
-
-    Example using `tempfile.TemporaryFile` to write a file:
-    ```
-    import tempfile
-
-    # Open a new temporary file using a context manager
-    with tempfile.TemporaryFile() as fp:
-        # Write some data to the temporary file
-        fp.write(b'Some data')
-        # Seek back to beginning of file
-        fp.seek(0)
-        # Read it
-        data = fp.read()
-    # File is automatically closed/removed once we exit the with context
-    ```
-
-    For more information on alternative tempfile functions see:
-    - https://docs.python.org/3/library/tempfile.html
-  metadata:
-    cwe: "CWE-377"
-    category: "security"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    shortDescription: "Insecure temporary file"
-    primary_identifier: "bandit.B306"
-    secondary_identifiers:
-    - name: "Bandit Test ID B306"
-      type: "bandit_test_id"
-      value: "B306"
-  pattern: "tempfile.mktemp(...)"
-  severity: "ERROR"
 - id: "bandit.B108-2"
   languages:
   - "python"
@@ -3983,6 +1327,7 @@ rules:
   metadata:
     cwe: "CWE-377"
     shortDescription: "Insecure Temporary File"
+    license: "MIT"
     primary_identifier: "bandit.B108-2"
     secondary_identifiers:
     - name: "Bandit Test ID B108"
@@ -3993,80 +1338,6 @@ rules:
   - metavariable-regex:
       metavariable: "$DIR"
       regex: "['\"](/tmp|/var/tmp|/dev/shm).*['\"]"
-  severity: "WARNING"
-- id: "bandit.B325"
-  languages:
-  - "python"
-  message: |
-    The Python `os` `tempnam|tmpnam` functions are vulnerable to symlink attacks
-  metadata:
-    cwe: "CWE-377"
-    shortDescription: "Insecure Temporary File"
-    primary_identifier: "bandit.B325"
-    secondary_identifiers:
-    - name: "Bandit Test ID B325"
-      type: "bandit_test_id"
-      value: "B325"
-  pattern-either:
-  - pattern: "os.tempnam(...)"
-  - pattern: "os.tmpnam(...)"
-  severity: "WARNING"
-- id: "bandit.B310-1"
-  languages:
-  - "python"
-  message: |
-    The application was found passing in a non-literal value to the `urllib` methods which issue
-    requests. `urllib` supports the `file://` scheme, which may allow an adversary who can control
-    the URL value to read arbitrary files on the file system.
-
-    To remediate this issue either hardcode the URLs being used in urllib or use the `requests`
-    module instead.
-
-    Example using the `requests` module to issue an HTTPS request:
-    ```
-    import requests
-    # Issue a GET request to https://example.com with a timeout of 10 seconds
-    response = requests.get('https://example.com', timeout=10)
-    # Work with the response object
-    # ...
-    ```
-  metadata:
-    cwe: "CWE-939"
-    owasp: "A5:2017-Broken Access Control"
-    shortDescription: "Improper Authorization in Handler for Custom URL Scheme"
-    primary_identifier: "bandit.B310-1"
-    secondary_identifiers:
-    - name: "Bandit Test ID B310"
-      type: "bandit_test_id"
-      value: "B310"
-  patterns:
-  - pattern-not: "urllib.$W(\"...\")"
-  - pattern-not: "urllib.request.$W(\"...\")"
-  - pattern-not: "$OPENER.$W(\"...\")"
-  - pattern-either:
-    - patterns:
-      - pattern-either:
-        - pattern: "urllib.urlopen(...)"
-        - pattern: "urllib.request.urlopen(...)"
-        - pattern: "urllib.urlretrieve(...)"
-        - pattern: "urllib.request.urlretrieve(...)"
-    - patterns:
-      - pattern-either:
-        - pattern-inside: |
-            $OPENER = urllib.URLopener(...)
-            ...
-        - pattern-inside: |
-            $OPENER = urllib.request.URLopener(...)
-            ...
-        - pattern-inside: |
-            $OPENER = urllib.FancyURLopener(...)
-            ...
-        - pattern-inside: |
-            $OPENER = urllib.request.FancyURLopener(...)
-            ...
-      - pattern-either:
-        - pattern: "$OPENER.open(...)"
-        - pattern: "$OPENER.retrieve(...)"
   severity: "WARNING"
 - id: "bandit.B310-2"
   languages:
@@ -4080,6 +1351,7 @@ rules:
     cwe: "CWE-939"
     owasp: "A5:2017-Broken Access Control"
     shortDescription: "Improper Authorization in Handler for Custom URL Scheme"
+    license: "MIT"
     primary_identifier: "bandit.B310-2"
     secondary_identifiers:
     - name: "Bandit Test ID B310"
@@ -4143,6 +1415,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B313"
     secondary_identifiers:
     - name: "Bandit Test ID B313"
@@ -4198,6 +1471,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B314"
     secondary_identifiers:
     - name: "Bandit Test ID B314"
@@ -4253,6 +1527,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B320"
     secondary_identifiers:
     - name: "Bandit Test ID B320"
@@ -4311,6 +1586,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B316"
     secondary_identifiers:
     - name: "Bandit Test ID B316"
@@ -4364,6 +1640,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B315"
     secondary_identifiers:
     - name: "Bandit Test ID B315"
@@ -4386,6 +1663,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B405"
     secondary_identifiers:
     - name: "Bandit Test ID B405"
@@ -4407,6 +1685,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B407"
     secondary_identifiers:
     - name: "Bandit Test ID B407"
@@ -4426,6 +1705,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B410"
     secondary_identifiers:
     - name: "Bandit Test ID B410"
@@ -4446,6 +1726,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B408"
     secondary_identifiers:
     - name: "Bandit Test ID B408"
@@ -4464,6 +1745,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B403"
     secondary_identifiers:
     - name: "Bandit Test ID B403"
@@ -4486,6 +1768,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B409"
     secondary_identifiers:
     - name: "Bandit Test ID B409"
@@ -4506,6 +1789,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B406"
     secondary_identifiers:
     - name: "Bandit Test ID B406"
@@ -4524,6 +1808,7 @@ rules:
     cwe: "CWE-502"
     owasp: "A8:2017-Insecure Deserialization"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "bandit.B411"
     secondary_identifiers:
     - name: "Bandit Test ID B411"
@@ -4574,6 +1859,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B318"
     secondary_identifiers:
     - name: "Bandit Test ID B318"
@@ -4627,6 +1913,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper Restriction of XML External Entity Reference"
+    license: "MIT"
     primary_identifier: "bandit.B319"
     secondary_identifiers:
     - name: "Bandit Test ID B319"
@@ -4680,6 +1967,7 @@ rules:
     owasp: "A4:2017-XML External Entities (XXE)"
     category: "security"
     shortDescription: "Improper restriction of XML external entity reference"
+    license: "MIT"
     primary_identifier: "bandit.B317"
     secondary_identifiers:
     - name: "Bandit Test ID B317"

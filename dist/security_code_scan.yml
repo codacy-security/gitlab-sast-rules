@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.40
+# rule-set version: v1.3.41
 # yamllint enable
 ---
 rules:
@@ -26,6 +26,7 @@ rules:
     shortDescription: "Use of cache containing sensitive information"
     category: "security"
     cwe: "CWE-524"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0019-1"
     secondary_identifiers:
     - name: "SCS0019"
@@ -70,6 +71,7 @@ rules:
     shortDescription: "Sensitive cookie without 'HttpOnly' flag"
     category: "security"
     cwe: "CWE-1004"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0009-1"
     secondary_identifiers:
     - name: "SCS0009"
@@ -112,6 +114,7 @@ rules:
     shortDescription: "Sensitive cookie in HTTPS session without 'Secure' attribute"
     category: "security"
     cwe: "CWE-614"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0008-1"
     secondary_identifiers:
     - name: "SCS0008"
@@ -152,6 +155,7 @@ rules:
     shortDescription: "Certificate validation disabled"
     category: "security"
     cwe: "CWE-295"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0004-1"
     secondary_identifiers:
     - name: "SCS0004"
@@ -240,6 +244,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     category: "security"
     cwe: "CWE-327"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0010-1"
     secondary_identifiers:
     - name: "SCS0010"
@@ -323,6 +328,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     category: "security"
     cwe: "CWE-327"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0013-1"
     secondary_identifiers:
     - name: "SCS0013"
@@ -383,6 +389,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm (SHA1/MD5)"
     category: "security"
     cwe: "CWE-327"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0006-1"
     secondary_identifiers:
     - name: "SCS0006"
@@ -417,6 +424,7 @@ rules:
       (PRNG)"
     category: "security"
     cwe: "CWE-338"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0005-1"
     secondary_identifiers:
     - name: "SCS0005"
@@ -475,6 +483,7 @@ rules:
     shortDescription: "Potential Cross-Site Request Forgery (CSRF)"
     category: "security"
     cwe: "CWE-352"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0016-1"
     secondary_identifiers:
     - name: "SCS0016"
@@ -559,6 +568,7 @@ rules:
     shortDescription: "Deserialization of potentially untrusted data"
     category: "security"
     cwe: "CWE-502"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0028-1"
     secondary_identifiers:
     - name: "SCS0028"
@@ -626,6 +636,7 @@ rules:
     shortDescription: "URL redirection to untrusted site 'open redirect'"
     category: "security"
     cwe: "CWE-601"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0027-1"
     secondary_identifiers:
     - name: "SCS0027"
@@ -708,6 +719,7 @@ rules:
       ('OS Command Injection')"
     category: "security"
     cwe: "CWE-78"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0001-1"
     secondary_identifiers:
     - name: "SCS0001"
@@ -797,6 +809,7 @@ rules:
       query ('LDAP Injection')"
     category: "security"
     cwe: "CWE-90"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0026-1.SCS0031-1"
     secondary_identifiers:
     - name: "SCS0026"
@@ -899,6 +912,7 @@ rules:
       Command ('SQL Injection')"
     category: "security"
     cwe: "CWE-89"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0002-1"
     secondary_identifiers:
     - name: "SCS0002"
@@ -985,6 +999,7 @@ rules:
       Injection')"
     category: "security"
     cwe: "CWE-643"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0003-1"
     secondary_identifiers:
     - name: "SCS0003"
@@ -1035,6 +1050,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference ('XXE')"
     category: "security"
     cwe: "CWE-611"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0007-1"
     secondary_identifiers:
     - name: "SCS0007"
@@ -1050,6 +1066,7 @@ rules:
     category: "security"
     cwe: "CWE-284"
     shortDescription: "Improper Access Control"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0012-1"
     secondary_identifiers:
     - name: "SCS0012"
@@ -1136,6 +1153,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference"
     category: "security"
     cwe: "CWE-611"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0011-1"
     secondary_identifiers:
     - name: "SCS0011"
@@ -1214,6 +1232,7 @@ rules:
     shortDescription: "Weak password requirements"
     category: "security"
     cwe: "CWE-521"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0032-1.SCS0033-1.SCS0034-1"
     secondary_identifiers:
     - name: "SCS0032"
@@ -1366,6 +1385,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0018-1"
     secondary_identifiers:
     - name: "SCS0018"
@@ -1414,6 +1434,7 @@ rules:
     shortDescription: "ASP.NET input validation disabled"
     category: "security"
     cwe: "CWE-554"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0017-1"
     secondary_identifiers:
     - name: "SCS0017"
@@ -1516,6 +1537,7 @@ rules:
       ('Cross-site Scripting')"
     category: "security"
     cwe: "CWE-79"
+    license: "MIT"
     primary_identifier: "security_code_scan.SCS0029-1"
     secondary_identifiers:
     - name: "SCS0029"

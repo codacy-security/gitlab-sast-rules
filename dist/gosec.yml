@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.40
+# rule-set version: v1.3.41
 # yamllint enable
 ---
 rules:
@@ -12,6 +12,7 @@ rules:
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
     shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    license: "MIT"
     primary_identifier: "gosec.G504-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G504"
@@ -124,6 +125,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    license: "MIT"
     primary_identifier: "gosec.G502-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G502"
@@ -231,6 +233,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    license: "MIT"
     primary_identifier: "gosec.G501-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G501"
@@ -340,6 +343,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    license: "MIT"
     primary_identifier: "gosec.G503-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G503"
@@ -446,6 +450,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    license: "MIT"
     primary_identifier: "gosec.G505-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G505"
@@ -528,6 +533,7 @@ rules:
     shortDescription: "Use of a broken or risky cryptographic algorithm"
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
+    license: "MIT"
     primary_identifier: "gosec.G402-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G402"
@@ -572,6 +578,7 @@ rules:
   metadata:
     shortDescription: "Key exchange without entity authentication"
     cwe: "CWE-322"
+    license: "MIT"
     primary_identifier: "gosec.G106-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G106"
@@ -618,6 +625,7 @@ rules:
     shortDescription: "Use of deprecated TLS version"
     cwe: "CWE-310"
     owasp: "A6:2017-Security Misconfiguration"
+    license: "MIT"
     primary_identifier: "gosec.G402-2"
     secondary_identifiers:
     - name: "Gosec Rule ID G402"
@@ -634,6 +642,7 @@ rules:
     cwe: "CWE-327"
     owasp: "A9:2017-Using Components with Known Vulnerabilities"
     shortDescription: "Use of a Broken or Risky Cryptographic Algorithm"
+    license: "MIT"
     primary_identifier: "gosec.G401-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G401"
@@ -692,6 +701,7 @@ rules:
     shortDescription: "Inadequate encryption strength"
     cwe: "CWE-326"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "gosec.G403-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G403"
@@ -726,6 +736,7 @@ rules:
       (PRNG)"
     cwe: "CWE-338"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "gosec.G404-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G404"
@@ -768,6 +779,7 @@ rules:
     shortDescription: "Incorrect permission assignment for critical resource"
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
+    license: "MIT"
     primary_identifier: "gosec.G302-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G302"
@@ -808,6 +820,7 @@ rules:
     shortDescription: "Incorrect permission assignment for critical resource"
     cwe: "CWE-732"
     owasp: "A6:2017-Security Misconfiguration"
+    license: "MIT"
     primary_identifier: "gosec.G301-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G301"
@@ -865,6 +878,7 @@ rules:
   metadata:
     shortDescription: "Improper handling of highly compressed data"
     cwe: "CWE-409"
+    license: "MIT"
     primary_identifier: "gosec.G110-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G110"
@@ -901,6 +915,7 @@ rules:
   metadata:
     shortDescription: "Relative path traversal"
     cwe: "CWE-23"
+    license: "MIT"
     primary_identifier: "gosec.G111-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G111"
@@ -1013,6 +1028,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
+    license: "MIT"
     primary_identifier: "gosec.G304-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G304"
@@ -1052,6 +1068,7 @@ rules:
   metadata:
     shortDescription: "Incorrect default permissions"
     cwe: "CWE-276"
+    license: "MIT"
     primary_identifier: "gosec.G306-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G306"
@@ -1098,6 +1115,7 @@ rules:
   metadata:
     shortDescription: "Creation of temporary file with insecure permissions"
     cwe: "CWE-378"
+    license: "MIT"
     primary_identifier: "gosec.G303-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G303"
@@ -1216,6 +1234,7 @@ rules:
     shortDescription: "Improper limitation of a pathname to a restricted directory
       ('Path Traversal')"
     cwe: "CWE-22"
+    license: "MIT"
     primary_identifier: "gosec.G305-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G305"
@@ -1307,6 +1326,7 @@ rules:
   metadata:
     shortDescription: "Uncontrolled resource consumption (Slowloris)"
     cwe: "CWE-400"
+    license: "MIT"
     primary_identifier: "gosec.G114-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G114"
@@ -1424,6 +1444,7 @@ rules:
   metadata:
     shortDescription: "Uncontrolled resource consumption (Slowloris)"
     cwe: "CWE-400"
+    license: "MIT"
     primary_identifier: "gosec.G112-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G112"
@@ -1567,6 +1588,7 @@ rules:
   metadata:
     shortDescription: "Server Side Request Forgery (SSRF)"
     cwe: "CWE-918"
+    license: "MIT"
     primary_identifier: "gosec.G107-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G107"
@@ -1649,6 +1671,7 @@ rules:
     shortDescription: "Improper neutralization of input during web page generation
       ('Cross-site Scripting')"
     cwe: "CWE-79"
+    license: "MIT"
     primary_identifier: "gosec.G203-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G203"
@@ -1671,6 +1694,7 @@ rules:
   metadata:
     shortDescription: "Active debug code (pprof enabled)"
     cwe: "CWE-489"
+    license: "MIT"
     primary_identifier: "gosec.G108-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G108"
@@ -1715,6 +1739,7 @@ rules:
   metadata:
     shortDescription: "Integer overflow or wraparound"
     cwe: "CWE-190"
+    license: "MIT"
     primary_identifier: "gosec.G109-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G109"
@@ -1729,6 +1754,7 @@ rules:
   metadata:
     cwe: "CWE-190"
     shortDescription: "Integer Overflow or Wraparound"
+    license: "MIT"
     primary_identifier: "gosec.G113-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G113"
@@ -1818,6 +1844,7 @@ rules:
   metadata:
     shortDescription: "Incorrect access of indexable resource ('Range Error')"
     cwe: "CWE-118"
+    license: "MIT"
     primary_identifier: "gosec.G601-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G601"
@@ -1855,6 +1882,7 @@ rules:
     shortDescription: "Exposure of sensitive information to an unauthorized actor"
     cwe: "CWE-200"
     owasp: "A6:2017-Security Misconfiguration"
+    license: "MIT"
     primary_identifier: "gosec.G102-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G102"
@@ -1891,6 +1919,7 @@ rules:
     shortDescription: "Use of hard-coded password"
     cwe: "CWE-259"
     owasp: "A3:2017-Sensitive Data Exposure"
+    license: "MIT"
     primary_identifier: "gosec.G101-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G101"
@@ -1945,6 +1974,7 @@ rules:
     shortDescription: "Improper Neutralization of Special Elements used in an SQL
       Command ('SQL Injection')"
     cwe: "CWE-89"
+    license: "MIT"
     primary_identifier: "gosec.G202-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G202"
@@ -2006,6 +2036,7 @@ rules:
     shortDescription: "Improper Neutralization of Special Elements used in an SQL
       Command ('SQL Injection')"
     cwe: "CWE-89"
+    license: "MIT"
     primary_identifier: "gosec.G201-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G201"
@@ -2089,6 +2120,7 @@ rules:
       Code ('Eval Injection')"
     cwe: "CWE-95"
     owasp: "A1:2017-Injection"
+    license: "MIT"
     primary_identifier: "gosec.G204-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G204"
@@ -2126,6 +2158,7 @@ rules:
   metadata:
     shortDescription: "Use of inherently dangerous function (unsafe package)"
     cwe: "CWE-242"
+    license: "MIT"
     primary_identifier: "gosec.G103-1"
     secondary_identifiers:
     - name: "Gosec Rule ID G103"

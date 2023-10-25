@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.40
+# rule-set version: v1.3.41
 # yamllint enable
 ---
 rules:
@@ -50,6 +50,7 @@ rules:
     cwe: "CWE-1004"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HTTPONLY_COOKIE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HTTPONLY_COOKIE"
@@ -100,6 +101,7 @@ rules:
     cwe: "CWE-614"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.INSECURE_COOKIE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-INSECURE_COOKIE"
@@ -117,6 +119,7 @@ rules:
     shortDescription: "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.COOKIE_PERSISTENT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-COOKIE_PERSISTENT"
@@ -142,6 +145,7 @@ rules:
     shortDescription: "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.COOKIE_USAGE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-COOKIE_USAGE"
@@ -245,6 +249,7 @@ rules:
     cwe: "CWE-113"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HTTP_RESPONSE_SPLITTING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HTTP_RESPONSE_SPLITTING"
@@ -264,6 +269,7 @@ rules:
       Response Splitting')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_COOKIE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_COOKIE"
@@ -374,6 +380,7 @@ rules:
     cwe: "CWE-113"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HRS_REQUEST_PARAMETER_TO_HTTP_HEADER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
@@ -395,6 +402,7 @@ rules:
     category: "security"
     cwe: "CWE-501"
     shortDescription: "Trust Boundary Violation"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.TRUST_BOUNDARY_VIOLATION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-TRUST_BOUNDARY_VIOLATION"
@@ -430,6 +438,7 @@ rules:
     shortDescription: "Permissive Cross-domain Policy with Untrusted Domains"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PERMISSIVE_CORS-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PERMISSIVE_CORS"
@@ -507,6 +516,7 @@ rules:
     category: "security"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PERMISSIVE_CORS-2"
     secondary_identifiers:
     - name: "Find Security Bugs-PERMISSIVE_CORS"
@@ -577,6 +587,7 @@ rules:
     cwe: "CWE-326"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.BLOWFISH_KEY_SIZE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-BLOWFISH_KEY_SIZE"
@@ -686,6 +697,7 @@ rules:
     cwe: "CWE-326"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.DES_USAGE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-DES_USAGE"
@@ -791,6 +803,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.TDES_USAGE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-TDES_USAGE"
@@ -903,6 +916,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.ECB_MODE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-ECB_MODE"
@@ -1020,6 +1034,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.CIPHER_INTEGRITY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-CIPHER_INTEGRITY"
@@ -1140,6 +1155,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PADDING_ORACLE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PADDING_ORACLE"
@@ -1178,6 +1194,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.CUSTOM_MESSAGE_DIGEST-1"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_MESSAGE_DIGEST"
@@ -1197,6 +1214,7 @@ rules:
     cwe: "CWE-326"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.DEFAULT_HTTP_CLIENT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-DEFAULT_HTTP_CLIENT"
@@ -1220,6 +1238,7 @@ rules:
     cwe: "CWE-326"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HAZELCAST_SYMMETRIC_ENCRYPTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HAZELCAST_SYMMETRIC_ENCRYPTION"
@@ -1281,6 +1300,7 @@ rules:
     shortDescription: "Inadequate encryption strength"
     category: "security"
     cwe: "CWE-326"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.RSA_KEY_SIZE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-RSA_KEY_SIZE"
@@ -1384,6 +1404,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.NULL_CIPHER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-NULL_CIPHER"
@@ -1438,6 +1459,7 @@ rules:
     shortDescription: "Use of RSA algorithm without OAEP"
     category: "security"
     cwe: "CWE-780"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.RSA_NO_PADDING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-RSA_NO_PADDING"
@@ -1487,6 +1509,7 @@ rules:
     cwe: "CWE-327"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.WEAK_MESSAGE_DIGEST_MD5-1.WEAK_MESSAGE_DIGEST_SHA1-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_MESSAGE_DIGEST_MD5"
@@ -1532,6 +1555,7 @@ rules:
     shortDescription: "Improper certificate validation"
     category: "security"
     cwe: "CWE-295"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SSL_CONTEXT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SSL_CONTEXT"
@@ -1617,6 +1641,7 @@ rules:
     shortDescription: "Inadequate encryption strength"
     category: "security"
     cwe: "CWE-326"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SSL_CONTEXT-2"
     secondary_identifiers:
     - name: "Find Security Bugs-SSL_CONTEXT"
@@ -1658,6 +1683,7 @@ rules:
     shortDescription: "Cross-Site Request Forgery (CSRF)"
     category: "security"
     cwe: "CWE-352"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SPRING_CSRF_PROTECTION_DISABLED-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SPRING_CSRF_PROTECTION_DISABLED"
@@ -1674,6 +1700,7 @@ rules:
     category: "security"
     cwe: "CWE-20"
     shortDescription: "Improper Input Validation"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SERVLET_PARAMETER-1.SERVLET_CONTENT_TYPE-1.SERVLET_SERVER_NAME-1.SERVLET_SESSION_ID-1.SERVLET_QUERY_STRING-1.SERVLET_HEADER-1.SERVLET_HEADER_REFERER-1.SERVLET_HEADER_USER_AGENT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SERVLET_PARAMETER"
@@ -1729,6 +1756,7 @@ rules:
     shortDescription: "Improper Input Validation"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.JAXRS_ENDPOINT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-JAXRS_ENDPOINT"
@@ -1774,6 +1802,7 @@ rules:
     shortDescription: "Improper Input Validation"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.JAXWS_ENDPOINT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-JAXWS_ENDPOINT"
@@ -1815,6 +1844,7 @@ rules:
   metadata:
     cwe: "CWE-319"
     shortDescription: "Cleartext Transmission of Sensitive Information"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.UNENCRYPTED_SOCKET-1.UNENCRYPTED_SERVER_SOCKET-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNENCRYPTED_SOCKET"
@@ -1837,6 +1867,7 @@ rules:
     category: "security"
     cwe: "CWE-601"
     shortDescription: "URL Redirection to Untrusted Site ('Open Redirect')"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.UNVALIDATED_REDIRECT-1.URL_REWRITING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-UNVALIDATED_REDIRECT"
@@ -1899,6 +1930,7 @@ rules:
     shortDescription: "Improper certificate validation"
     category: "security"
     cwe: "CWE-295"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.WEAK_HOSTNAME_VERIFIER-1.WEAK_TRUST_MANAGER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_HOSTNAME_VERIFIER"
@@ -1948,6 +1980,7 @@ rules:
       ('Path Traversal')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.FILE_UPLOAD_FILENAME-1"
     secondary_identifiers:
     - name: "Find Security Bugs-FILE_UPLOAD_FILENAME"
@@ -1980,6 +2013,7 @@ rules:
       ('Path Traversal')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.WEAK_FILENAMEUTILS-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WEAK_FILENAMEUTILS"
@@ -2011,6 +2045,7 @@ rules:
     category: "security"
     cwe: "CWE-20"
     shortDescription: "Improper Input Validation"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.STRUTS_FORM_VALIDATION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-STRUTS_FORM_VALIDATION"
@@ -2038,6 +2073,7 @@ rules:
     shortDescription: "Improper Neutralization of Special Elements in Data Query Logic"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.AWS_QUERY_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-AWS_QUERY_INJECTION"
@@ -2091,6 +2127,7 @@ rules:
     shortDescription: "External Control of System or Configuration Setting"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.BEAN_PROPERTY_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-BEAN_PROPERTY_INJECTION"
@@ -2187,6 +2224,7 @@ rules:
     cwe: "CWE-93"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.CRLF_INJECTION_LOGS-1"
     secondary_identifiers:
     - name: "Find Security Bugs-CRLF_INJECTION_LOGS"
@@ -2309,6 +2347,7 @@ rules:
     cwe: "CWE-78"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.COMMAND_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-COMMAND_INJECTION"
@@ -2394,6 +2433,7 @@ rules:
     cwe: "CWE-89"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.CUSTOM_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_INJECTION"
@@ -2412,6 +2452,7 @@ rules:
       Command ('SQL Injection')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.CUSTOM_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-CUSTOM_INJECTION"
@@ -2453,6 +2494,7 @@ rules:
     shortDescription: "Improper Control of Generation of Code ('Code Injection')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.EL_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-EL_INJECTION"
@@ -2571,6 +2613,7 @@ rules:
     shortDescription: "Files or directories accessible to external parties"
     category: "security"
     cwe: "CWE-552"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.REQUESTDISPATCHER_FILE_DISCLOSURE-1.STRUTS_FILE_DISCLOSURE-1.SPRING_FILE_DISCLOSURE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-REQUESTDISPATCHER_FILE_DISCLOSURE"
@@ -2675,6 +2718,7 @@ rules:
     cwe: "CWE-88"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HTTP_PARAMETER_POLLUTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HTTP_PARAMETER_POLLUTION"
@@ -2844,6 +2888,7 @@ rules:
     cwe: "CWE-90"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.LDAP_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_INJECTION"
@@ -3004,6 +3049,7 @@ rules:
     cwe: "CWE-917"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.OGNL_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-OGNL_INJECTION"
@@ -3024,6 +3070,7 @@ rules:
       ('Path Traversal')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_IN-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PATH_TRAVERSAL_IN"
@@ -3093,6 +3140,7 @@ rules:
       ('Path Traversal')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PATH_TRAVERSAL_OUT-1.PATH_TRAVERSAL_OUT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PATH_TRAVERSAL_OUT"
@@ -3234,6 +3282,7 @@ rules:
     cwe: "CWE-22"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PT_ABSOLUTE_PATH_TRAVERSAL-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PT_ABSOLUTE_PATH_TRAVERSAL"
@@ -3254,6 +3303,7 @@ rules:
       ('Path Traversal')"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PT_RELATIVE_PATH_TRAVERSAL-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PT_RELATIVE_PATH_TRAVERSAL"
@@ -3356,6 +3406,7 @@ rules:
       Command ('SQL Injection')"
     category: "security"
     cwe: "CWE-89"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SQL_INJECTION_SPRING_JDBC-1.SQL_INJECTION_JPA-1.SQL_INJECTION_JDO-1.SQL_INJECTION_JDBC-1.SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE-1.SQL_INJECTION-1.SQL_INJECTION_HIBERNATE-1.SQL_INJECTION_VERTX-1.SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SQL_INJECTION_SPRING_JDBC"
@@ -3654,6 +3705,7 @@ rules:
     shortDescription: "Missing authentication for critical function (LDAP)"
     category: "security"
     cwe: "CWE-306"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.LDAP_ANONYMOUS-1"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_ANONYMOUS"
@@ -3671,6 +3723,7 @@ rules:
     category: "security"
     cwe: "CWE-20"
     shortDescription: "Improper Input Validation"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.LDAP_ENTRY_POISONING-1"
     secondary_identifiers:
     - name: "Find Security Bugs-LDAP_ENTRY_POISONING"
@@ -3710,6 +3763,7 @@ rules:
     cwe: "CWE-259"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.DMI_CONSTANT_DB_PASSWORD-1.HARD_CODE_PASSWORD-3"
     secondary_identifiers:
     - name: "Find Security Bugs-DMI_CONSTANT_DB_PASSWORD"
@@ -3753,6 +3807,7 @@ rules:
     cwe: "CWE-306"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.DMI_EMPTY_DB_PASSWORD-1.HARD_CODE_PASSWORD-2"
     secondary_identifiers:
     - name: "Find Security Bugs-DMI_EMPTY_DB_PASSWORD"
@@ -3869,6 +3924,7 @@ rules:
     cwe: "CWE-259"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.HARD_CODE_PASSWORD-1"
     secondary_identifiers:
     - name: "Find Security Bugs-HARD_CODE_PASSWORD"
@@ -3909,6 +3965,7 @@ rules:
     category: "security"
     cwe: "CWE-269"
     confidence: "HIGH"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.DANGEROUS_PERMISSION_COMBINATION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-DANGEROUS_PERMISSION_COMBINATION"
@@ -3956,6 +4013,7 @@ rules:
     owasp: "A6:2017-Security Misconfiguration"
     category: "security"
     confidence: "HIGH"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
@@ -3972,6 +4030,7 @@ rules:
     confidence: "HIGH"
     cwe: "CWE-732"
     shortDescription: "Incorrect Permission Assignment for Critical Resource"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.OVERLY_PERMISSIVE_FILE_PERMISSION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-OVERLY_PERMISSIVE_FILE_PERMISSION"
@@ -4034,6 +4093,7 @@ rules:
     cwe: "CWE-330"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.PREDICTABLE_RANDOM-1"
     secondary_identifiers:
     - name: "Find Security Bugs-PREDICTABLE_RANDOM"
@@ -4090,6 +4150,7 @@ rules:
     shortDescription: "Improper control of generation of code ('Code Injection')"
     category: "security"
     cwe: "CWE-94"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-1.SPEL_INJECTION-1.EL_INJECTION-2.SEAM_LOG_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
@@ -4156,6 +4217,7 @@ rules:
       language statement ('Expression Language Injection')"
     category: "security"
     cwe: "CWE-917"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SCRIPT_ENGINE_INJECTION-2"
     secondary_identifiers:
     - name: "Find Security Bugs-SCRIPT_ENGINE_INJECTION"
@@ -4222,6 +4284,7 @@ rules:
     shortDescription: "Improper validation of certificate with host mismatch"
     category: "security"
     cwe: "CWE-297"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.INSECURE_SMTP_SSL-1"
     secondary_identifiers:
     - name: "Find Security Bugs-INSECURE_SMTP_SSL"
@@ -4271,6 +4334,7 @@ rules:
     shortDescription: "Improper neutralization of special elements used in a command"
     category: "security"
     cwe: "CWE-77"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SMTP_HEADER_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SMTP_HEADER_INJECTION"
@@ -4393,6 +4457,7 @@ rules:
     shortDescription: "Server-Side Request Forgery (SSRF)"
     category: "security"
     cwe: "CWE-918"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.URLCONNECTION_SSRF_FD-1"
     secondary_identifiers:
     - name: "Find Security Bugs-URLCONNECTION_SSRF_FD"
@@ -4472,6 +4537,7 @@ rules:
     cwe: "CWE-704"
     category: "security"
     confidence: "HIGH"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.BAD_HEXA_CONVERSION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-BAD_HEXA_CONVERSION"
@@ -4551,6 +4617,7 @@ rules:
     cwe: "CWE-134"
     category: "security"
     confidence: "HIGH"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.FORMAT_STRING_MANIPULATION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-FORMAT_STRING_MANIPULATION"
@@ -4567,6 +4634,7 @@ rules:
     confidence: "HIGH"
     cwe: "CWE-176"
     shortDescription: "Improper Handling of Unicode Encoding"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.IMPROPER_UNICODE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-IMPROPER_UNICODE"
@@ -4647,6 +4715,7 @@ rules:
     category: "security"
     cwe: "CWE-182"
     confidence: "HIGH"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.MODIFICATION_AFTER_VALIDATION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-MODIFICATION_AFTER_VALIDATION"
@@ -4696,6 +4765,7 @@ rules:
     category: "security"
     cwe: "CWE-180"
     confidence: "HIGH"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.NORMALIZATION_AFTER_VALIDATION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-NORMALIZATION_AFTER_VALIDATION"
@@ -4745,6 +4815,7 @@ rules:
     shortDescription: "Improper control of generation of code ('Code Injection')"
     category: "security"
     cwe: "CWE-94"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.TEMPLATE_INJECTION_PEBBLE-1.TEMPLATE_INJECTION_FREEMARKER-1.TEMPLATE_INJECTION_VELOCITY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-TEMPLATE_INJECTION_PEBBLE"
@@ -4805,6 +4876,7 @@ rules:
     cwe: "CWE-15"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.EXTERNAL_CONFIG_CONTROL-1"
     secondary_identifiers:
     - name: "Find Security Bugs-EXTERNAL_CONFIG_CONTROL"
@@ -4904,6 +4976,7 @@ rules:
     cwe: "CWE-209"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE-1"
     secondary_identifiers:
     - name: "Find Security Bugs-INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE"
@@ -4919,6 +4992,7 @@ rules:
     category: "security"
     cwe: "CWE-502"
     shortDescription: "Deserialization of Untrusted Data"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.RPC_ENABLED_EXTENSIONS-1"
     secondary_identifiers:
     - name: "Find Security Bugs-RPC_ENABLED_EXTENSIONS"
@@ -4959,6 +5033,7 @@ rules:
     shortDescription: "Improper authentication"
     cwe: "CWE-287"
     category: "security"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.SAML_IGNORE_COMMENTS-1"
     secondary_identifiers:
     - name: "Find Security Bugs-SAML_IGNORE_COMMENTS"
@@ -5021,6 +5096,7 @@ rules:
     shortDescription: "Deserialization of untrusted data"
     category: "security"
     cwe: "CWE-502"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XML_DECODER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XML_DECODER"
@@ -5114,6 +5190,7 @@ rules:
       by a downstream component ('Injection')"
     category: "security"
     cwe: "CWE-74"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.MALICIOUS_XSLT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-MALICIOUS_XSLT"
@@ -5188,6 +5265,7 @@ rules:
       Injection')"
     category: "security"
     cwe: "CWE-643"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XPATH_INJECTION-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XPATH_INJECTION"
@@ -5217,6 +5295,7 @@ rules:
     cwe: "CWE-79"
     shortDescription: "Improper Neutralization of Input During Web Page Generation
       ('Cross-site Scripting')"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XSS_REQUEST_WRAPPER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_REQUEST_WRAPPER"
@@ -5280,6 +5359,7 @@ rules:
       ('Cross-site Scripting')"
     category: "security"
     cwe: "CWE-79"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.WICKET_XSS1-1"
     secondary_identifiers:
     - name: "Find Security Bugs-WICKET_XSS1"
@@ -5372,6 +5452,7 @@ rules:
     cwe: "CWE-79"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SEND_ERROR-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_REQUEST_PARAMETER_TO_SEND_ERROR"
@@ -5473,6 +5554,7 @@ rules:
     cwe: "CWE-79"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
@@ -5489,6 +5571,7 @@ rules:
     cwe: "CWE-79"
     shortDescription: "Improper Neutralization of Input During Web Page Generation
       ('Cross-site Scripting')"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XSS_SERVLET-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_SERVLET"
@@ -5533,6 +5616,7 @@ rules:
     shortDescription: "Improper Input Validation"
     technology:
     - "java"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XSS_SERVLET-2.XSS_SERVLET_PARAMETER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XSS_SERVLET"
@@ -5599,6 +5683,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference ('XXE')"
     category: "security"
     cwe: "CWE-611"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XXE_SAXPARSER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_SAXPARSER"
@@ -5629,6 +5714,7 @@ rules:
     category: "security"
     cwe: "CWE-611"
     shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XXE_DTD_TRANSFORM_FACTORY-1.XXE_XSLT_TRANSFORM_FACTORY-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_DTD_TRANSFORM_FACTORY"
@@ -5691,6 +5777,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference ('XXE')"
     category: "security"
     cwe: "CWE-611"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XXE_XMLREADER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_XMLREADER"
@@ -5743,6 +5830,7 @@ rules:
     shortDescription: "Improper restriction of XML external entity reference ('XXE')"
     category: "security"
     cwe: "CWE-611"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XXE_XMLSTREAMREADER-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_XMLSTREAMREADER"
@@ -5776,6 +5864,7 @@ rules:
     category: "security"
     cwe: "CWE-611"
     shortDescription: "Improper Restriction of XML External Entity Reference ('XXE')"
+    license: "MIT"
     primary_identifier: "find_sec_bugs.XXE_XPATH-1.XXE_DOCUMENT-1"
     secondary_identifiers:
     - name: "Find Security Bugs-XXE_XPATH"
