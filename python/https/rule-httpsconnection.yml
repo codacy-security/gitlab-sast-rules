@@ -1,4 +1,25 @@
+# yamllint disable
+# License: LGPL 2.1 (GNU Lesser General Public License, Version 2.1)
+# Licensor: Semgrep, Inc. (https://semgrep.dev)
+# yamllint enable
 ---
 rules:
-- metadata:
+- id: "python_https_rule-httpsconnection"
+  languages:
+  - "python"
+  message: |
+    The HTTPSConnection API has changed frequently with minor releases of Python.Ensure you are
+    using the API for your version of Python securely. For example, Python 3 versions prior to
+    3.4.3
+    will not verify SSL certificates by default.
+  metadata:
+    cwe: "CWE-295"
+    owasp: "A3:2017-Sensitive Data Exposure"
+    shortDescription: "Improper Certificate Validation"
     license: "Commons Clause License Condition v1.0[LGPL-2.1-only]"
+  patterns:
+  - pattern-either:
+    - pattern: "httplib.HTTPSConnection(...)"
+    - pattern: "http.client.HTTPSConnection(...)"
+    - pattern: "six.moves.http_client.HTTPSConnection(...)"
+  severity: "WARNING"
