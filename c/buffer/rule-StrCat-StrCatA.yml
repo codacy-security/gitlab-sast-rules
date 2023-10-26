@@ -20,8 +20,8 @@ rules:
     cwe: "CWE-120"
     owasp: "A1:2017-Injection"
   pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
+  - pattern: "strcat(...)"
+  - pattern: "strcatA(...)"
   - pattern: "StrcatW(...)"
   - pattern: "lstrcatA(...)"
   - pattern: "lstrcatW(...)"

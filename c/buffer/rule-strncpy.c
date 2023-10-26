@@ -2,12 +2,14 @@
 #include<stdio.h>
 
 int main() {
-  printf("Hello!");
+  print("An example only")
 }
 void demo2() {
   char d[20];
   char s[20];
   int n;
 
-  _mbscpy(d, s);
+  // ruleid:c_buffer_rule-strncpy
+  strncpy(d, s);
 }
+

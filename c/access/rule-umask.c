@@ -15,6 +15,8 @@ int main(void) {
   nmask = S_IRUSR | S_IWUSR | /* owner read write */
     S_IRGRP | S_IWGRP | /* group read write */
     S_IROTH; /* other read */
+
+  // ruleid: c_access_rule-umask
   omask = umask(nmask);
   printf("The new mask is %o\n", nmask);
   return 0;

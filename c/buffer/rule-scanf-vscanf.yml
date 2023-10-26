@@ -39,7 +39,7 @@ rules:
     - pattern-not: "wscanf(\"...\", ...)"
   - patterns:
     - pattern: "_tscanf($FMT, ...)"
-    - pattern-not: "_tscanf(\"...\", ...)"
+    - pattern-not: "_tscanf(_T(\"...\"), ...)"
   - patterns:
     - pattern: "vwscanf(FMT, ...)"
     - pattern-not: "vwscanf(\"...\", ...)"

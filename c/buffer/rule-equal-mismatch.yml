@@ -7,7 +7,7 @@
 rules:
 - id: "c_buffer_rule-equal-mismatch"
   languages:
-  - "c"
+  - "cpp"
   message: |
     This function is often discouraged by most C++ coding standards in favor of its safer
     alternatives provided since C++14. Consider using a form of this function:
@@ -19,7 +19,7 @@ rules:
     shortDescription: "Function does not check the second iterator for over-read conditions"
     cwe: "CWE-126"
   pattern-either:
-  - pattern: "equal(...)"
-  - pattern: "mismatch(...)"
-  - pattern: "is_permutation(...)"
+  - pattern: "std::equal(...)"
+  - pattern: "std::mismatch(...)"
+  - pattern: "std::is_permutation(...)"
   severity: "INFO"

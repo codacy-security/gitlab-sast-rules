@@ -5,7 +5,7 @@
 # yamllint enable
 ---
 rules:
-- id: "c_buffer_rule-gets--getts"
+- id: "c_buffer_rule-gets-getts"
   languages:
   - "c"
   message: |
@@ -25,5 +25,5 @@ rules:
     owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "gets(...)"
-  - pattern: "_getts(...)"
+  - pattern: "_getws(...)"
   severity: "ERROR"
