@@ -1,5 +1,8 @@
 sast-rules changelog
 
+## v1.3.42
+- `csharp/deserialization/rule-InsecureDeserialization.yml` - Convert to taint mode and improve precision to illiminate false-positive (!228)
+
 ## v1.3.41
 - Remove poor Go rules (!216)
   - `go/audit/rule-unhandled_error.yml` - Empty placeholder rule
@@ -39,7 +42,7 @@ sast-rules changelog
   - `java/endpoint/rule-InsecureServlet.yml` - It's perfectly acceptable to access the data from these methods. Additionally, there is no way a customer could 'fix' this
   - `java/endpoint/rule-JaxRsEndpoint.yml` - Incomplete rule, original [SpotBugs rule](https://find-sec-bugs.github.io/bugs.htm#JAXRS_ENDPOINT) is too broad and prone to false positives
   - `java/endpoint/rule-JaxWsEndpoint.yml` - Incomplete rule, original [SpotBugs rule](https://find-sec-bugs.github.io/bugs.htm#JAXWS_ENDPOINT) is too broad and prone to false positives
-  - `java/file/rule-FileUploadFileName.yml` - This is a source not a sink 
+  - `java/file/rule-FileUploadFileName.yml` - This is a source not a sink
   - `java/form/rule-FormValidate.yml` - ActionForm/ValidatorForm is from Struts 1.1, which was EoL'd 2013
   - `java/inject/rule-AWSQueryInjection.yml` - SimpleDB, while still technically supported, is deprecated and no longer available to new accounts
   - `java/inject/rule-BeanPropertyInjection.yml` - Apache common collections 3 is no longer available and only works on Java 1.3
