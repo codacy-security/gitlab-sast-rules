@@ -1,5 +1,11 @@
 sast-rules changelog
 
+## v1.3.41
+- Remove poor Go rules (!216)
+  - `go/audit/rule-unhandled_error.yml` - Empty placeholder rule
+  - `go/blocklist/rule-blocklist-cgi.yml` - Only problematic in Go <1.6.3 and we can't currently determine the version
+  - `go/crypto/rule-weakcrypto.yml` - Removed in favor of crypto blocklist rules with better descriptions and recommendations
+
 ## v1.3.40
 - Remove poor or outdated C rules (!215)
   - c/buffer/rule-char_TCHAR.yml - Using character arrays is fine
@@ -268,4 +274,3 @@ sast-rules changelog
 ## v1.1.0
 - Changing deployment target to `/dist`, incorporate meta-information into
   generated rule-packs, update documentation (!87)
-
