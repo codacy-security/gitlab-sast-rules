@@ -3,7 +3,7 @@
 #include <glib/gprintf.h>
 
 int main() {
-  const gchar *
+  char *gchar;
 
   // ruleid: c_buffer_rule-g-get-home-dir
   gchar = g_get_home_dir(void);
