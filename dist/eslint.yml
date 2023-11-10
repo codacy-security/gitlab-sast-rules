@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.43
+# rule-set version: v1.3.44
 # yamllint enable
 ---
 rules:
@@ -128,29 +128,6 @@ rules:
     - name: "ESLint rule ID/detect-new-buffer"
       type: "eslint_rule_id"
       value: "detect-new-buffer"
-  severity: "WARNING"
-- id: "eslint.detect-no-csrf-before-method-override"
-  languages:
-  - "javascript"
-  - "typescript"
-  message: |
-    Detected use of express.csrf() middleware before express.methodOverride(). This can
-    allow GET requests (which are not checked by csrf) to turn into POST requests later.
-  metadata:
-    cwe: "CWE-352"
-    references:
-    - "https://github.com/nodesecurity/eslint-plugin-security/blob/master/docs/bypass-connect-csrf-protection-by-abusing.md"
-    shortDescription: "Cross-Site Request Forgery (CSRF)"
-    source-rule-url: "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-no-csrf-before-method-override.js"
-    primary_identifier: "eslint.detect-no-csrf-before-method-override"
-    secondary_identifiers:
-    - name: "ESLint rule ID/detect-no-csrf-before-method-override"
-      type: "eslint_rule_id"
-      value: "detect-no-csrf-before-method-override"
-  pattern: |
-    express.csrf();
-    ...
-    express.methodOverride();
   severity: "WARNING"
 - id: "eslint.detect-non-literal-regexp"
   languages:
@@ -580,65 +557,6 @@ rules:
     - name: "ESLint rule ID/react-dangerouslysetinnerhtml"
       type: "eslint_rule_id"
       value: "react-dangerouslysetinnerhtml"
-- id: "eslint.react-missing-noopener"
-  languages:
-  - "typescript"
-  - "javascript"
-  message: |
-    Missing 'noopener' on an anchor tag where target='_blank'. This could introduce
-    a reverse tabnabbing vulnerability. Include 'noopener' when using target='_blank'.
-  metadata:
-    cwe: "CWE-200"
-    owasp: "A3:2017-Sensitive Data Exposure"
-    references:
-    - "https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer"
-    - "https://web.dev/external-anchors-use-rel-noopener/"
-    - "https://owasp.org/www-community/attacks/Reverse_Tabnabbing"
-    shortDescription: "Exposure of Sensitive Information to an Unauthorized Actor"
-    primary_identifier: "eslint.react-missing-noopener"
-    secondary_identifiers:
-    - name: "ESLint rule ID/react-missing-noopener"
-      type: "eslint_rule_id"
-      value: "react-missing-noopener"
-  pattern-either:
-  - patterns:
-    - pattern: |
-        <$X target="_blank" />
-    - pattern-not: |
-        <$X target="_blank" rel="..." />
-  - patterns:
-    - pattern-inside: |
-        <$X target="_blank" rel=... />
-    - pattern-regex: "rel=[\"']((?!noopener).)*?[\"']"
-  - patterns:
-    - pattern: |
-        React.createElement($A, {target: '_blank'},...)
-    - pattern-not: |
-        React.createElement($A, {rel: '...'},...)
-  - patterns:
-    - pattern: |
-        React.createElement($A, {target: '_blank', rel: $REL},...)
-    - metavariable-regex:
-        metavariable: "$REL"
-        regex: "[\"']((?!noopener).)*?['\"]"
-  - patterns:
-    - pattern: |
-        $P = {target: '_blank'};
-        ...
-        React.createElement($A, $P,...);
-    - pattern-not: |
-        $P = {rel: '...'};
-        ...
-        React.createElement($A, $P,...);
-  - patterns:
-    - pattern: |
-        $P = {target: '_blank', rel: $REL};
-        ...
-        React.createElement($A, $P,...);
-    - metavariable-regex:
-        metavariable: "$REL"
-        regex: "[\"']((?!noopener).)*?['\"]"
-  severity: "WARNING"
 - id: "eslint.detect-non-literal-require"
   languages:
   - "javascript"

@@ -14,16 +14,6 @@ eslint:
     - path: "javascript/react/rule-dangerouslysetinnerhtml"
       primary_id: "eslint.react-dangerouslysetinnerhtml"
       id: "eslint.react-dangerouslysetinnerhtml"
-  - id: "react-missing-noopener"
-    rules:
-    - path: "javascript/react/rule-missing-noopener"
-      primary_id: "eslint.react-missing-noopener"
-      id: "eslint.react-missing-noopener"
-  - id: "detect-no-csrf-before-method-override"
-    rules:
-    - path: "javascript/csrf/rule-no-csrf-before-method-override"
-      primary_id: "eslint.detect-no-csrf-before-method-override"
-      id: "eslint.detect-no-csrf-before-method-override"
   - id: "detect-eval-with-expression"
     rules:
     - path: "javascript/eval/rule-eval-with-expression"

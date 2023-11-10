@@ -1,5 +1,10 @@
 sast-rules changelog
 
+## v1.3.44
+- Remove poor JavaScript rules (!219)
+  - `javascript/csrf/rule-no_csrf_before_method_override.yml` - Deprecated and no way of testing, see http://blog.nibblesec.org/2014/05/nodejs-connect-csrf-bypass-abusing.html
+  - `javascript/react/rule-missing_noopener.yml` - Browsers no longer allow this by default, see https://gitlab.com/gitlab-org/gitlab/-/issues/233079#note_513860690
+
 ## v1.3.43
 - Remove poor Python rules (!217)
   - `python/cgi/rule-import_httpoxy.yml` - Not vulnerable since 2016 https://bugs.python.org/issue27568
@@ -79,11 +84,6 @@ sast-rules changelog
   - `java/xss/rule-XSSServletParameter.yml` This is a source not a sink
   - `java/xxe/rule-XPathXXE.yml` - Rule matches a hardcoded variable name, and has no namespace/import associated with it. Better XXE rule required
   - `java/xxe/rule-Trans.yml` - Duplicate of `java/xml/rule-XsltTransform.yml` with less information
-
-## v1.3.35
-- Remove poor JavaScript rules (!198)
-  - `javascript/csrf/rule-no_csrf_before_method_override.yml` - Deprecated and no way of testing, see http://blog.nibblesec.org/2014/05/nodejs-connect-csrf-bypass-abusing.html
-  - `javascript/react/rule-missing_noopener.yml` - Browsers no longer allow this by default, see https://gitlab.com/gitlab-org/gitlab/-/issues/233079#note_513860690
 
 ## v1.3.34
 - Remove poor C# rules (!199)
