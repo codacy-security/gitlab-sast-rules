@@ -5,7 +5,7 @@
 # yamllint enable
 ---
 rules:
-- id: "c_buffer_rule-gets-getts"
+- id: "c_buffer_rule-gets--getts"
   languages:
   - "c"
   message: |
