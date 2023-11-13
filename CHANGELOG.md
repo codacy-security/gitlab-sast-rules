@@ -1,5 +1,14 @@
 sast-rules changelog
 
+## v1.3.45
+
+- Remove `c/buffer/rule-getpw.yml` - `getpw` function is deprecated in favor of `getpwuid` since 1979 (!229)
+- Rule bug fixes and improvements (!229)
+  - `c/buffer/rule-StrCat-StrCatA.c` - Incorrect letter casing in `strcat` pattern
+  - `c/buffer/rule-equal-mismatch.yml` - Change language to C++ and prepend `std::` namespace to function patterns
+  - `c/buffer/rule-gets-getts.yml` - Add rule for `_getws` function
+  - `c/buffer/rule-sprintf-vsprintf.c` - Add `_T` macro to `_tscanf` function pattern
+
 ## v1.3.44
 - Remove poor JavaScript rules (!219)
   - `javascript/csrf/rule-no_csrf_before_method_override.yml` - Deprecated and no way of testing, see http://blog.nibblesec.org/2014/05/nodejs-connect-csrf-bypass-abusing.html
