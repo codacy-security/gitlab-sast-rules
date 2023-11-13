@@ -6,7 +6,7 @@ import static org.apache.commons.io.FilenameUtils.*;
 import java.io.File;
 import java.io.IOException;
 
-public class FileNameUtils {
+public class FilenameUtils {
     public static void main(String[] args) throws IOException {
         String maliciousPath = "/test%00/././../../././secret/note.cfg\u0000dummy.jpg";
 

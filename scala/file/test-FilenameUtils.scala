@@ -6,7 +6,7 @@ import java.io.File
 import java.io.IOException
 
 
-object FileNameUtils {
+object FilenameUtils {
   @throws[IOException]
   def main(args: Array[String]): Unit = {
     val maliciousPath = "/test%00/././../../././secret/note.cfg\u0000dummy.jpg"
@@ -30,3 +30,4 @@ object FileNameUtils {
   @throws[IOException]
   private def canonical(path: String) = new File(path).getCanonicalPath
 }
+
