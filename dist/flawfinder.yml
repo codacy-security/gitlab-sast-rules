@@ -1,5 +1,5 @@
 # yamllint disable
-# rule-set version: v1.3.44
+# rule-set version: v1.3.45
 # yamllint enable
 ---
 rules:
@@ -174,8 +174,8 @@ rules:
       type: "flawfinder_func_name"
       value: "lstrcatnW"
   pattern-either:
-  - pattern: "StrCat(...)"
-  - pattern: "StrCatA(...)"
+  - pattern: "strcat(...)"
+  - pattern: "strcatA(...)"
   - pattern: "StrcatW(...)"
   - pattern: "lstrcatA(...)"
   - pattern: "lstrcatW(...)"
@@ -198,7 +198,7 @@ rules:
   severity: "ERROR"
 - id: "flawfinder.equal-1.mismatch-1.is_permutation-1"
   languages:
-  - "c"
+  - "cpp"
   message: |
     This function is often discouraged by most C++ coding standards in favor of its safer
     alternatives provided since C++14. Consider using a form of this function:
@@ -221,9 +221,9 @@ rules:
       type: "flawfinder_func_name"
       value: "is_permutation"
   pattern-either:
-  - pattern: "equal(...)"
-  - pattern: "mismatch(...)"
-  - pattern: "is_permutation(...)"
+  - pattern: "std::equal(...)"
+  - pattern: "std::mismatch(...)"
+  - pattern: "std::is_permutation(...)"
   severity: "INFO"
 - id: "flawfinder.fscanf-1.sscanf-1.vsscanf-1.vfscanf-1._ftscanf-1.fwscanf-1.vfwscanf-1.vswscanf-1"
   languages:
@@ -351,28 +351,6 @@ rules:
   - pattern: "getenv(...)"
   - pattern: "curl_getenv(...)"
   severity: "WARNING"
-- id: "flawfinder.getpw-1"
-  languages:
-  - "c"
-  message: |
-    The getpw() function is dangerous as it may overflow the provided
-    buffer when reading from the `/etc/passwd` file.  While the passwd file
-    is not generally writeable, there are no protections offered by this function
-    to protect from reading past the bounds of the destination buffer. This function
-    is obsoleted by `getpwuid`.
-
-    For more information please see: https://linux.die.net/man/3/getpwuid
-  metadata:
-    shortDescription: "Use of deprecated function (getpwd)"
-    cwe: "CWE-120"
-    owasp: "A1:2017-Injection"
-    primary_identifier: "flawfinder.getpw-1"
-    secondary_identifiers:
-    - name: "Flawfinder - getpw"
-      type: "flawfinder_func_name"
-      value: "getpw"
-  pattern: "getpw(...)"
-  severity: "ERROR"
 - id: "flawfinder.gets-1._getts-1"
   languages:
   - "c"
@@ -402,6 +380,7 @@ rules:
   pattern-either:
   - pattern: "gets(...)"
   - pattern: "_getts(...)"
+  - pattern: "_getws(...)"
   severity: "ERROR"
 - id: "flawfinder.getwd-1"
   languages:
@@ -682,7 +661,7 @@ rules:
     - pattern-not: "wscanf(\"...\", ...)"
   - patterns:
     - pattern: "_tscanf($FMT, ...)"
-    - pattern-not: "_tscanf(\"...\", ...)"
+    - pattern-not: "_tscanf(_T(\"...\"), ...)"
   - patterns:
     - pattern: "vwscanf(FMT, ...)"
     - pattern-not: "vwscanf(\"...\", ...)"
