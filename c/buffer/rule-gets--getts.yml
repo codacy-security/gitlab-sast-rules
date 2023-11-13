@@ -25,5 +25,6 @@ rules:
     owasp: "A1:2017-Injection"
   pattern-either:
   - pattern: "gets(...)"
+  - pattern: "_getts(...)"
   - pattern: "_getws(...)"
   severity: "ERROR"
