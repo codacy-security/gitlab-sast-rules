@@ -979,11 +979,6 @@ flawfinder:
     - path: "c/misc/rule-cuserid"
       primary_id: "flawfinder.cuserid-1"
       id: "flawfinder.cuserid-1"
-  - id: "getpw"
-    rules:
-    - path: "c/buffer/rule-getpw"
-      primary_id: "flawfinder.getpw-1"
-      id: "flawfinder.getpw-1"
   - id: "getpass"
     rules:
     - path: "c/misc/rule-getpass"
