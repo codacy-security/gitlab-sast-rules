@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-module FileCheck
+# TestCasePrecenceCheck ensures that a test case file with expected name and
+# file extension exists for all rules.
+module TestCasePresenceCheck
   def self.run
     ok = true
     Dir.entries('./').select { |f| File.directory?(f) }.each do |lang|
@@ -72,7 +74,7 @@ module FileCheck
   end
 end
 
-if FileCheck.run
+if TestCasePresenceCheck.run
   puts("test case files exist for all rules: ✔")
   exit(0)
 else
