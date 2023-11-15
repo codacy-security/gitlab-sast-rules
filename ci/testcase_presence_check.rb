@@ -52,8 +52,6 @@ module TestCasePresenceCheck
 
   def self.extensions_for_lang(lang)
     case lang
-    when 'c'
-      return ['c', 'cpp']
     when 'csharp'
       return ['cs']
     when 'javascript'

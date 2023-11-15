@@ -2,10 +2,10 @@ sast-rules changelog
 
 ## v1.3.45
 
-- Remove `c/buffer/rule-getpw.yml` - `getpw` function is deprecated in favor of `getpwuid` since 1979 (!229)
+- Remove `c/buffer/rule-getpw.yml` - `getpw` Function is deprecated in favor of `getpwuid` since 1979 (!229)
+- Remove `c/buffer/rule-equal-mismatch.yml` - Rule is for C++ code (!229)
 - Rule bug fixes and improvements (!229)
   - `c/buffer/rule-StrCat-StrCatA.c` - Incorrect letter casing in `strcat` pattern
-  - `c/buffer/rule-equal-mismatch.yml` - Change language to C++ and prepend `std::` namespace to function patterns
   - `c/buffer/rule-gets-getts.yml` - Add rule for `_getws` function
   - `c/buffer/rule-sprintf-vsprintf.c` - Add `_T` macro to `_tscanf` function pattern
 
