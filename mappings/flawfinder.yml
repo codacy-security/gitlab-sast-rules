@@ -1009,18 +1009,3 @@ flawfinder:
     - path: "c/obsolete/rule-usleep"
       primary_id: "flawfinder.usleep-1"
       id: "flawfinder.usleep-1"
-  - id: "equal"
-    rules:
-    - path: "c/buffer/rule-equal-mismatch"
-      primary_id: "flawfinder.equal-1"
-      id: "flawfinder.equal-1"
-  - id: "mismatch"
-    rules:
-    - path: "c/buffer/rule-equal-mismatch"
-      primary_id: "flawfinder.mismatch-1"
-      id: "flawfinder.mismatch-1"
-  - id: "is_permutation"
-    rules:
-    - path: "c/buffer/rule-equal-mismatch"
-      primary_id: "flawfinder.equal-1.mismatch-1.is_permutation-1"
-      id: "flawfinder.equal-1.mismatch-1.is_permutation-1"
