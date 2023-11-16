@@ -1,54 +1,80 @@
 {
-  "definitions": {},
-  "$id": "https://gitlab.com/gitlab-org/security-products/gemnasium-db/schema/schema.json",
   "type": "object",
-  "title": "Gemnasium DB Advisory Schema",
-  "required": [
-    "rules"
-  ],
-  "properties": {
-    "rules": {
-      "$id": "#/properties/rules",
-      "type": "array",
-      "title": "Semgrep rules",
-      "items": {
-        "$id": "#/properties/rules/items",
-        "type": "object",
-        "title": "A single semgrep rule",
-        "required": [
-          "metadata"
-        ],
-        "properties": {
-          "metadata": {
-            "$id": "#/properties/rules/id/metadata",
-            "type": "object",
-            "title": " metadata",
-            "additionalProperties": true,
-            "properties": {
-              "cwe": {
-                "type": "string",
-                "title": "cwe string",
-                "$id": "#/properties/rules/id/metadata/cwe",
-                "examples": [
-                  "CWE-123"
-                ],
-                "pattern": "^CWE-\\d{1,4}"
-              },
-              "owasp": {
-                "type": "string",
-                "title": "OWASP Category string",
-                "$id": "#/properties/rules/id/metadata/owasp",
-                "examples": [
-                  "A3 - Sensitive Data Exposure",
-                  "A1:2017 - Injection",
-                  "A5:2017-Security Misconfiguration"
-                ],
-                "pattern": "^A\\d{1,2}\\:*(\\d{4})*\\s*-*.+$"
-              }
+  "minProperties": 1,
+  "maxProperties": 1,
+  "patternProperties": {
+    "^(eslint|bandit|security_code_scan|gosec|flawfinder|find_sec_bugs|find_sec_bugs_scala|(gitlab_.*))$": {
+      "type": "object",
+      "properties": {
+        "native_analyzer": {
+          "type": "string"
+        },
+        "native_id": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
             }
+          },
+          "required": [
+            "type",
+            "name",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "mappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "rules": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "primary_id": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "primary_id",
+                    "id"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "rules"
+            ],
+            "additionalProperties": false
           }
         }
-      }
+      },
+      "required": [
+        "native_id",
+        "mappings"
+      ],
+      "additionalProperties": true
     }
-  }
+  },
+  "additionalProperties": false
 }
